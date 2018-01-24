@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fbee.modules.mybatis.dao.ApplyAppFuncsMapper">
+	<resultMap id="BaseResultMap"
+		type="com.fbee.modules.mybatis.entity.ApplyAppFuncsEntity">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="TENANT_ID" jdbcType="INTEGER" property="tenantId" />
+		<result column="MODULE_TYPE" jdbcType="VARCHAR" property="moduleType" />
+		<result column="MODULE_ID" jdbcType="INTEGER" property="moduleId" />
+		<result column="FEE_TYPE" jdbcType="VARCHAR" property="feeType" />
+		<result column="DUE_TIME" jdbcType="TIMESTAMP" property="dueTime" />
+		<result column="APPLY_TIME" jdbcType="TIMESTAMP" property="applyTime" />
+		<result column="STATUS" jdbcType="VARCHAR" property="status" />
+		<result column="FAILURE_REASON" jdbcType="VARCHAR" property="failureReason" />
+		<result column="remarks" jdbcType="VARCHAR" property="remarks" />
+		<result column="is_usable" jdbcType="VARCHAR" property="isUsable" />
+		<result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+		<result column="add_account" jdbcType="VARCHAR" property="addAccount" />
+		<result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+		<result column="modify_account" jdbcType="VARCHAR" property="modifyAccount" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, TENANT_ID, MODULE_TYPE, MODULE_ID, FEE_TYPE, DUE_TIME, APPLY_TIME,
+		STATUS, FAILURE_REASON,
+		remarks, is_usable, add_time, add_account, modify_time, modify_account
+	</sql>
+
+	<insert id="insert" parameterType="com.fbee.modules.mybatis.entity.ApplyAppFuncsEntity">
+		insert into apply_app_funcs
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="tenantId != null">
+				TENANT_ID,
+			</if>
+			<if test="moduleType != null">
+				MODULE_TYPE,
+			</if>
+			<if test="moduleId != null">
+				MODULE_ID,
+			</if>
+			<if test="feeType != null">
+				FEE_TYPE,
+			</if>
+			<if test="dueTime != null">
+				DUE_TIME,
+			</if>
+			<if test="applyTime != null">
+				APPLY_TIME,
+			</if>
+			<if test="status != null">
+				STATUS,
+			</if>
+			<if test="failureReason != null">
+				FAILURE_REASON,
+			</if>
+			<if test="remarks != null">
+				remarks,
+			</if>
+			<if test="isUsable != null">
+				is_usable,
+			</if>
+			<if test="addTime != null">
+				add_time,
+			</if>
+			<if test="addAccount != null">
+				add_account,
+			</if>
+			<if test="modifyTime != null">
+				modify_time,
+			</if>
+			<if test="modifyAccount != null">
+				modify_account,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="tenantId != null">
+				#{tenantId,jdbcType=INTEGER},
+			</if>
+			<if test="moduleType != null">
+				#{moduleType,jdbcType=VARCHAR},
+			</if>
+			<if test="moduleId != null">
+				#{moduleId,jdbcType=INTEGER},
+			</if>
+			<if test="feeType != null">
+				#{feeType,jdbcType=VARCHAR},
+			</if>
+			<if test="dueTime != null">
+				#{dueTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="applyTime != null">
+				#{applyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="status != null">
+				#{status,jdbcType=VARCHAR},
+			</if>
+			<if test="failureReason != null">
+				#{failureReason,jdbcType=VARCHAR},
+			</if>
+			<if test="remarks != null">
+				#{remarks,jdbcType=VARCHAR},
+			</if>
+			<if test="isUsable != null">
+				#{isUsable,jdbcType=VARCHAR},
+			</if>
+			<if test="addTime != null">
+				#{addTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="addAccount != null">
+				#{addAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyTime != null">
+				#{modifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyAccount != null">
+				#{modifyAccount,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="update" parameterType="com.fbee.modules.mybatis.entity.ApplyAppFuncsEntity">
+		update apply_app_funcs
+		<set>
+			<if test="tenantId != null">
+				TENANT_ID = #{tenantId,jdbcType=INTEGER},
+			</if>
+			<if test="moduleType != null">
+				MODULE_TYPE = #{moduleType,jdbcType=VARCHAR},
+			</if>
+			<if test="moduleId != null">
+				MODULE_ID = #{moduleId,jdbcType=INTEGER},
+			</if>
+			<if test="feeType != null">
+				FEE_TYPE = #{feeType,jdbcType=VARCHAR},
+			</if>
+			<if test="dueTime != null">
+				DUE_TIME = #{dueTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="applyTime != null">
+				APPLY_TIME = #{applyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="status != null">
+				STATUS = #{status,jdbcType=VARCHAR},
+			</if>
+			<if test="failureReason != null">
+				FAILURE_REASON = #{failureReason,jdbcType=VARCHAR},
+			</if>
+			<if test="remarks != null">
+				remarks = #{remarks,jdbcType=VARCHAR},
+			</if>
+			<if test="isUsable != null">
+				is_usable = #{isUsable,jdbcType=VARCHAR},
+			</if>
+			<if test="addTime != null">
+				add_time = #{addTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="addAccount != null">
+				add_account = #{addAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyAccount != null">
+				modify_account = #{modifyAccount,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>

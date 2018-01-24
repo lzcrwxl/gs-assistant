@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fbee.modules.mybatis.dao.ModulesRentalConfigsMapper">
+	<resultMap id="BaseResultMap"
+		type="com.fbee.modules.mybatis.entity.ModulesRentalConfigsEntity">
+		<id column="MODULE_TYPE" jdbcType="VARCHAR" property="moduleType" />
+		<id column="MODULE_ID" jdbcType="INTEGER" property="moduleId" />
+		<result column="FEE_TYPE" jdbcType="VARCHAR" property="feeType" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		MODULE_TYPE, MODULE_ID, FEE_TYPE
+	</sql>
+
+	<insert id="insert"
+		parameterType="com.fbee.modules.mybatis.entity.ModulesRentalConfigsEntity">
+		insert into modules_rental_configs
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="moduleType != null">
+				MODULE_TYPE,
+			</if>
+			<if test="moduleId != null">
+				MODULE_ID,
+			</if>
+			<if test="feeType != null">
+				FEE_TYPE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="moduleType != null">
+				#{moduleType,jdbcType=VARCHAR},
+			</if>
+			<if test="moduleId != null">
+				#{moduleId,jdbcType=INTEGER},
+			</if>
+			<if test="feeType != null">
+				#{feeType,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="update"
+		parameterType="com.fbee.modules.mybatis.entity.ModulesRentalConfigsEntity">
+		update modules_rental_configs
+		<set>
+			<if test="feeType != null">
+				FEE_TYPE = #{feeType,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where MODULE_TYPE = #{moduleType,jdbcType=VARCHAR}
+		and MODULE_ID = #{moduleId,jdbcType=INTEGER}
+	</update>
+</mapper>

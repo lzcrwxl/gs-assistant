@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.fbee.modules.mybatis.dao.TenantsContactBarMapper">
+  <resultMap id="BaseResultMap" type="com.fbee.modules.mybatis.model.TenantsContactBar">
+    <id column="TENANT_ID" jdbcType="INTEGER" property="tenantId" />
+    <result column="CONTACT_PHONE" jdbcType="VARCHAR" property="contactPhone" />
+    <result column="QQ_ONE" jdbcType="VARCHAR" property="qqOne" />
+    <result column="QQ_TWO" jdbcType="VARCHAR" property="qqTwo" />
+    <result column="QQ_THREE" jdbcType="VARCHAR" property="qqThree" />
+    <result column="QR_CODE" jdbcType="VARCHAR" property="qrCode" />
+    <result column="IS_OPEN_MOBILE" jdbcType="VARCHAR" property="isOpenMobile" />
+    <result column="IS_OPEN_QQ" jdbcType="VARCHAR" property="isOpenQq" />
+    <result column="IS_OPEN_QR_CODE" jdbcType="VARCHAR" property="isOpenQrCode" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="add_account" jdbcType="VARCHAR" property="addAccount" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="modify_account" jdbcType="VARCHAR" property="modifyAccount" />
+    <result column="is_usable" jdbcType="VARCHAR" property="isUsable" />
+    <result column="IS_OPEN_QQ_ONE" jdbcType="VARCHAR" property="isOpenQqOne" />
+    <result column="IS_OPEN_QQ_TWO" jdbcType="VARCHAR" property="isOpenQqTwo" />
+    <result column="IS_OPEN_QQ_THREE" jdbcType="VARCHAR" property="isOpenQqThree" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    TENANT_ID, CONTACT_PHONE, QQ_ONE, QQ_TWO, QQ_THREE, QR_CODE, IS_OPEN_MOBILE, IS_OPEN_QQ, 
+    IS_OPEN_QR_CODE, add_time, add_account, modify_time, modify_account, is_usable, IS_OPEN_QQ_ONE, 
+    IS_OPEN_QQ_TWO, IS_OPEN_QQ_THREE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tenants_contact_bar
+    where TENANT_ID = #{tenantId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tenants_contact_bar
+    where TENANT_ID = #{tenantId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.fbee.modules.mybatis.model.TenantsContactBar">
+    insert into tenants_contact_bar
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tenantId != null">
+        TENANT_ID,
+      </if>
+      <if test="contactPhone != null">
+        CONTACT_PHONE,
+      </if>
+      <if test="qqOne != null">
+        QQ_ONE,
+      </if>
+      <if test="qqTwo != null">
+        QQ_TWO,
+      </if>
+      <if test="qqThree != null">
+        QQ_THREE,
+      </if>
+      <if test="qrCode != null">
+        QR_CODE,
+      </if>
+      <if test="isOpenMobile != null">
+        IS_OPEN_MOBILE,
+      </if>
+      <if test="isOpenQq != null">
+        IS_OPEN_QQ,
+      </if>
+      <if test="isOpenQrCode != null">
+        IS_OPEN_QR_CODE,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+      <if test="addAccount != null">
+        add_account,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="modifyAccount != null">
+        modify_account,
+      </if>
+      <if test="isUsable != null">
+        is_usable,
+      </if>
+      <if test="isOpenQqOne != null">
+        IS_OPEN_QQ_ONE,
+      </if>
+      <if test="isOpenQqTwo != null">
+        IS_OPEN_QQ_TWO,
+      </if>
+      <if test="isOpenQqThree != null">
+        IS_OPEN_QQ_THREE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tenantId != null">
+        #{tenantId,jdbcType=INTEGER},
+      </if>
+      <if test="contactPhone != null">
+        #{contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="qqOne != null">
+        #{qqOne,jdbcType=VARCHAR},
+      </if>
+      <if test="qqTwo != null">
+        #{qqTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="qqThree != null">
+        #{qqThree,jdbcType=VARCHAR},
+      </if>
+      <if test="qrCode != null">
+        #{qrCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isOpenMobile != null">
+        #{isOpenMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="isOpenQq != null">
+        #{isOpenQq,jdbcType=VARCHAR},
+      </if>
+      <if test="isOpenQrCode != null">
+        #{isOpenQrCode,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addAccount != null">
+        #{addAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyAccount != null">
+        #{modifyAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="isUsable != null">
+        #{isUsable,jdbcType=VARCHAR},
+      </if>
+      <if test="isOpenQqOne != null">
+        #{isOpenQqOne,jdbcType=VARCHAR},
+      </if>
+      <if test="isOpenQqTwo != null">
+        #{isOpenQqTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="isOpenQqThree != null">
+        #{isOpenQqThree,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fbee.modules.mybatis.model.TenantsContactBar">
+    update tenants_contact_bar
+    <set>
+      <if test="contactPhone != null">
+        CONTACT_PHONE = #{contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="qqOne != null">
+        QQ_ONE = #{qqOne,jdbcType=VARCHAR},
+      </if>
+      <if test="qqTwo != null">
+        QQ_TWO = #{qqTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="qqThree != null">
+        QQ_THREE = #{qqThree,jdbcType=VARCHAR},
+      </if>
+      <if test="qrCode != null">
+        QR_CODE = #{qrCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isOpenMobile != null">
+        IS_OPEN_MOBILE = #{isOpenMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="isOpenQq != null">
+        IS_OPEN_QQ = #{isOpenQq,jdbcType=VARCHAR},
+      </if>
+      <if test="isOpenQrCode != null">
+        IS_OPEN_QR_CODE = #{isOpenQrCode,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addAccount != null">
+        add_account = #{addAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyAccount != null">
+        modify_account = #{modifyAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="isUsable != null">
+        is_usable = #{isUsable,jdbcType=VARCHAR},
+      </if>
+      <if test="isOpenQqOne != null">
+        IS_OPEN_QQ_ONE = #{isOpenQqOne,jdbcType=VARCHAR},
+      </if>
+      <if test="isOpenQqTwo != null">
+        IS_OPEN_QQ_TWO = #{isOpenQqTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="isOpenQqThree != null">
+        IS_OPEN_QQ_THREE = #{isOpenQqThree,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TENANT_ID = #{tenantId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fbee.modules.mybatis.model.TenantsContactBar">
+    update tenants_contact_bar
+    set CONTACT_PHONE = #{contactPhone,jdbcType=VARCHAR},
+      QQ_ONE = #{qqOne,jdbcType=VARCHAR},
+      QQ_TWO = #{qqTwo,jdbcType=VARCHAR},
+      QQ_THREE = #{qqThree,jdbcType=VARCHAR},
+      QR_CODE = #{qrCode,jdbcType=VARCHAR},
+      IS_OPEN_MOBILE = #{isOpenMobile,jdbcType=VARCHAR},
+      IS_OPEN_QQ = #{isOpenQq,jdbcType=VARCHAR},
+      IS_OPEN_QR_CODE = #{isOpenQrCode,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      add_account = #{addAccount,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      modify_account = #{modifyAccount,jdbcType=VARCHAR},
+      is_usable = #{isUsable,jdbcType=VARCHAR},
+      IS_OPEN_QQ_ONE = #{isOpenQqOne,jdbcType=VARCHAR},
+      IS_OPEN_QQ_TWO = #{isOpenQqTwo,jdbcType=VARCHAR},
+      IS_OPEN_QQ_THREE = #{isOpenQqThree,jdbcType=VARCHAR}
+    where TENANT_ID = #{tenantId,jdbcType=INTEGER}
+  </update>
+ <!-- 查询sql -->
+	<select id="getById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select 
+			<include refid="Base_Column_List" />
+		from TENANTS_CONTACT_BAR
+		where TENANT_ID = #{tenantId,jdbcType=INTEGER}
+	</select>	
+
+	<insert id="insert" parameterType="com.fbee.modules.mybatis.entity.TenantsContactBarEntity">
+		insert into tenants_contact_bar
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tenantId != null and tenantId != ''">
+        TENANT_ID,
+      </if>
+      <if test="contactPhone != null and contactPhone != ''">
+        CONTACT_PHONE,
+      </if>
+      <if test="qqOne != null and qqOne != ''">
+        QQ_ONE,
+      </if>
+      <if test="qqTwo != null and qqTwo != ''">
+        QQ_TWO,
+      </if>
+      <if test="qqThree != null and qqThree != ''">
+        QQ_THREE,
+      </if>
+      <if test="qrCode != null and qrCode != ''">
+        QR_CODE,
+      </if>
+      <if test="isOpenMobile != null and isOpenMobile != ''">
+        IS_OPEN_MOBILE,
+      </if>
+      <if test="isOpenQq != null and isOpenQq != ''">
+        IS_OPEN_QQ,
+      </if>
+      <if test="isOpenQrCode != null and isOpenQrCode != ''">
+        IS_OPEN_QR_CODE,
+      </if>
+      <if test="addTime != null and addTime != ''">
+        add_time,
+      </if>
+      <if test="addAccount != null and addAccount != ''">
+        add_account,
+      </if>
+      <if test="modifyTime != null and modifyTime != ''">
+        modify_time,
+      </if>
+      <if test="modifyAccount != null and modifyAccount != ''">
+        modify_account,
+      </if>
+	  <if test="isUsable != null and isUsable != ''">
+        is_usable,
+      </if>
+	   <if test="isOpenQqOne != null and isOpenQqOne != ''">
+        IS_OPEN_QQ_ONE,
+      </if>
+      <if test="isOpenQqTwo != null and isOpenQqTwo != ''">
+        IS_OPEN_QQ_TWO,
+      </if>
+      <if test="isOpenQqThree != null and isOpenQqThree != ''">
+        IS_OPEN_QQ_THREE
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tenantId != null and tenantId != ''">
+        #{tenantId,jdbcType=INTEGER},
+      </if>
+      <if test="contactPhone != null and contactPhone != ''">
+        #{contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="qqOne != null and qqOne != ''">
+        #{qqOne,jdbcType=VARCHAR},
+      </if>
+      <if test="qqTwo != null and qqTwo != ''">
+        #{qqTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="qqThree != null and qqThree != ''">
+        #{qqThree,jdbcType=VARCHAR},
+      </if>
+      <if test="qrCode != null and qrCode != ''">
+        #{qrCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isOpenMobile != null and isOpenMobile != ''">
+        #{isOpenMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="isOpenQq != null and isOpenQq != ''">
+        #{isOpenQq,jdbcType=VARCHAR},
+      </if>
+      <if test="isOpenQrCode != null and isOpenQrCode != ''">
+        #{isOpenQrCode,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null and addTime != ''">
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addAccount != null and addAccount != ''">
+        #{addAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null and modifyTime != ''">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyAccount != null and modifyAccount != ''">
+        #{modifyAccount,jdbcType=VARCHAR},
+      </if>
+	  <if test="isUsable != null and isUsable != ''">
+        #{isUsable,jdbcType=VARCHAR},
+      </if>
+	   <if test="isOpenQqOne != null and isOpenQqOne != ''">
+        #{isOpenQqOne,jdbcType=VARCHAR},
+      </if>
+      <if test="isOpenQqTwo != null and isOpenQqTwo != ''">
+        #{isOpenQqTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="isOpenQqThree != null and isOpenQqThree != ''">
+        #{isOpenQqThree,jdbcType=VARCHAR}
+      </if>
+    </trim>
+	</insert>
+	<update id="update"
+		parameterType="com.fbee.modules.mybatis.entity.TenantsContactBarEntity">
+		update tenants_contact_bar
+    <set>
+      <if test="contactPhone != null and contactPhone != ''">
+        CONTACT_PHONE = #{contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="qqOne != null and qqOne != ''">
+        QQ_ONE = #{qqOne,jdbcType=VARCHAR},
+      </if>
+      <if test="qqTwo != null and qqTwo != ''">
+        QQ_TWO = #{qqTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="qqThree != null and qqThree != ''">
+        QQ_THREE = #{qqThree,jdbcType=VARCHAR},
+      </if>
+      <if test="qrCode != null and qrCode != ''">
+        QR_CODE = #{qrCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isOpenMobile != null and isOpenMobile != ''">
+        IS_OPEN_MOBILE = #{isOpenMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="isOpenQq != null and isOpenQq != ''">
+        IS_OPEN_QQ = #{isOpenQq,jdbcType=VARCHAR},
+      </if>
+      <if test="isOpenQrCode != null and isOpenQrCode != ''">
+        IS_OPEN_QR_CODE = #{isOpenQrCode,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null and addTime != ''">
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addAccount != null and addAccount != ''">
+        add_account = #{addAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null and modifyTime != ''">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyAccount != null and modifyAccount != ''">
+        modify_account = #{modifyAccount,jdbcType=VARCHAR},
+      </if>
+	  <if test="isUsable != null and isUsable != ''">
+        is_usable = #{isUsable,jdbcType=VARCHAR},
+      </if>
+      <if test="isOpenQqOne != null and isOpenQqOne != ''">
+        IS_OPEN_QQ_ONE = #{isOpenQqOne,jdbcType=VARCHAR},
+      </if>
+      <if test="isOpenQqTwo != null and isOpenQqTwo != ''">
+        IS_OPEN_QQ_TWO = #{isOpenQqTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="isOpenQqThree != null and isOpenQqThree != ''">
+        IS_OPEN_QQ_THREE = #{isOpenQqThree,jdbcType=VARCHAR}
+      </if>
+    </set>
+    where TENANT_ID = #{tenantId,jdbcType=INTEGER}
+	</update>
+	
+</mapper>

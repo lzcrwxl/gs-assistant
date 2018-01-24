@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fbee.modules.mybatis.dao.QrcodefileidxMapper">
+  <resultMap id="BaseResultMap" type="com.fbee.modules.mybatis.model.Qrcodefileidx">
+    <id column="QRID" jdbcType="INTEGER" property="qrid" />
+    <result column="OBJID" jdbcType="VARCHAR" property="objid" />
+    <result column="OBJTYPE" jdbcType="VARCHAR" property="objtype" />
+    <result column="OBJSUBTYPE" jdbcType="VARCHAR" property="objsubtype" />
+    <result column="FILENAME" jdbcType="VARCHAR" property="filename" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    QRID, OBJID, OBJTYPE, OBJSUBTYPE, FILENAME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from qrcodefileidx
+    where QRID = #{qrid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from qrcodefileidx
+    where QRID = #{qrid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fbee.modules.mybatis.model.Qrcodefileidx">
+    insert into qrcodefileidx (QRID, OBJID, OBJTYPE, 
+      OBJSUBTYPE, FILENAME)
+    values (#{qrid,jdbcType=INTEGER}, #{objid,jdbcType=VARCHAR}, #{objtype,jdbcType=VARCHAR}, 
+      #{objsubtype,jdbcType=VARCHAR}, #{filename,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fbee.modules.mybatis.model.Qrcodefileidx">
+    insert into qrcodefileidx
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="qrid != null">
+        QRID,
+      </if>
+      <if test="objid != null">
+        OBJID,
+      </if>
+      <if test="objtype != null">
+        OBJTYPE,
+      </if>
+      <if test="objsubtype != null">
+        OBJSUBTYPE,
+      </if>
+      <if test="filename != null">
+        FILENAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="qrid != null">
+        #{qrid,jdbcType=INTEGER},
+      </if>
+      <if test="objid != null">
+        #{objid,jdbcType=VARCHAR},
+      </if>
+      <if test="objtype != null">
+        #{objtype,jdbcType=VARCHAR},
+      </if>
+      <if test="objsubtype != null">
+        #{objsubtype,jdbcType=VARCHAR},
+      </if>
+      <if test="filename != null">
+        #{filename,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fbee.modules.mybatis.model.Qrcodefileidx">
+    update qrcodefileidx
+    <set>
+      <if test="objid != null">
+        OBJID = #{objid,jdbcType=VARCHAR},
+      </if>
+      <if test="objtype != null">
+        OBJTYPE = #{objtype,jdbcType=VARCHAR},
+      </if>
+      <if test="objsubtype != null">
+        OBJSUBTYPE = #{objsubtype,jdbcType=VARCHAR},
+      </if>
+      <if test="filename != null">
+        FILENAME = #{filename,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where QRID = #{qrid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fbee.modules.mybatis.model.Qrcodefileidx">
+    update qrcodefileidx
+    set OBJID = #{objid,jdbcType=VARCHAR},
+      OBJTYPE = #{objtype,jdbcType=VARCHAR},
+      OBJSUBTYPE = #{objsubtype,jdbcType=VARCHAR},
+      FILENAME = #{filename,jdbcType=VARCHAR}
+    where QRID = #{qrid,jdbcType=INTEGER}
+  </update>
+  
+  <select id="getDictionaryData" parameterType="java.util.Map">
+  
+  	select filename
+  		from qrcodefileidx 
+	   where QRID = #{qrid} 
+	   and OBJTYPE = #{objtype}
+	   and  OBJSUBTYPE = #{objsubtype}
+  
+  </select>
+  
+</mapper>

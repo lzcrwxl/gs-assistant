@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fbee.modules.mybatis.dao.TenantsOperateRecordsMapper">
+	<resultMap id="BaseResultMap"
+		type="com.fbee.modules.mybatis.entity.TenantsOperateRecordsEntity">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="operate_account" jdbcType="VARCHAR" property="operateAccount" />
+		<result column="operate_time" jdbcType="TIMESTAMP" property="operateTime" />
+		<result column="action" jdbcType="VARCHAR" property="action" />
+		<result column="tables" jdbcType="VARCHAR" property="tables" />
+		<result column="UPDATE_CONTENTS" jdbcType="VARCHAR" property="updateContents" />
+		<result column="TENANT_ID" jdbcType="INTEGER" property="tenantId" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, operate_account, operate_time, action, tables, UPDATE_CONTENTS,
+		TENANT_ID
+	</sql>
+
+	<insert id="insert"
+		parameterType="com.fbee.modules.mybatis.entity.TenantsOperateRecordsEntity">
+		insert into tenants_operate_records
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="operateAccount != null">
+				operate_account,
+			</if>
+			<if test="operateTime != null">
+				operate_time,
+			</if>
+			<if test="action != null">
+				action,
+			</if>
+			<if test="tables != null">
+				tables,
+			</if>
+			<if test="updateContents != null">
+				UPDATE_CONTENTS,
+			</if>
+			<if test="tenantId != null">
+				TENANT_ID,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="operateAccount != null">
+				#{operateAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="operateTime != null">
+				#{operateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="action != null">
+				#{action,jdbcType=VARCHAR},
+			</if>
+			<if test="tables != null">
+				#{tables,jdbcType=VARCHAR},
+			</if>
+			<if test="updateContents != null">
+				#{updateContents,jdbcType=VARCHAR},
+			</if>
+			<if test="tenantId != null">
+				#{tenantId,jdbcType=INTEGER},
+			</if>
+		</trim>
+	</insert>
+	<update id="update"
+		parameterType="com.fbee.modules.mybatis.entity.TenantsOperateRecordsEntity">
+		update tenants_operate_records
+		<set>
+			<if test="operateAccount != null">
+				operate_account = #{operateAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="operateTime != null">
+				operate_time = #{operateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="action != null">
+				action = #{action,jdbcType=VARCHAR},
+			</if>
+			<if test="tables != null">
+				tables = #{tables,jdbcType=VARCHAR},
+			</if>
+			<if test="updateContents != null">
+				UPDATE_CONTENTS = #{updateContents,jdbcType=VARCHAR},
+			</if>
+			<if test="tenantId != null">
+				TENANT_ID = #{tenantId,jdbcType=INTEGER},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>

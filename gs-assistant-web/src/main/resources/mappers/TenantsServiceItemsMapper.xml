@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fbee.modules.mybatis.dao.TenantsServiceItemsMapper">
+  <resultMap id="BaseResultMap" type="com.fbee.modules.mybatis.model.TenantsServiceItems">
+    <id column="TENANT_ID" jdbcType="INTEGER" property="tenantId" />
+    <id column="SERVICE_ITEM_CODE" jdbcType="VARCHAR" property="serviceItemCode" />
+    <result column="SERVICE_ITEM_NAME" jdbcType="VARCHAR" property="serviceItemName" />
+    <result column="SERVICE_PRICE" jdbcType="DECIMAL" property="servicePrice" />
+    <result column="SERVICE_DESC" jdbcType="VARCHAR" property="serviceDesc" />
+    <result column="IMAGE_URL" jdbcType="VARCHAR" property="imageUrl" />
+    <result column="IS_HOT" jdbcType="VARCHAR" property="isHot" />
+    <result column="SERVICE_OBJECT" jdbcType="VARCHAR" property="serviceObject" />
+    <result column="SERVICE_CONTENT" jdbcType="VARCHAR" property="serviceContent" />
+    <result column="SERVICE_PRICE_UNIT" jdbcType="VARCHAR" property="servicePriceUnit" />
+    <result column="IS_SHOW" jdbcType="VARCHAR" property="isShow" />
+    <result column="IS_DEFAULT" jdbcType="VARCHAR" property="isDefault" />
+    <result column="sort_no" jdbcType="INTEGER" property="sortNo" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    TENANT_ID, SERVICE_ITEM_CODE, SERVICE_ITEM_NAME, SERVICE_PRICE, SERVICE_DESC, IMAGE_URL, 
+    IS_HOT, SERVICE_OBJECT, SERVICE_CONTENT, SERVICE_PRICE_UNIT, IS_SHOW, IS_DEFAULT,sort_no
+  </sql>
+  
+  <select id = "getStaffServiceItemList" parameterType="java.lang.Integer" resultType="java.util.Map">
+      select SERVICE_ITEM_NAME "serviceItemName",
+             SERVICE_PRICE "servicePrice", 
+             FUNC_GET_CODE_NAME("SERVICE_PRICE_UNIT",SERVICE_PRICE_UNIT,"1") "servicePriceUnit",
+             IS_HOT "isHot",
+             SERVICE_ITEM_CODE "serviceItemCode",
+             IS_SHOW "isShow"
+       from  
+             tenants_service_items
+       where 
+             TENANT_ID = #{tenantId,jdbcType=INTEGER}
+       order by sort_no
+  </select>
+  
+  <select id = "getStaffServiceItemCodes" parameterType="java.lang.Integer" resultType="java.util.Map">
+       select 
+             SERVICE_ITEM_CODE "serviceItemCode"
+       from  
+             tenants_service_items
+       where 
+             TENANT_ID = #{tenantId,jdbcType=INTEGER}
+  </select>
+  
+   <select id="selectByPrimaryKey" parameterType="com.fbee.modules.mybatis.model.TenantsServiceItemsKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tenants_service_items
+    where TENANT_ID = #{tenantId,jdbcType=INTEGER}
+      and SERVICE_ITEM_CODE = #{serviceItemCode,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.fbee.modules.mybatis.model.TenantsServiceItemsKey">
+    delete from tenants_service_items
+    where TENANT_ID = #{tenantId,jdbcType=INTEGER}
+      and SERVICE_ITEM_CODE = #{serviceItemCode,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.fbee.modules.mybatis.model.TenantsServiceItems">
+    insert into tenants_service_items (TENANT_ID, SERVICE_ITEM_CODE, SERVICE_ITEM_NAME, 
+      SERVICE_PRICE, SERVICE_DESC, IMAGE_URL, 
+      IS_HOT, SERVICE_OBJECT, SERVICE_CONTENT, 
+      SERVICE_PRICE_UNIT, IS_SHOW, IS_DEFAULT
+      )
+    values (#{tenantId,jdbcType=INTEGER}, #{serviceItemCode,jdbcType=VARCHAR}, #{serviceItemName,jdbcType=VARCHAR}, 
+      #{servicePrice,jdbcType=DECIMAL}, #{serviceDesc,jdbcType=VARCHAR}, #{imageUrl,jdbcType=VARCHAR}, 
+      #{isHot,jdbcType=VARCHAR}, #{serviceObject,jdbcType=VARCHAR}, #{serviceContent,jdbcType=VARCHAR}, 
+      #{servicePriceUnit,jdbcType=VARCHAR}, #{isShow,jdbcType=VARCHAR}, #{isDefault,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.fbee.modules.mybatis.model.TenantsServiceItems">
+    insert into tenants_service_items
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tenantId != null">
+        TENANT_ID,
+      </if>
+      <if test="serviceItemCode != null">
+        SERVICE_ITEM_CODE,
+      </if>
+      <if test="serviceItemName != null">
+        SERVICE_ITEM_NAME,
+      </if>
+      <if test="servicePrice != null">
+        SERVICE_PRICE,
+      </if>
+      <if test="serviceDesc != null">
+        SERVICE_DESC,
+      </if>
+      <if test="imageUrl != null">
+        IMAGE_URL,
+      </if>
+      <if test="isHot != null">
+        IS_HOT,
+      </if>
+      <if test="serviceObject != null">
+        SERVICE_OBJECT,
+      </if>
+      <if test="serviceContent != null">
+        SERVICE_CONTENT,
+      </if>
+      <if test="servicePriceUnit != null">
+        SERVICE_PRICE_UNIT,
+      </if>
+      <if test="isShow != null">
+        IS_SHOW,
+      </if>
+      <if test="isDefault != null">
+        IS_DEFAULT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tenantId != null">
+        #{tenantId,jdbcType=INTEGER},
+      </if>
+      <if test="serviceItemCode != null">
+        #{serviceItemCode,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceItemName != null">
+        #{serviceItemName,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePrice != null">
+        #{servicePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="serviceDesc != null">
+        #{serviceDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUrl != null">
+        #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="isHot != null">
+        #{isHot,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceObject != null">
+        #{serviceObject,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceContent != null">
+        #{serviceContent,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePriceUnit != null">
+        #{servicePriceUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="isShow != null">
+        #{isShow,jdbcType=VARCHAR},
+      </if>
+      <if test="isDefault != null">
+        #{isDefault,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fbee.modules.mybatis.model.TenantsServiceItems">
+    update tenants_service_items
+    <set>
+      <if test="serviceItemName != null">
+        SERVICE_ITEM_NAME = #{serviceItemName,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePrice != null">
+        SERVICE_PRICE = #{servicePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="serviceDesc != null">
+        SERVICE_DESC = #{serviceDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUrl != null">
+        IMAGE_URL = #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="isHot != null">
+        IS_HOT = #{isHot,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceObject != null">
+        SERVICE_OBJECT = #{serviceObject,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceContent != null">
+        SERVICE_CONTENT = #{serviceContent,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePriceUnit != null">
+        SERVICE_PRICE_UNIT = #{servicePriceUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="isShow != null">
+        IS_SHOW = #{isShow,jdbcType=VARCHAR},
+      </if>
+      <if test="null !=serialNumber and '' != serialNumber " >
+        sort_no = #{serialNumber,jdbcType=INTEGER},
+      </if>
+      <if test="isDefault != null">
+        IS_DEFAULT = #{isDefault,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TENANT_ID = #{tenantId,jdbcType=INTEGER}
+      and SERVICE_ITEM_CODE = #{serviceItemCode,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fbee.modules.mybatis.model.TenantsServiceItems">
+    update tenants_service_items
+    set SERVICE_ITEM_NAME = #{serviceItemName,jdbcType=VARCHAR},
+      SERVICE_PRICE = #{servicePrice,jdbcType=DECIMAL},
+      SERVICE_DESC = #{serviceDesc,jdbcType=VARCHAR},
+      IMAGE_URL = #{imageUrl,jdbcType=VARCHAR},
+      IS_HOT = #{isHot,jdbcType=VARCHAR},
+      SERVICE_OBJECT = #{serviceObject,jdbcType=VARCHAR},
+      SERVICE_CONTENT = #{serviceContent,jdbcType=VARCHAR},
+      SERVICE_PRICE_UNIT = #{servicePriceUnit,jdbcType=VARCHAR},
+      IS_SHOW = #{isShow,jdbcType=VARCHAR},
+      IS_DEFAULT = #{isDefault,jdbcType=VARCHAR}
+    where TENANT_ID = #{tenantId,jdbcType=INTEGER}
+      and SERVICE_ITEM_CODE = #{serviceItemCode,jdbcType=VARCHAR}
+  </update>
+
+  <select id="getServiceManageIndexInfo" parameterType="java.lang.Integer"
+  			resultMap="BaseResultMap">
+     select 
+     <include refid="Base_Column_List"/>
+     FROM 
+     tenants_service_items 
+     WHERE 
+     TENANT_ID = #{tenantId,jdbcType=INTEGER}
+      ORDER BY
+      sort_no ASC
+  </select>
+
+  <select id="getServiceManageByTenantCode" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List"/>
+    FROM
+      tenants_service_items
+    WHERE
+        TENANT_ID = #{tenantId}
+    and SERVICE_ITEM_CODE = #{serviceItemCode}
+  </select>
+
+  <update id="updateServiceManageDetailInfo" parameterType="com.fbee.modules.jsonData.extend.ServiceManageIndexInfoJson">
+    update tenants_service_items
+    <set>
+      <if test="serviceItemName != null">
+        SERVICE_ITEM_NAME = #{serviceItemName,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePrice != null">
+        SERVICE_PRICE = #{servicePrice,jdbcType=DECIMAL},
+      </if>
+      <if test="serviceDesc != null">
+        SERVICE_DESC = #{serviceDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUrl != null">
+        IMAGE_URL = #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="isHot != null">
+        IS_HOT = #{isHot,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceObject != null">
+        SERVICE_OBJECT = #{serviceObject,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceContent != null">
+        SERVICE_CONTENT = #{serviceContent,jdbcType=VARCHAR},
+      </if>
+      <if test="servicePriceUnit != null">
+        SERVICE_PRICE_UNIT = #{servicePriceUnit,jdbcType=VARCHAR},
+      </if>
+      <if test="isShow != null">
+        IS_SHOW = #{isShow,jdbcType=VARCHAR},
+      </if>
+     <if test="null !=serialNumber and '' != serialNumber " >
+        sort_no = #{serialNumber,jdbcType=INTEGER},
+      </if>
+      <if test="isDefault != null">
+        IS_DEFAULT = #{isDefault,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TENANT_ID = #{tenantId,jdbcType=INTEGER}
+    and SERVICE_ITEM_CODE = #{serviceItemCode,jdbcType=VARCHAR}
+  </update>
+	
+</mapper>

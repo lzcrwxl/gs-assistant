@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fbee.modules.mybatis.dao.BankMapper">
+	<resultMap id="BaseResultMap" type="com.fbee.modules.mybatis.model.Bank">
+		<result column="BANK_CODE" jdbcType="VARCHAR" property="bankCode" />
+		<result column="SYS_CODE" jdbcType="VARCHAR" property="sysCode" />
+		<result column="BANK_NAME" jdbcType="VARCHAR" property="bankName" />
+		<result column="BANK_TYPECODE" jdbcType="VARCHAR" property="bankTypecode" />
+		<result column="BANK_TYPENAME" jdbcType="VARCHAR" property="bankTypename" />
+	</resultMap>
+	<insert id="insert" parameterType="com.fbee.modules.mybatis.model.Bank">
+		insert into bank (BANK_CODE, SYS_CODE, BANK_NAME,
+		BANK_TYPECODE, BANK_TYPENAME)
+		values (#{bankCode,jdbcType=VARCHAR}, #{sysCode,jdbcType=VARCHAR},
+		#{bankName,jdbcType=VARCHAR},
+		#{bankTypecode,jdbcType=VARCHAR}, #{bankTypename,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.fbee.modules.mybatis.model.Bank">
+		insert into bank
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="bankCode != null">
+				BANK_CODE,
+			</if>
+			<if test="sysCode != null">
+				SYS_CODE,
+			</if>
+			<if test="bankName != null">
+				BANK_NAME,
+			</if>
+			<if test="bankTypecode != null">
+				BANK_TYPECODE,
+			</if>
+			<if test="bankTypename != null">
+				BANK_TYPENAME,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="bankCode != null">
+				#{bankCode,jdbcType=VARCHAR},
+			</if>
+			<if test="sysCode != null">
+				#{sysCode,jdbcType=VARCHAR},
+			</if>
+			<if test="bankName != null">
+				#{bankName,jdbcType=VARCHAR},
+			</if>
+			<if test="bankTypecode != null">
+				#{bankTypecode,jdbcType=VARCHAR},
+			</if>
+			<if test="bankTypename != null">
+				#{bankTypename,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	
+	<select id="getBank" resultMap="BaseResultMap">
+		select DISTINCT BANK_CODE, BANK_NAME,
+		BANK_TYPECODE, BANK_TYPENAME
+		from bank
+	</select>
+</mapper>

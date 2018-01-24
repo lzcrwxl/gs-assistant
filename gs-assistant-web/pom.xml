@@ -1,0 +1,115 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.jiacer.gs</groupId>
+	<artifactId>gs-assistant-web</artifactId>
+	<version>V1.0</version>
+
+
+	<parent>
+		<groupId>com.jiacer.gs</groupId>
+		<artifactId>gs-assistant</artifactId>
+		<version>1.0</version>
+	</parent>
+
+
+	<profiles>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<activeProfile>dev</activeProfile>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<profile>
+			<id>test</id>
+			<properties>
+				<activeProfile>test</activeProfile>
+			</properties>
+		</profile>
+		<profile>
+			<id>uat</id>
+			<properties>
+				<activeProfile>uat</activeProfile>
+			</properties>
+		</profile>
+		<profile>
+			<id>prod</id>
+			<properties>
+				<activeProfile>prod</activeProfile>
+			</properties>
+		</profile>
+	</profiles>
+
+	<build>
+		<finalName>fbeeConsole_web</finalName>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<excludes>
+					<exclude>env/**/*</exclude>
+				</excludes>
+			</resource>
+			<resource>
+				<directory>src/main/resources/env/${activeProfile}</directory>
+				<targetPath>${project.build.outputDirectory}</targetPath>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.7</version>
+				<configuration>
+					<encoding>${default-encoding}</encoding>
+					<overwrite>false</overwrite>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.3</version>
+				<configuration>
+					<encoding>${default-encoding}</encoding>
+					<target>${jdk-version}</target>
+					<source>${jdk-version}</source>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>3.1.0</version>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.tomcat.maven</groupId>
+				<artifactId>tomcat7-maven-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<path>/fbeeConsole_web</path>
+					<port>9091</port>
+					<uriEncoding>UTF-8</uriEncoding>
+					<url>http://localhost:9091/fbeeConsole_web</url>
+					<server>tomcat7</server>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
+
+
+	<dependencies>
+		<dependency>
+			<groupId>com.jiacer.gs</groupId>
+			<artifactId>gs-assistant-core</artifactId>
+			<version>V1.0</version>
+		</dependency>
+	</dependencies>
+
+	<packaging>war</packaging>
+</project>

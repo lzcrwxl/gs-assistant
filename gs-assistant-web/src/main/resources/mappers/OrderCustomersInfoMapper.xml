@@ -1,0 +1,617 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fbee.modules.mybatis.dao.OrderCustomersInfoMapper">
+    <resultMap id="BaseResultMap" type="com.fbee.modules.mybatis.model.OrderCustomersInfo">
+        <id column="ORDER_NO" jdbcType="VARCHAR" property="orderNo"/>
+        <result column="MEMBER_MOBILE" jdbcType="VARCHAR" property="memberMobile"/>
+        <result column="MEMBER_SEX" jdbcType="VARCHAR" property="memberSex"/>
+        <result column="MEMBER_NAME" jdbcType="VARCHAR" property="memberName"/>
+        <result column="SERVICE_PROVICE" jdbcType="VARCHAR" property="serviceProvice"/>
+        <result column="SERVICE_CITY" jdbcType="VARCHAR" property="serviceCity"/>
+        <result column="SERVICE_COUNTY" jdbcType="VARCHAR" property="serviceCounty"/>
+        <result column="SERVICE_ADDRESS" jdbcType="VARCHAR" property="serviceAddress"/>
+        <result column="SERVICE_START" jdbcType="TIMESTAMP" property="serviceStart"/>
+        <result column="SERVICE_END" jdbcType="TIMESTAMP" property="serviceEnd"/>
+        <result column="REMARKS" jdbcType="VARCHAR" property="remarks"/>
+        <result column="SALARY" jdbcType="DECIMAL" property="salary"/>
+        <result column="SALARY_TYPE" jdbcType="VARCHAR" property="salaryType"/>
+        <result column="SERVICE_ITEM_CODE" jdbcType="VARCHAR" property="serviceItemCode"/>
+        <result column="SALARY_SKILLS" jdbcType="VARCHAR" property="salarySkills"/>
+        <result column="HOUSE_TYPE" jdbcType="VARCHAR" property="houseType"/>
+        <result column="HOUSE_AREA" jdbcType="DECIMAL" property="houseArea"/>
+        <result column="FAMILY_COUNT" jdbcType="INTEGER" property="familyCount"/>
+        <result column="CHILDREN_COUNT" jdbcType="INTEGER" property="childrenCount"/>
+        <result column="OLDER_COUNT" jdbcType="INTEGER" property="olderCount"/>
+        <result column="CHILDREN_AGE_RANGE" jdbcType="VARCHAR" property="childrenAgeRange"/>
+        <result column="OLDER_AGE_RANGE" jdbcType="VARCHAR" property="olderAgeRange"/>
+        <result column="SELF_CARES" jdbcType="VARCHAR" property="selfCares"/>
+        <result column="IS_BABY_BORN" jdbcType="VARCHAR" property="isBabyBorn"/>
+        <result column="EXPECTED_BIRTH" jdbcType="DATE" property="expectedBirth"/>
+        <result column="BABY_COUNT" jdbcType="INTEGER" property="babyCount"/>
+        <result column="BABY_AGE" jdbcType="INTEGER" property="babyAge"/>
+        <result column="PET_RAISING" jdbcType="VARCHAR" property="petRaising"/>
+        <result column="OTHER_REQUIREMENTS" jdbcType="VARCHAR" property="otherRequirements"/>
+        <result column="SERVICE_TYPE" jdbcType="VARCHAR" property="serviceType"/>
+        <result column="COOKING_REQIREMENTS" jdbcType="VARCHAR" property="cookingReqirements"/>
+        <result column="SPECIFIED_TIME" jdbcType="TIMESTAMP" property="specifiedTime"/>
+        <result column="LANGUAGE_REQUIREMENTS" jdbcType="VARCHAR" property="languageRequirements"/>
+        <result column="PERSONALITY_REQUIREMENTS" jdbcType="VARCHAR" property="personalityRequirements"/>
+        <result column="WAGE_REQUIREMENTS" jdbcType="VARCHAR" property="wageRequirements"/>
+        <result column="SALARY_REQUIREMENTS" jdbcType="VARCHAR" property="salaryRequirements"/>
+        <result column="EXPERIENCE_REQUIREMENTS" jdbcType="VARCHAR" property="experienceRequirements"/>
+        <result column="SPECIAL_NEEDS" jdbcType="VARCHAR" property="specialNeeds"/>
+        <result column="is_usable" jdbcType="VARCHAR" property="isUsable"/>
+        <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
+        <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime"/>
+        <result column="add_account" jdbcType="VARCHAR" property="addAccount"/>
+        <result column="modify_account" jdbcType="VARCHAR" property="modifyAccount"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        ORDER_NO, MEMBER_MOBILE, MEMBER_SEX, MEMBER_NAME, SERVICE_PROVICE, SERVICE_CITY,
+        SERVICE_COUNTY, SERVICE_ADDRESS, SERVICE_START, SERVICE_END, REMARKS, SALARY,
+        SALARY_TYPE, SERVICE_ITEM_CODE, SALARY_SKILLS, HOUSE_TYPE, HOUSE_AREA, FAMILY_COUNT,
+        CHILDREN_COUNT, OLDER_COUNT, CHILDREN_AGE_RANGE, OLDER_AGE_RANGE, SELF_CARES, IS_BABY_BORN,
+        EXPECTED_BIRTH, BABY_COUNT, BABY_AGE, PET_RAISING, OTHER_REQUIREMENTS, SERVICE_TYPE,
+        COOKING_REQIREMENTS, SPECIFIED_TIME, LANGUAGE_REQUIREMENTS, PERSONALITY_REQUIREMENTS,
+        WAGE_REQUIREMENTS, SALARY_REQUIREMENTS, EXPERIENCE_REQUIREMENTS, SPECIAL_NEEDS, is_usable,
+        add_time, modify_time, add_account, modify_account
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from order_customers_info
+        where ORDER_NO = #{orderNo,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+        delete from order_customers_info
+        where ORDER_NO = #{orderNo,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="com.fbee.modules.mybatis.model.OrderCustomersInfo">
+        insert into order_customers_info (ORDER_NO, MEMBER_MOBILE, MEMBER_SEX,
+        MEMBER_NAME, SERVICE_PROVICE, SERVICE_CITY,
+        SERVICE_COUNTY, SERVICE_ADDRESS, SERVICE_START,
+        SERVICE_END, REMARKS, SALARY,
+        SALARY_TYPE, SERVICE_ITEM_CODE, SALARY_SKILLS,
+        HOUSE_TYPE, HOUSE_AREA, FAMILY_COUNT,
+        CHILDREN_COUNT, OLDER_COUNT, CHILDREN_AGE_RANGE,
+        OLDER_AGE_RANGE, SELF_CARES, IS_BABY_BORN,
+        EXPECTED_BIRTH, BABY_COUNT, BABY_AGE,
+        PET_RAISING, OTHER_REQUIREMENTS, SERVICE_TYPE,
+        COOKING_REQIREMENTS, SPECIFIED_TIME, LANGUAGE_REQUIREMENTS,
+        PERSONALITY_REQUIREMENTS, WAGE_REQUIREMENTS,
+        SALARY_REQUIREMENTS, EXPERIENCE_REQUIREMENTS,
+        SPECIAL_NEEDS, is_usable, add_time,
+        modify_time, add_account, modify_account
+        )
+        values (#{orderNo,jdbcType=VARCHAR}, #{memberMobile,jdbcType=VARCHAR}, #{memberSex,jdbcType=VARCHAR},
+        #{memberName,jdbcType=VARCHAR}, #{serviceProvice,jdbcType=VARCHAR}, #{serviceCity,jdbcType=VARCHAR},
+        #{serviceCounty,jdbcType=VARCHAR}, #{serviceAddress,jdbcType=VARCHAR}, #{serviceStart,jdbcType=TIMESTAMP},
+        #{serviceEnd,jdbcType=TIMESTAMP}, #{remarks,jdbcType=VARCHAR}, #{salary},
+        #{salaryType,jdbcType=VARCHAR}, #{serviceItemCode,jdbcType=VARCHAR}, #{salarySkills,jdbcType=VARCHAR},
+        #{houseType,jdbcType=VARCHAR}, #{houseArea,jdbcType=DECIMAL}, #{familyCount,jdbcType=INTEGER},
+        #{childrenCount,jdbcType=INTEGER}, #{olderCount,jdbcType=INTEGER}, #{childrenAgeRange,jdbcType=VARCHAR},
+        #{olderAgeRange,jdbcType=VARCHAR}, #{selfCares,jdbcType=VARCHAR}, #{isBabyBorn,jdbcType=VARCHAR},
+        #{expectedBirth,jdbcType=DATE}, #{babyCount,jdbcType=INTEGER}, #{babyAge,jdbcType=INTEGER},
+        #{petRaising,jdbcType=VARCHAR}, #{otherRequirements,jdbcType=VARCHAR}, #{serviceType,jdbcType=VARCHAR},
+        #{cookingReqirements,jdbcType=VARCHAR}, #{specifiedTime,jdbcType=TIMESTAMP},
+        #{languageRequirements,jdbcType=VARCHAR},
+        #{personalityRequirements,jdbcType=VARCHAR}, #{wageRequirements,jdbcType=VARCHAR},
+        #{salaryRequirements,jdbcType=VARCHAR}, #{experienceRequirements,jdbcType=VARCHAR},
+        #{specialNeeds,jdbcType=VARCHAR}, #{isUsable,jdbcType=VARCHAR}, #{addTime,jdbcType=TIMESTAMP},
+        #{modifyTime,jdbcType=TIMESTAMP}, #{addAccount,jdbcType=VARCHAR}, #{modifyAccount,jdbcType=VARCHAR}
+        )
+    </insert>
+    <insert id="insertSelective" parameterType="com.fbee.modules.mybatis.model.OrderCustomersInfo">
+        insert into order_customers_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderNo != null and orderNo != ''">
+                ORDER_NO,
+            </if>
+            <if test="memberMobile != null and memberMobile != ''">
+                MEMBER_MOBILE,
+            </if>
+            <if test="memberName != null and memberName != ''">
+                MEMBER_NAME,
+            </if>
+            <if test="memberSex != null and memberSex != ''">
+                MEMBER_SEX,
+            </if>
+            <if test="serviceProvice != null and serviceProvice != ''">
+                SERVICE_PROVICE,
+            </if>
+            <if test="serviceCity != null and serviceCity != ''">
+                SERVICE_CITY,
+            </if>
+            <if test="serviceCounty != null and serviceCounty != ''">
+                SERVICE_COUNTY,
+            </if>
+            <if test="serviceAddress != null and serviceAddress != ''">
+                SERVICE_ADDRESS,
+            </if>
+            <if test="serviceStart != null and serviceStart != ''">
+                SERVICE_START,
+            </if>
+            <if test="serviceEnd != null and serviceEnd != ''">
+                SERVICE_END,
+            </if>
+            <if test="remarks != null and remarks != ''">
+                REMARKS,
+            </if>
+            <if test="salary != null and salary != ''">
+                SALARY,
+            </if>
+            <if test="salaryType != null and salaryType != ''">
+                SALARY_TYPE,
+            </if>
+            <if test="serviceItemCode != null and serviceItemCode != ''">
+                SERVICE_ITEM_CODE,
+            </if>
+            <if test="salarySkills != null and salarySkills != ''">
+                SALARY_SKILLS,
+            </if>
+            <if test="houseType != null and houseType != ''">
+                HOUSE_TYPE,
+            </if>
+            <if test="houseArea != null and houseArea != ''">
+                HOUSE_AREA,
+            </if>
+            <if test="familyCount != null and familyCount != ''">
+                FAMILY_COUNT,
+            </if>
+            <if test="childrenCount != null and childrenCount != ''">
+                CHILDREN_COUNT,
+            </if>
+            <if test="olderCount != null and olderCount != ''">
+                OLDER_COUNT,
+            </if>
+            <if test="childrenAgeRange != null and childrenAgeRange != ''">
+                CHILDREN_AGE_RANGE,
+            </if>
+            <if test="olderAgeRange != null and olderAgeRange != ''">
+                OLDER_AGE_RANGE,
+            </if>
+            <if test="selfCares != null and selfCares != ''">
+                SELF_CARES,
+            </if>
+            <if test="isBabyBorn != null and isBabyBorn != ''">
+                IS_BABY_BORN,
+            </if>
+            <if test="expectedBirth != null and expectedBirth != ''">
+                EXPECTED_BIRTH,
+            </if>
+            <if test="babyCount != null and babyCount != ''">
+                BABY_COUNT,
+            </if>
+            <if test="babyAge != null and babyAge != ''">
+                BABY_AGE,
+            </if>
+            <if test="petRaising != null and petRaising != ''">
+            PET_RAISING,
+            </if>
+            <if test="otherRequirements != null and otherRequirements != ''">
+                OTHER_REQUIREMENTS,
+            </if>
+            <if test="serviceType != null and serviceType != ''">
+                SERVICE_TYPE,
+            </if>
+            <if test="cookingReqirements != null and cookingReqirements != ''">
+                COOKING_REQIREMENTS,
+            </if>
+            <if test="specifiedTime != null and specifiedTime != ''">
+                SPECIFIED_TIME,
+            </if>
+            <if test="languageRequirements != null and languageRequirements != ''">
+                LANGUAGE_REQUIREMENTS,
+            </if>
+            <if test="personalityRequirements != null and personalityRequirements != ''">
+                PERSONALITY_REQUIREMENTS,
+            </if>
+            <if test="wageRequirements != null and wageRequirements != ''">
+                WAGE_REQUIREMENTS,
+            </if>
+            <if test="experienceRequirements != null and experienceRequirements != ''">
+                EXPERIENCE_REQUIREMENTS,
+            </if>
+            <if test="specialNeeds != null and specialNeeds != ''">
+                SPECIAL_NEEDS,
+            </if>
+            <if test="salaryRequirements != null and salaryRequirements != ''">
+                SALARY_REQUIREMENTS,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderNo != null and orderNo != ''">
+                #{orderNo,jdbcType=VARCHAR},
+            </if>
+            <if test="memberMobile != null and memberMobile != ''">
+                #{memberMobile,jdbcType=VARCHAR},
+            </if>
+            <if test="memberName != null and memberName != ''">
+                #{memberName,jdbcType=VARCHAR},
+            </if>
+            <if test="memberSex != null and memberSex != ''">
+                #{memberSex,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceProvice != null and serviceProvice != ''">
+                #{serviceProvice,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceCity != null and serviceCity != ''">
+                #{serviceCity,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceCounty != null and serviceCounty != ''">
+                #{serviceCounty,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceAddress != null and serviceAddress != ''">
+                #{serviceAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceStart != null and serviceStart != ''">
+                #{serviceStart,jdbcType=TIMESTAMP},
+            </if>
+            <if test="serviceEnd != null and serviceEnd != ''">
+                #{serviceEnd,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remarks != null and remarks != ''">
+                #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="salary != null and salary != ''">
+                #{salary,jdbcType=INTEGER},
+            </if>
+            <if test="salaryType != null and salaryType != ''">
+                #{salaryType,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceItemCode != null and serviceItemCode != ''">
+                #{serviceItemCode,jdbcType=VARCHAR},
+            </if>
+            <if test="salarySkills != null and salarySkills != ''">
+                #{salarySkills,jdbcType=VARCHAR},
+            </if>
+            <if test="houseType != null and houseType != ''">
+                #{houseType,jdbcType=VARCHAR},
+            </if>
+            <if test="houseArea != null and houseArea != ''">
+                #{houseArea,jdbcType=DECIMAL},
+            </if>
+            <if test="familyCount != null and familyCount != ''">
+                #{familyCount,jdbcType=INTEGER},
+            </if>
+            <if test="childrenCount != null and childrenCount != ''">
+                #{childrenCount,jdbcType=INTEGER},
+            </if>
+            <if test="olderCount != null and olderCount != ''">
+                #{olderCount,jdbcType=INTEGER},
+            </if>
+            <if test="childrenAgeRange != null and childrenAgeRange != ''">
+                #{childrenAgeRange,jdbcType=VARCHAR},
+            </if>
+            <if test="olderAgeRange != null and olderAgeRange != ''">
+                #{olderAgeRange,jdbcType=VARCHAR},
+            </if>
+            <if test="selfCares != null and selfCares != ''">
+                #{selfCares,jdbcType=VARCHAR},
+            </if>
+            <if test="isBabyBorn != null and isBabyBorn != ''">
+                #{isBabyBorn,jdbcType=VARCHAR},
+            </if>
+            <if test="expectedBirth != null and expectedBirth != ''">
+                #{expectedBirth,jdbcType=DATE},
+            </if>
+            <if test="babyCount != null and babyCount != ''">
+                #{babyCount,jdbcType=INTEGER},
+            </if>
+            <if test="babyAge != null and babyAge != ''">
+                #{babyAge,jdbcType=INTEGER},
+            </if>
+            <if test="petRaising != null and petRaising != ''">
+            #{petRaising,jdbcType=VARCHAR},
+            </if>
+            <if test="otherRequirements != null and otherRequirements != ''">
+                #{otherRequirements,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceType != null and serviceType != ''">
+                #{serviceType,jdbcType=VARCHAR},
+            </if>
+            <if test="cookingReqirements != null and cookingReqirements != ''">
+                #{cookingReqirements,jdbcType=VARCHAR},
+            </if>
+            <if test="specifiedTime != null and specifiedTime != ''">
+                #{specifiedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="languageRequirements != null and languageRequirements != ''">
+                #{languageRequirements,jdbcType=VARCHAR},
+            </if>
+            <if test="personalityRequirements != null and personalityRequirements != ''">
+                #{personalityRequirements,jdbcType=VARCHAR},
+            </if>
+            <if test="wageRequirements != null and wageRequirements != ''">
+                #{wageRequirements,jdbcType=VARCHAR},
+            </if>
+            <if test="experienceRequirements != null and experienceRequirements != ''">
+                #{experienceRequirements,jdbcType=VARCHAR},
+            </if>
+            <if test="specialNeeds != null and specialNeeds != ''">
+                #{specialNeeds,jdbcType=VARCHAR},
+            </if>
+            <if test="salaryRequirements != null and salaryRequirements != ''">
+                #{salaryRequirements,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.fbee.modules.mybatis.model.OrderCustomersInfo">
+        update order_customers_info
+        <set>
+            <if test="memberMobile != null">
+                MEMBER_MOBILE = #{memberMobile,jdbcType=VARCHAR},
+            </if>
+            <if test="memberSex != null">
+                MEMBER_SEX = #{memberSex,jdbcType=VARCHAR},
+            </if>
+            <if test="memberName != null">
+                MEMBER_NAME = #{memberName,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceProvice != null">
+                SERVICE_PROVICE = #{serviceProvice,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceCity != null">
+                SERVICE_CITY = #{serviceCity,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceCounty != null">
+                SERVICE_COUNTY = #{serviceCounty,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceAddress != null">
+                SERVICE_ADDRESS = #{serviceAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceStart != null">
+                SERVICE_START = #{serviceStart,jdbcType=TIMESTAMP},
+            </if>
+            <if test="serviceEnd != null">
+                SERVICE_END = #{serviceEnd,jdbcType=TIMESTAMP},
+            </if>
+            <if test="remarks != null">
+                REMARKS = #{remarks,jdbcType=VARCHAR},
+            </if>
+            <if test="salary != null">
+                SALARY = #{salary},
+            </if>
+            <if test="salaryType != null">
+                SALARY_TYPE = #{salaryType,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceItemCode != null">
+                SERVICE_ITEM_CODE = #{serviceItemCode,jdbcType=VARCHAR},
+            </if>
+            <if test="salarySkills != null">
+                SALARY_SKILLS = #{salarySkills,jdbcType=VARCHAR},
+            </if>
+            <if test="houseType != null">
+                HOUSE_TYPE = #{houseType,jdbcType=VARCHAR},
+            </if>
+            <if test="houseArea != null">
+                HOUSE_AREA = #{houseArea,jdbcType=DECIMAL},
+            </if>
+            <if test="familyCount != null">
+                FAMILY_COUNT = #{familyCount,jdbcType=INTEGER},
+            </if>
+            <if test="childrenCount != null">
+                CHILDREN_COUNT = #{childrenCount,jdbcType=INTEGER},
+            </if>
+            <if test="olderCount != null">
+                OLDER_COUNT = #{olderCount,jdbcType=INTEGER},
+            </if>
+            <if test="childrenAgeRange != null">
+                CHILDREN_AGE_RANGE = #{childrenAgeRange,jdbcType=VARCHAR},
+            </if>
+            <if test="olderAgeRange != null">
+                OLDER_AGE_RANGE = #{olderAgeRange,jdbcType=VARCHAR},
+            </if>
+            <if test="selfCares != null">
+                SELF_CARES = #{selfCares,jdbcType=VARCHAR},
+            </if>
+            <if test="isBabyBorn != null">
+                IS_BABY_BORN = #{isBabyBorn,jdbcType=VARCHAR},
+            </if>
+            <if test="expectedBirth != null">
+                EXPECTED_BIRTH = #{expectedBirth,jdbcType=DATE},
+            </if>
+            <if test="babyCount != null">
+                BABY_COUNT = #{babyCount,jdbcType=INTEGER},
+            </if>
+            <if test="babyAge != null">
+                BABY_AGE = #{babyAge,jdbcType=INTEGER},
+            </if>
+            <if test="petRaising != null">
+                PET_RAISING = #{petRaising,jdbcType=VARCHAR},
+            </if>
+            <if test="otherRequirements != null">
+                OTHER_REQUIREMENTS = #{otherRequirements,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceType != null">
+                SERVICE_TYPE = #{serviceType,jdbcType=VARCHAR},
+            </if>
+            <if test="cookingReqirements != null">
+                COOKING_REQIREMENTS = #{cookingReqirements,jdbcType=VARCHAR},
+            </if>
+            <if test="specifiedTime != null">
+                SPECIFIED_TIME = #{specifiedTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="languageRequirements != null">
+                LANGUAGE_REQUIREMENTS = #{languageRequirements,jdbcType=VARCHAR},
+            </if>
+            <if test="personalityRequirements != null">
+                PERSONALITY_REQUIREMENTS = #{personalityRequirements,jdbcType=VARCHAR},
+            </if>
+            <if test="wageRequirements != null">
+                WAGE_REQUIREMENTS = #{wageRequirements,jdbcType=VARCHAR},
+            </if>
+            <if test="salaryRequirements != null">
+                SALARY_REQUIREMENTS = #{salaryRequirements,jdbcType=VARCHAR},
+            </if>
+            <if test="experienceRequirements != null">
+                EXPERIENCE_REQUIREMENTS = #{experienceRequirements,jdbcType=VARCHAR},
+            </if>
+            <if test="specialNeeds != null">
+                SPECIAL_NEEDS = #{specialNeeds,jdbcType=VARCHAR},
+            </if>
+            <if test="isUsable != null">
+                is_usable = #{isUsable,jdbcType=VARCHAR},
+            </if>
+            <if test="addTime != null">
+                add_time = #{addTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="modifyTime != null">
+                modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="addAccount != null">
+                add_account = #{addAccount,jdbcType=VARCHAR},
+            </if>
+            <if test="modifyAccount != null">
+                modify_account = #{modifyAccount,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ORDER_NO = #{orderNo,jdbcType=VARCHAR}
+    </update>
+
+
+    <update id="updateByCustomerInfo" parameterType="com.fbee.modules.mybatis.model.OrderCustomersInfo">
+        update order_customers_info
+        <set>
+            <if test="memberMobile != null">
+                MEMBER_MOBILE = #{memberMobile,jdbcType=VARCHAR},
+            </if>
+            <if test="memberSex != null">
+                MEMBER_SEX = #{memberSex,jdbcType=VARCHAR},
+            </if>
+            <if test="memberName != null">
+                MEMBER_NAME = #{memberName,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceProvice != null">
+                SERVICE_PROVICE = #{serviceProvice,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceCity != null">
+                SERVICE_CITY = #{serviceCity,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceCounty != null">
+                SERVICE_COUNTY = #{serviceCounty,jdbcType=VARCHAR},
+            </if>
+            <if test="serviceAddress != null">
+                SERVICE_ADDRESS = #{serviceAddress,jdbcType=VARCHAR},
+            </if>
+            <if test="houseType != null">
+                HOUSE_TYPE = #{houseType,jdbcType=VARCHAR},
+            </if>
+            HOUSE_AREA = #{houseArea,jdbcType=DECIMAL},
+            FAMILY_COUNT = #{familyCount,jdbcType=INTEGER},
+            CHILDREN_COUNT = #{childrenCount,jdbcType=INTEGER},
+            OLDER_COUNT = #{olderCount,jdbcType=INTEGER},
+            CHILDREN_AGE_RANGE = #{childrenAgeRange,jdbcType=VARCHAR},
+            OLDER_AGE_RANGE = #{olderAgeRange,jdbcType=VARCHAR},
+            SELF_CARES = #{selfCares,jdbcType=VARCHAR},
+        </set>
+        where ORDER_NO = #{orderNo,jdbcType=VARCHAR}
+    </update>
+
+    <update id="updateByPrimaryKey" parameterType="com.fbee.modules.mybatis.model.OrderCustomersInfo">
+        update order_customers_info
+        set MEMBER_MOBILE = #{memberMobile,jdbcType=VARCHAR},
+        MEMBER_SEX = #{memberSex,jdbcType=VARCHAR},
+        MEMBER_NAME = #{memberName,jdbcType=VARCHAR},
+        SERVICE_PROVICE = #{serviceProvice,jdbcType=VARCHAR},
+        SERVICE_CITY = #{serviceCity,jdbcType=VARCHAR},
+        SERVICE_COUNTY = #{serviceCounty,jdbcType=VARCHAR},
+        SERVICE_ADDRESS = #{serviceAddress,jdbcType=VARCHAR},
+        SERVICE_START = #{serviceStart,jdbcType=TIMESTAMP},
+        SERVICE_END = #{serviceEnd,jdbcType=TIMESTAMP},
+        REMARKS = #{remarks,jdbcType=VARCHAR},
+        SALARY = #{salary},
+        SALARY_TYPE = #{salaryType,jdbcType=VARCHAR},
+        SERVICE_ITEM_CODE = #{serviceItemCode,jdbcType=VARCHAR},
+        SALARY_SKILLS = #{salarySkills,jdbcType=VARCHAR},
+        HOUSE_TYPE = #{houseType,jdbcType=VARCHAR},
+        HOUSE_AREA = #{houseArea,jdbcType=DECIMAL},
+        FAMILY_COUNT = #{familyCount,jdbcType=INTEGER},
+        CHILDREN_COUNT = #{childrenCount,jdbcType=INTEGER},
+        OLDER_COUNT = #{olderCount,jdbcType=INTEGER},
+        CHILDREN_AGE_RANGE = #{childrenAgeRange,jdbcType=VARCHAR},
+        OLDER_AGE_RANGE = #{olderAgeRange,jdbcType=VARCHAR},
+        SELF_CARES = #{selfCares,jdbcType=VARCHAR},
+        IS_BABY_BORN = #{isBabyBorn,jdbcType=VARCHAR},
+        EXPECTED_BIRTH = #{expectedBirth,jdbcType=DATE},
+        BABY_COUNT = #{babyCount,jdbcType=INTEGER},
+        BABY_AGE = #{babyAge,jdbcType=INTEGER},
+        PET_RAISING = #{petRaising,jdbcType=VARCHAR},
+        OTHER_REQUIREMENTS = #{otherRequirements,jdbcType=VARCHAR},
+        SERVICE_TYPE = #{serviceType,jdbcType=VARCHAR},
+        COOKING_REQIREMENTS = #{cookingReqirements,jdbcType=VARCHAR},
+        SPECIFIED_TIME = #{specifiedTime,jdbcType=TIMESTAMP},
+        LANGUAGE_REQUIREMENTS = #{languageRequirements,jdbcType=VARCHAR},
+        PERSONALITY_REQUIREMENTS = #{personalityRequirements,jdbcType=VARCHAR},
+        WAGE_REQUIREMENTS = #{wageRequirements,jdbcType=VARCHAR},
+        SALARY_REQUIREMENTS = #{salaryRequirements,jdbcType=VARCHAR},
+        EXPERIENCE_REQUIREMENTS = #{experienceRequirements,jdbcType=VARCHAR},
+        SPECIAL_NEEDS = #{specialNeeds,jdbcType=VARCHAR},
+        is_usable = #{isUsable,jdbcType=VARCHAR},
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+        add_account = #{addAccount,jdbcType=VARCHAR},
+        modify_account = #{modifyAccount,jdbcType=VARCHAR}
+        where ORDER_NO = #{orderNo,jdbcType=VARCHAR}
+    </update>
+
+    <select id="selectMemberInfoByOrderNo" parameterType="java.lang.String" resultType="java.util.Map">
+        SELECT
+        ORDER_NO 'orderNo',
+        MEMBER_NAME 'memberName',
+        MEMBER_SEX 'memberSex',
+        MEMBER_MOBILE 'memberMobile',
+        SERVICE_PROVICE 'serviceProvice',
+        SERVICE_CITY 'serviceCity',
+        SERVICE_COUNTY 'serviceCounty',
+        SERVICE_ADDRESS 'serviceAddress',
+        FAMILY_COUNT 'familyCount',
+        HOUSE_TYPE 'houseType',
+        HOUSE_AREA 'houseArea',
+        CHILDREN_COUNT 'childrenCount',
+        CHILDREN_AGE_RANGE 'childrenAgeRange',
+        OLDER_COUNT 'olderCount',
+        OLDER_AGE_RANGE 'olderAgeRange',
+        SELF_CARES 'selfCares',
+        IFNULL(IS_BABY_BORN,"") 'isBabyBorn'
+        FROM
+        order_customers_info
+        WHERE
+        ORDER_NO = #{orderNo}
+    </select>
+
+    <select id="selectServiceInfoByOrderNo" parameterType="java.lang.String" resultType="java.util.Map">
+        SELECT
+        ORDER_NO 'orderNo',
+        SERVICE_ITEM_CODE 'serviceItemCode',
+        SERVICE_TYPE 'serviceType',
+        SERVICE_START 'serviceStart',
+        SERVICE_END 'serviceEnd',
+        EXPECTED_BIRTH 'expectedBirth',
+        IS_BABY_BORN 'isBabyBorn',
+        SALARY_TYPE 'salaryType',
+        SALARY 'salary',
+        PET_RAISING 'petRaising',
+        SELF_CARES 'selfCares',
+        SALARY_SKILLS 'salarySkills',
+        LANGUAGE_REQUIREMENTS 'languageRequirements',
+        COOKING_REQIREMENTS 'cookingRequirements',
+        PERSONALITY_REQUIREMENTS 'personalityRequirements',
+        SPECIAL_NEEDS 'specialNeeds',
+        WAGE_REQUIREMENTS 'wageRequirements',
+        EXPERIENCE_REQUIREMENTS 'experienceRequirements'
+        FROM
+        order_customers_info
+        WHERE
+        ORDER_NO = #{orderNo}
+    </select>
+
+    <update id="updateOrdersCustomersInfo" parameterType="java.util.Map">
+        update order_customers_info set
+        SALARY = #{salary},
+        SALARY_TYPE = #{salaryType},
+        WAGE_REQUIREMENTS = #{wageRequirements}
+        where ORDER_NO = #{orderNo}
+    </update>
+
+</mapper>

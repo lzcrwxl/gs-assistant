@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fbee.modules.mybatis.dao.PayInfoMapper">
+    <resultMap id="BaseResultMap" type="com.fbee.modules.mybatis.model.PayInfo">
+        <id column="pay_no" jdbcType="VARCHAR" property="payNo"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="order_no" jdbcType="VARCHAR" property="orderNo"/>
+        <result column="order_desc" jdbcType="VARCHAR" property="orderDesc"/>
+        <result column="amount" jdbcType="INTEGER" property="amount"/>
+        <result column="trade_channel" jdbcType="VARCHAR" property="tradeChannel"/>
+        <result column="origin_channel" jdbcType="VARCHAR" property="originChannel"/>
+        <result column="request_time" jdbcType="TIMESTAMP" property="requestTime"/>
+        <result column="response_time" jdbcType="TIMESTAMP" property="responseTime"/>
+        <result column="request_info" jdbcType="VARCHAR" property="requestInfo"/>
+        <result column="request_url" jdbcType="VARCHAR" property="requestUrl"/>
+        <result column="response_info" jdbcType="VARCHAR" property="responseInfo"/>
+        <result column="result_code" jdbcType="VARCHAR" property="resultCode"/>
+        <result column="err_code" jdbcType="VARCHAR" property="errCode"/>
+        <result column="err_msg" jdbcType="VARCHAR" property="errMsg"/>
+        <result column="token_id" jdbcType="VARCHAR" property="tokenId"/>
+        <result column="pay_info" jdbcType="VARCHAR" property="payInfo"/>
+        <result column="prepay_id" jdbcType="VARCHAR" property="prepayId"/>
+        <result column="callback_time" jdbcType="TIMESTAMP" property="callbackTime"/>
+        <result column="pay_status" jdbcType="VARCHAR" property="payStatus"/>
+        <result column="callback_info" jdbcType="VARCHAR" property="callbackInfo"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        pay_no,order_no,order_desc,amount,origin_channel,trade_channel,request_time,response_time,request_info,
+        request_url,response_info,result_code,err_code,err_msg,token_id,pay_info,prepay_id,callback_time,pay_status,callback_info
+    </sql>
+    <select id="getById" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from pay_info
+        where pay_no = #{pay_no,jdbcType=VARCHAR}
+    </select>
+
+    <insert id="insert" parameterType="com.fbee.modules.mybatis.model.PayInfo">
+        insert into pay_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="payNo != null">
+                pay_no,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="orderNo != null">
+                order_no,
+            </if>
+            <if test="orderDesc != null">
+                order_desc,
+            </if>
+            <if test="amount != null">
+                amount,
+            </if>
+            <if test="originChannel != null">
+                origin_channel,
+            </if>
+            <if test="tradeChannel != null">
+                trade_channel,
+            </if>
+            <if test="requestTime != null">
+                request_time,
+            </if>
+            <if test="responseTime != null">
+                response_time,
+            </if>
+            <if test="requestInfo != null">
+                request_info,
+            </if>
+            <if test="requestUrl != null">
+                request_url,
+            </if>
+            <if test="responseInfo != null">
+                response_info,
+            </if>
+            <if test="errCode != null">
+                err_code,
+            </if>
+            <if test="errMsg != null">
+                err_msg,
+            </if>
+            <if test="tokenId != null">
+                token_id,
+            </if>
+            <if test="payInfo != null">
+                pay_info,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="payNo != null">
+                #{payNo},
+            </if>
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="orderNo != null">
+                #{orderNo},
+            </if>
+            <if test="orderDesc != null">
+                #{orderDesc},
+            </if>
+            <if test="amount != null">
+                #{amount},
+            </if>
+            <if test="originChannel != null">
+                #{originChannel},
+            </if>
+            <if test="tradeChannel != null">
+                #{tradeChannel},
+            </if>
+            <if test="requestTime != null">
+                #{requestTime},
+            </if>
+            <if test="responseTime != null">
+                #{responseTime},
+            </if>
+            <if test="requestInfo != null">
+                #{requestInfo},
+            </if>
+            <if test="requestUrl != null">
+                #{requestUrl},
+            </if>
+            <if test="responseInfo != null">
+                #{responseInfo},
+            </if>
+            <if test="errCode != null">
+                #{errCode},
+            </if>
+            <if test="errMsg != null">
+                #{errMsg},
+            </if>
+            <if test="tokenId != null">
+                #{tokenId},
+            </if>
+            <if test="payInfo != null">
+                #{payInfo},
+            </if>
+        </trim>
+    </insert>
+    <update id="update" parameterType="com.fbee.modules.mybatis.model.PayInfo">
+        update pay_info
+        <set>
+            <if test="responseTime != null">
+                response_time = #{responseTime},
+            </if>
+            <if test="responseInfo != null">
+                response_info = #{responseInfo},
+            </if>
+            <if test="prepayId != null">
+                prepay_id = #{prepayId},
+            </if>
+            <if test="errCode != null">
+                err_code = #{errCode},
+            </if>
+            <if test="errMsg != null">
+                err_msg = #{errMsg},
+            </if>
+            <if test="resultCode != null">
+                result_code = #{resultCode},
+            </if>
+            <if test="tokenId != null">
+                token_id = #{tokenId},
+            </if>
+            <if test="payInfo != null">
+                pay_info = #{payInfo},
+            </if>
+            <if test="callbackTime != null">
+                callback_time = #{callbackTime},
+            </if>
+            <if test="payStatus != null">
+                pay_status = #{payStatus},
+            </if>
+            <if test="callbackInfo != null">
+                callback_info = #{callbackInfo},
+            </if>
+        </set>
+        where pay_no = #{payNo}
+    </update>
+
+
+    <select id="findAllList" parameterType="com.fbee.modules.mybatis.model.PayInfo"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from pay_info
+        <where>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER}
+            </if>
+        </where>
+    </select>
+
+</mapper>

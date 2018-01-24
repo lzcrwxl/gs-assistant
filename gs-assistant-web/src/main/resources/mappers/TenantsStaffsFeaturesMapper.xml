@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fbee.modules.mybatis.dao.TenantsStaffsFeaturesMapper">
+	<resultMap id="BaseResultMap"
+		type="com.fbee.modules.mybatis.entity.TenantsStaffsFeaturesEntity">
+		<id column="STAFF_ID" jdbcType="INTEGER" property="staffId" />
+		<id column="TENANT_ID" jdbcType="INTEGER" property="tenantId" />
+		<id column="FEATURE_CODE" jdbcType="VARCHAR" property="featureCode" />
+		<result column="FEATURE_VALUE" jdbcType="VARCHAR" property="featureValue" />
+		<result column="OTHER_VALUE" jdbcType="VARCHAR" property="otherValue" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		STAFF_ID, TENANT_ID, FEATURE_CODE, FEATURE_VALUE,OTHER_VALUE
+	</sql>
+
+	<select id="getStaffFeatureByKey"
+		parameterType="com.fbee.modules.mybatis.model.TenantsStaffsFeaturesKey"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tenants_staffs_features
+		where STAFF_ID = #{staffId,jdbcType=INTEGER}
+		and TENANT_ID = #{tenantId,jdbcType=INTEGER}
+		and FEATURE_CODE = #{featureCode,jdbcType=VARCHAR}
+	</select>
+
+	<insert id="insert"
+		parameterType="com.fbee.modules.mybatis.entity.TenantsStaffsFeaturesEntity">
+		insert into tenants_staffs_features
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="staffId != null">
+				STAFF_ID,
+			</if>
+			<if test="tenantId != null">
+				TENANT_ID,
+			</if>
+			<if test="featureCode != null">
+				FEATURE_CODE,
+			</if>
+			<if test="featureValue != null">
+				FEATURE_VALUE,
+			</if>
+			<if test="otherValue != null">
+				OTHER_VALUE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="staffId != null">
+				#{staffId,jdbcType=INTEGER},
+			</if>
+			<if test="tenantId != null">
+				#{tenantId,jdbcType=INTEGER},
+			</if>
+			<if test="featureCode != null">
+				#{featureCode,jdbcType=VARCHAR},
+			</if>
+			<if test="featureValue != null">
+				#{featureValue,jdbcType=VARCHAR},
+			</if>
+			<if test="otherValue != null">
+				#{otherValue,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="update"
+		parameterType="com.fbee.modules.mybatis.entity.TenantsStaffsFeaturesEntity">
+		update tenants_staffs_features
+		<set>
+			<if test="featureValue != null">
+				FEATURE_VALUE = #{featureValue,jdbcType=VARCHAR},
+			</if>
+			<if test="otherValue != null">
+				OTHER_VALUE = #{otherValue,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where STAFF_ID = #{staffId,jdbcType=INTEGER}
+		and TENANT_ID = #{tenantId,jdbcType=INTEGER}
+		and FEATURE_CODE = #{featureCode,jdbcType=VARCHAR}
+	</update>
+	
+	<select id="getStaffFeatureByStaffId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tenants_staffs_features
+		where STAFF_ID = #{staffId,jdbcType=INTEGER}
+	</select>
+</mapper>

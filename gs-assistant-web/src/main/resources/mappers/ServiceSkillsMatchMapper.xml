@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fbee.modules.mybatis.dao.ServiceSkillsMatchMapper">
+	<resultMap id="BaseResultMap"
+		type="com.fbee.modules.mybatis.entity.ServiceSkillsMatchEntity">
+		<id column="ID" jdbcType="INTEGER" property="id" />
+		<result column="MATCH_TYPE" jdbcType="VARCHAR" property="matchType" />
+		<result column="FIELD_PRO" jdbcType="VARCHAR" property="fieldPro" />
+		<result column="CODE" jdbcType="VARCHAR" property="code" />
+		<result column="SCORE_TYPE" jdbcType="VARCHAR" property="scoreType" />
+		<result column="REMARKS" jdbcType="VARCHAR" property="remarks" />
+		<result column="SCORE" jdbcType="VARCHAR" property="score" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, MATCH_TYPE, FIELD_PRO, CODE, SCORE_TYPE, REMARKS, SCORE
+	</sql>
+	<select id="select" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from service_skills_match
+		where ID = #{id,jdbcType=INTEGER}
+	</select>
+
+	<insert id="insert"
+		parameterType="com.fbee.modules.mybatis.entity.ServiceSkillsMatchEntity">
+		insert into service_skills_match
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="matchType != null">
+				MATCH_TYPE,
+			</if>
+			<if test="fieldPro != null">
+				FIELD_PRO,
+			</if>
+			<if test="code != null">
+				CODE,
+			</if>
+			<if test="scoreType != null">
+				SCORE_TYPE,
+			</if>
+			<if test="remarks != null">
+				REMARKS,
+			</if>
+			<if test="score != null">
+				SCORE,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="matchType != null">
+				#{matchType,jdbcType=VARCHAR},
+			</if>
+			<if test="fieldPro != null">
+				#{fieldPro,jdbcType=VARCHAR},
+			</if>
+			<if test="code != null">
+				#{code,jdbcType=VARCHAR},
+			</if>
+			<if test="scoreType != null">
+				#{scoreType,jdbcType=VARCHAR},
+			</if>
+			<if test="remarks != null">
+				#{remarks,jdbcType=VARCHAR},
+			</if>
+			<if test="score != null">
+				#{score,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="update"
+		parameterType="com.fbee.modules.mybatis.entity.ServiceSkillsMatchEntity">
+		update service_skills_match
+		<set>
+			<if test="matchType != null">
+				MATCH_TYPE = #{matchType,jdbcType=VARCHAR},
+			</if>
+			<if test="fieldPro != null">
+				FIELD_PRO = #{fieldPro,jdbcType=VARCHAR},
+			</if>
+			<if test="code != null">
+				CODE = #{code,jdbcType=VARCHAR},
+			</if>
+			<if test="scoreType != null">
+				SCORE_TYPE = #{scoreType,jdbcType=VARCHAR},
+			</if>
+			<if test="remarks != null">
+				REMARKS = #{remarks,jdbcType=VARCHAR},
+			</if>
+			<if test="score != null">
+				SCORE = #{score,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=INTEGER}
+	</update>
+	
+	<select id="findAllList" parameterType="com.fbee.modules.mybatis.entity.ServiceSkillsMatchEntity" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from service_skills_match
+	</select>
+
+</mapper>

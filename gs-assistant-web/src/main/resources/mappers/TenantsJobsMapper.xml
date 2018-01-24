@@ -1,0 +1,209 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fbee.modules.mybatis.dao.TenantsJobsMapper">
+    <resultMap id="BaseResultMap" type="com.fbee.modules.mybatis.model.TenantsJobs">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="tenant_id" jdbcType="INTEGER" property="tenantId"/>
+        <result column="tenant_user_id" jdbcType="INTEGER" property="tenantUserId"/>
+        <result column="contact_name" jdbcType="VARCHAR" property="contactName"/>
+        <result column="contact_Phone" jdbcType="VARCHAR" property="contactPhone"/>
+        <result column="position_name" jdbcType="VARCHAR" property="positionName"/>
+        <result column="job_tenant_name" jdbcType="VARCHAR" property="jobTenantName"/>
+        <result column="age" jdbcType="VARCHAR" property="age"/>
+        <result column="salary_type" jdbcType="VARCHAR" property="salaryType"/>
+        <result column="salary" jdbcType="DECIMAL" property="salary"/>
+        <result column="demand" jdbcType="VARCHAR" property="demand"/>
+        <result column="service_type" jdbcType="VARCHAR" property="serviceType"/>
+        <result column="service_mold" jdbcType="VARCHAR" property="serviceMold"/>
+        <result column="service_province" jdbcType="VARCHAR" property="serviceProvince"/>
+        <result column="service_city" jdbcType="VARCHAR" property="serviceCity"/>
+        <result column="service_area" jdbcType="VARCHAR" property="serviceArea"/>
+        <result column="ems_sign" jdbcType="VARCHAR" property="emsSign"/>
+        <result column="is_refreshed" jdbcType="INTEGER" property="isRefreshed"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="order_no" jdbcType="VARCHAR" property="orderNo"/>
+        <result column="skill_requirements" jdbcType="VARCHAR" property="skillRequirements"/>
+        <result column="service_start_time" jdbcType="TIMESTAMP" property="serviceStartTime"/>
+        <result column="service_end_time" jdbcType="TIMESTAMP" property="serviceEndTime"/>
+        <result column="total_num" jdbcType="INTEGER" property="totalNum"/>
+        <result column="used_num" jdbcType="INTEGER" property="usedNum"/>
+        <result column="order_status" jdbcType="VARCHAR" property="orderStatus"/>
+        <result column="deposit" jdbcType="DECIMAL" property="deposit"/>
+        <result column="finished_time" jdbcType="TIMESTAMP" property="finishedTime"/>
+        <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
+        <result column="add_account" jdbcType="VARCHAR" property="addAccount"/>
+        <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime"/>
+        <result column="modify_account" jdbcType="VARCHAR" property="modifyAccount"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, tenant_id, tenant_user_id, contact_name, contact_phone, position_name, age, salary_type, salary, demand,
+        service_type, service_mold,job_tenant_name,
+        service_province, service_city, service_area, ems_sign, is_refreshed, status, order_status,
+        order_no, skill_requirements, service_start_time, service_end_time, total_num,used_num,deposit, finished_time,
+        add_time,add_account, modify_time, modify_account
+    </sql>
+
+    <select id="getById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tenants_jobs
+        where id = #{id}
+    </select>
+    <select id="getByOrderNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tenants_jobs
+        where order_no = #{value}
+    </select>
+
+
+    <insert id="insert" parameterType="com.fbee.modules.mybatis.model.TenantsJobs" useGeneratedKeys="true" keyProperty="id">
+        insert into tenants_jobs (
+        id, tenant_id, tenant_user_id, position_name, job_tenant_name, age, salary_type, salary, demand, service_type, service_mold,
+        service_province, service_city, service_area, ems_sign, is_refreshed, status, order_status, is_usable, add_time,
+        order_no, skill_requirements, service_start_time, service_end_time, total_num,used_num, visual_extend,
+        add_account, modify_time, modify_account, deposit, contact_name, contact_phone
+        )
+        values (
+        #{id}, #{tenantId}, #{tenantUserId},#{positionName},#{jobTenantName}, #{age}, #{salaryType}, #{salary}, #{demand},
+        #{serviceType}, #{serviceMold},
+        #{serviceProvince}, #{serviceCity}, #{serviceArea}, #{emsSign}, #{isRefreshed}, #{status}, #{orderStatus},
+        1, #{addTime},
+        #{orderNo}, #{skillRequirements}, #{serviceStartTime}, #{serviceEndTime}, #{totalNum}, #{usedNum},#{visualExtend},
+        #{addAccount}, #{modifyTime}, #{modifyAccount}, #{deposit}, #{contactName}, #{contactPhone}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.fbee.modules.mybatis.model.TenantsJobs">
+        update tenants_jobs
+        <set>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="orderStatus != null">
+                order_status = #{orderStatus},
+            </if>
+            <if test="isRefreshed != null">
+                is_refreshed = #{isRefreshed},
+            </if>
+            <if test="finishedTime != null">
+                finished_time = #{finishedTime},
+            </if>
+            <if test="modifyAccount != null">
+                modify_account = #{modifyAccount},
+            </if>
+            modify_time = now()
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="resetRefresh">
+        update tenants_jobs set is_refreshed = 0 where is_refreshed = 1
+    </update>
+
+    <select id="getTenantsJobsInfoCount" parameterType="com.fbee.modules.core.page.form.TenantJobForm" resultType="int">
+        select
+        count(1)
+        from tenants_jobs a
+        where is_usable = 1
+        <if test="isApplyable != null and isApplyable == 1" > and status = 1 and  used_num <![CDATA[ < ]]> total_num</if>
+        <if test="resumeStatus != null and resumeStatus != ''">and b.status = #{resumeStatus}</if>
+        <if test="jobStatus != null and jobStatus != '' ">and status = #{jobStatus}</if>
+        <if test="serviceType != null and serviceType  != '' ">and service_type = #{serviceType}</if>
+        <if test="salaryMin != null and salaryMin  != '' ">and salary <![CDATA[ >= ]]> #{salaryMin}</if>
+        <if test="salaryMax != null and salaryMax  != '' ">and salary <![CDATA[ < ]]> #{salaryMax}</if>
+        <if test="salaryType != null and salaryType  != '' ">
+        	<if test="salaryType == '01'">
+        		and salary_type in (01,03)
+        	</if>
+        	<if test="salaryType == '02'">
+        		and salary_type = 04
+        	</if>
+        	<if test="salaryType == '03'">
+        		and salary_type = 02
+        	</if>
+        </if>
+        <if test="age != null and age != '' ">and age = #{age}</if>
+        <if test="serviceProvince != null and serviceProvince != '' ">and service_province = #{serviceProvince}</if>
+        <if test="orderNo != null and orderNo != '' ">and order_no = #{orderNo}</if>
+        <if test="withOutSelf != null and withOutSelf != '' ">and tenant_user_id != #{tenantUserId}</if>
+        <if test="modifyTime != null and modifyTime != ''">and DATE_FORMAT(modify_time,'%Y-%d-%m') = DATE_FORMAT(#{modifyTime},'%Y-%d-%m') </if>
+        <if test="visualExtend != null and visualExtend != ''">
+            <choose>
+                <when test="visualExtend == 0"> and 1=1 </when>
+                <otherwise>and (visual_extend = #{visualExtend} or visual_extend='0')</otherwise>
+            </choose>
+        </if>
+        <if test="onlySelf != null and onlySelf != '' ">
+            <choose>
+                <when test="isAdmin==1">
+                    and tenant_id=#{tenantId}
+                    <if test="queryUserId !=null and queryUserId != ''">and tenant_user_id = #{queryUserId}</if>
+                </when>
+                <otherwise>
+                    and tenant_user_id = #{tenantUserId}
+                </otherwise>
+            </choose>
+        </if>
+    </select>
+    <select id="getTenantsJobsInfoList" parameterType="com.fbee.modules.core.page.form.TenantJobForm"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tenants_jobs a
+        where is_usable = 1
+        <if test="isApplyable != null and isApplyable == 1" > and status = 1 and  used_num <![CDATA[ < ]]> total_num</if>
+        <if test="resumeStatus != null and resumeStatus != ''">and b.status = #{resumeStatus}</if>
+        <if test="jobStatus != null and jobStatus != '' ">and status = #{jobStatus}</if>
+        <if test="serviceType != null and serviceType  != '' ">and service_type = #{serviceType}</if>
+        <if test="salaryMin != null and salaryMin  != '' ">and salary <![CDATA[ >= ]]> #{salaryMin}</if>
+        <if test="salaryMax != null and salaryMax  != '' ">and salary <![CDATA[ < ]]> #{salaryMax}</if>
+        <if test="salaryType != null and salaryType  != '' ">
+        	<if test="salaryType == '01'">
+        		and salary_type in (01,03)
+        	</if>
+        	<if test="salaryType == '02'">
+        		and salary_type = 04
+        	</if>
+        	<if test="salaryType == '03'">
+        		and salary_type = 02
+        	</if>
+        </if>
+        <if test="age != null and age != '' ">and age = #{age}</if>
+        <if test="serviceProvince != null and serviceProvince != '' ">and service_province = #{serviceProvince}</if>
+        <if test="orderNo != null and orderNo != '' ">and order_no = #{orderNo}</if>
+        <if test="withOutSelf != null and withOutSelf != '' ">and tenant_user_id != #{tenantUserId}</if>
+        <if test="modifyTime != null and modifyTime != ''">and DATE_FORMAT(modify_time,'%Y-%d-%m') = DATE_FORMAT(#{modifyTime},'%Y-%d-%m') </if>
+        <if test="visualExtend != null and visualExtend != ''">
+            <choose>
+                <when test="visualExtend == 0"> and 1=1 </when>
+                <otherwise>and (visual_extend = #{visualExtend} or visual_extend='0')</otherwise>
+            </choose>
+        </if>
+        <if test="onlySelf != null and onlySelf != '' ">
+            <choose>
+                <when test="isAdmin==1">
+                    and tenant_id=#{tenantId}
+                    <if test="queryUserId !=null and queryUserId != ''">and tenant_user_id = #{queryUserId}</if>
+                </when>
+                <otherwise>
+                    and tenant_user_id = #{tenantUserId}
+                </otherwise>
+            </choose>
+        </if>
+        order by modify_time desc
+        limit #{offset},#{rowNum}
+    </select>
+
+    <update id="useOneResumeNum" parameterType="com.fbee.modules.mybatis.model.TenantsJobs">
+        update tenants_jobs set
+        used_num = used_num +1,
+        modify_account = #{modifyAccount},
+        modify_time = now()
+        where id = #{id}
+        and used_num = #{usedNum}
+        <![CDATA[ and used_num  <  total_num ]]>
+    </update>
+
+</mapper>

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fbee.modules.mybatis.dao.DictionarysMapper">
+	<resultMap id="BaseResultMap"
+		type="com.fbee.modules.mybatis.entity.DictionarysEntity">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="parent_id" jdbcType="INTEGER" property="parentId" />
+		<result column="type_code" jdbcType="VARCHAR" property="typeCode" />
+		<result column="code" jdbcType="VARCHAR" property="code" />
+		<result column="value" jdbcType="VARCHAR" property="value" />
+		<result column="level" jdbcType="VARCHAR" property="level" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, parent_id, type_code, code, value, level
+	</sql>
+
+	<insert id="insert" parameterType="com.fbee.modules.mybatis.entity.DictionarysEntity">
+		insert into dictionarys
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="parentId != null">
+				parent_id,
+			</if>
+			<if test="typeCode != null">
+				type_code,
+			</if>
+			<if test="code != null">
+				code,
+			</if>
+			<if test="value != null">
+				value,
+			</if>
+			<if test="level != null">
+				level,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="parentId != null">
+				#{parentId,jdbcType=INTEGER},
+			</if>
+			<if test="typeCode != null">
+				#{typeCode,jdbcType=VARCHAR},
+			</if>
+			<if test="code != null">
+				#{code,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null">
+				#{value,jdbcType=VARCHAR},
+			</if>
+			<if test="level != null">
+				#{level,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.fbee.modules.mybatis.entity.DictionarysEntity">
+		update dictionarys
+		<set>
+			<if test="parentId != null">
+				parent_id = #{parentId,jdbcType=INTEGER},
+			</if>
+			<if test="typeCode != null">
+				type_code = #{typeCode,jdbcType=VARCHAR},
+			</if>
+			<if test="code != null">
+				code = #{code,jdbcType=VARCHAR},
+			</if>
+			<if test="value != null">
+				value = #{value,jdbcType=VARCHAR},
+			</if>
+			<if test="level != null">
+				level = #{level,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<!-- 查询服务工种下拉列表 -->
+	<select id="getServiceType" resultType="java.util.Map" >
+		select a.code "code",a.value "serviceType" from dictionarys a where a.type_code = 'SERVICE_TYPES' and a.level = 1 and code in ('01','02','03','04','05','06')
+	</select>
+	
+	<select id="getServiceTypeZp" resultType="java.util.Map" >
+		select a.code "code",a.value "serviceType" from dictionarys a where a.type_code = 'SERVICE_TYPES' and a.level = 1 and code in ('01','02','03','04','05','06','07')
+	</select>
+	
+	<select id="getServiceTypeByLevel" parameterType="java.lang.String" resultMap="BaseResultMap" >
+		select
+		<include refid="Base_Column_List" />
+		from dictionarys
+		where level = #{level,jdbcType=VARCHAR}
+		order by type_code,code asc
+	</select>
+	
+	
+</mapper>

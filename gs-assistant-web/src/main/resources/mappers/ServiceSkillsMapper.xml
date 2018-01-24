@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fbee.modules.mybatis.dao.ServiceSkillsMapper">
+	<resultMap id="BaseResultMap"
+		type="com.fbee.modules.mybatis.entity.ServiceSkillsEntity">
+		<id column="ID" jdbcType="INTEGER" property="id" />
+		<result column="ATTRBUTE" jdbcType="VARCHAR" property="attrbute" />
+		<result column="ITEM_CODE" jdbcType="VARCHAR" property="itemCode" />
+		<result column="SKILLS_KEY" jdbcType="VARCHAR" property="skillsKey" />
+		<result column="SKILLS_VALUE" jdbcType="VARCHAR" property="skillsValue" />
+		<result column="PAR_SKILLS_KEY" jdbcType="VARCHAR" property="parSkillsKey" />
+		<result column="SORT" jdbcType="VARCHAR" property="sort" />
+		<result column="level" jdbcType="VARCHAR" property="level" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, ATTRBUTE, ITEM_CODE, SKILLS_KEY, SKILLS_VALUE,
+		PAR_SKILLS_KEY, SORT,level
+	</sql>
+
+	<insert id="insert" parameterType="com.fbee.modules.mybatis.entity.ServiceSkillsEntity">
+		insert into service_skills
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="attrbute != null">
+				ATTRBUTE,
+			</if>
+			<if test="itemCode != null">
+				ITEM_CODE,
+			</if>
+			<if test="skillsKey != null">
+				SKILLS_KEY,
+			</if>
+			<if test="skillsValue != null">
+				SKILLS_VALUE,
+			</if>
+			<if test="parSkillsKey != null">
+				PAR_SKILLS_KEY,
+			</if>
+			<if test="sort != null">
+				SORT,
+			</if>
+			<if test="level != null">
+				level,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="attrbute != null">
+				#{attrbute,jdbcType=VARCHAR},
+			</if>
+			<if test="itemCode != null">
+				#{itemCode,jdbcType=VARCHAR},
+			</if>
+			<if test="skillsKey != null">
+				#{skillsKey,jdbcType=VARCHAR},
+			</if>
+			<if test="skillsValue != null">
+				#{skillsValue,jdbcType=VARCHAR},
+			</if>
+			<if test="parSkillsKey != null">
+				#{parSkillsKey,jdbcType=VARCHAR},
+			</if>
+			<if test="sort != null">
+				#{sort,jdbcType=VARCHAR},
+			</if>
+			<if test="level != null">
+				#{level,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="update" parameterType="com.fbee.modules.mybatis.entity.ServiceSkillsEntity">
+		update service_skills
+		<set>
+			<if test="attrbute != null">
+				ATTRBUTE = #{attrbute,jdbcType=VARCHAR},
+			</if>
+			<if test="itemCode != null">
+				ITEM_CODE = #{itemCode,jdbcType=VARCHAR},
+			</if>
+			<if test="skillsKey != null">
+				SKILLS_KEY = #{skillsKey,jdbcType=VARCHAR},
+			</if>
+			<if test="skillsValue != null">
+				SKILLS_VALUE = #{skillsValue,jdbcType=VARCHAR},
+			</if>
+			<if test="parSkillsKey != null">
+				PAR_SKILLS_KEY = #{parSkillsKey,jdbcType=VARCHAR},
+			</if>
+			<if test="sort != null">
+				SORT = #{sort,jdbcType=VARCHAR},
+			</if>
+			<if test="level != null">
+				level = #{level,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=INTEGER}
+	</update>
+
+	<select id="getServiceSkills" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from service_skills where ATTRBUTE= #{attrbute,jdbcType=VARCHAR}
+		order
+		by sort asc
+	</select>
+</mapper>

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fbee.modules.mybatis.dao.OrderContractInfoMapper">
+  <resultMap id="BaseResultMap" type="com.fbee.modules.mybatis.model.OrderContractInfo">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="ORDER_NO" jdbcType="VARCHAR" property="orderNo" />
+    <result column="CONTRACT_URL" jdbcType="VARCHAR" property="contractUrl" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, ORDER_NO, CONTRACT_URL
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from order_contract_info
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from order_contract_info
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fbee.modules.mybatis.model.OrderContractInfo">
+    insert into order_contract_info (ID, ORDER_NO, CONTRACT_URL
+      )
+    values (#{id,jdbcType=INTEGER}, #{orderNo,jdbcType=VARCHAR}, #{contractUrl,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.fbee.modules.mybatis.model.OrderContractInfo">
+    insert into order_contract_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="orderNo != null">
+        ORDER_NO,
+      </if>
+      <if test="contractUrl != null">
+        CONTRACT_URL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="contractUrl != null">
+        #{contractUrl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fbee.modules.mybatis.model.OrderContractInfo">
+    update order_contract_info
+    <set>
+      <if test="orderNo != null">
+        ORDER_NO = #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="contractUrl != null">
+        CONTRACT_URL = #{contractUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fbee.modules.mybatis.model.OrderContractInfo">
+    update order_contract_info
+    set ORDER_NO = #{orderNo,jdbcType=VARCHAR},
+      CONTRACT_URL = #{contractUrl,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 根据订单流水号获取合同详情  -->
+  <select id="selectContractInfoByOrderNo" parameterType="java.lang.String" resultType="java.util.Map">
+    SELECT
+      ID 'id',
+      ORDER_NO 'orderNo',
+      CONTRACT_URL 'contractUrl'
+	FROM
+	   order_contract_info
+	WHERE
+	   ORDER_NO = #{orderNo}
+  </select>
+  
+  <!-- 根据订单流水号获取合同记录条数 -->
+  <select id="getCountByOrderNo" parameterType="java.lang.String" resultType="int">
+     SELECT COUNT(0) FROM order_contract_info WHERE ORDER_NO = #{orderNo}
+  </select>
+  
+  <!-- 根据订单号获取合同图片的id -->
+  <select id="getContractsByOrderNo" parameterType="java.lang.String" resultType="java.lang.String">
+     SELECT 
+       ID
+     FROM 
+      order_contract_info 
+     WHERE ORDER_NO = #{orderNo}
+  </select>
+  
+</mapper>

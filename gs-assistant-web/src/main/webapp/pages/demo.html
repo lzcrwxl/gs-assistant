@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="jquery-1.9.1.js"></script>
+</head>
+<body>
+      服务工种：<input type="text" readonly="true" id="n1"/><br>
+      服务价格：<input type="number" id="n2"/>
+      <select id="n3">
+         <option value="元起/26天">元起/26天</option>
+         <option value="元/月">元/月</option>
+         <option value="元起/月">元起/月</option>
+         <option value="元起/小时">元起/小时</option>
+         <option value="/月">/月</option>
+      </select><br>
+     服务描述：<input type="text" id="n4"/><br>
+     Hot标签：<select id="n5">
+                <option value="1">是</option>
+                <option value="0">否</option>
+              </select><br>
+     服务对象：<input type="text" id="n6"/><br>
+     服务内容：<input type="text" id="n7"/><br>
+   <button id="btn" onclick="submit1()">提交</button>
+</body>
+<script type="text/javascript">
+   function submit1(){
+	   var 
+   }
+   
+   $(document).ready(function() {
+	   $.ajax(function(){
+		   url:"http://localhost:8080/fbeeConsole_web/api/staffs/updateServiceItem ",
+	       type:"get",
+	       
+	   });
+   }
+</script>
+</html>

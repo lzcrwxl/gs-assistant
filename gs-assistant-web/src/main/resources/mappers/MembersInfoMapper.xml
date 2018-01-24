@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fbee.modules.mybatis.dao.MembersInfoMapper">
+	<resultMap id="BaseResultMap"
+		type="com.fbee.modules.mybatis.entity.MembersInfoEntity">
+		<id column="ID" jdbcType="INTEGER" property="id" />
+		<result column="mobile" jdbcType="VARCHAR" property="mobile" />
+		<result column="salt" jdbcType="VARCHAR" property="salt" />
+		<result column="login_password" jdbcType="VARCHAR" property="loginPassword" />
+		<result column="user_status" jdbcType="VARCHAR" property="userStatus" />
+		<result column="openid" jdbcType="VARCHAR" property="openId" />
+		<result column="register_time" jdbcType="TIMESTAMP" property="registerTime" />
+		<result column="pwd_try_count" jdbcType="INTEGER" property="pwdTryCount" />
+		<result column="is_locked" jdbcType="VARCHAR" property="isLocked" />
+		<result column="lock_time" jdbcType="TIMESTAMP" property="lockTime" />
+		<result column="last_login_time" jdbcType="TIMESTAMP" property="lastLoginTime" />
+		<result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+		<result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+		<result column="first_wrong_time" jdbcType="TIMESTAMP"
+			property="firstWrongTime" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, mobile, salt, login_password, user_status, openid, register_time,
+		pwd_try_count,name,
+		is_locked, lock_time, last_login_time, add_time, modify_time, first_wrong_time
+	</sql>
+
+	<select id="getById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from members_info where id=#{id}
+	</select>
+
+	<insert id="insert" parameterType="com.fbee.modules.mybatis.entity.MembersInfoEntity">
+		insert into members_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="mobile != null">
+				mobile,
+			</if>
+			<if test="salt != null">
+				salt,
+			</if>
+			<if test="loginPassword != null">
+				login_password,
+			</if>
+			<if test="userStatus != null">
+				user_status,
+			</if>
+			<if test="openId != null">
+				openid,
+			</if>
+			<if test="registerTime != null">
+				register_time,
+			</if>
+			<if test="pwdTryCount != null">
+				pwd_try_count,
+			</if>
+			<if test="isLocked != null">
+				is_locked,
+			</if>
+			<if test="lockTime != null">
+				lock_time,
+			</if>
+			<if test="lastLoginTime != null">
+				last_login_time,
+			</if>
+			<if test="addTime != null">
+				add_time,
+			</if>
+			<if test="modifyTime != null">
+				modify_time,
+			</if>
+			<if test="firstWrongTime != null">
+				first_wrong_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="mobile != null">
+				#{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="salt != null">
+				#{salt,jdbcType=VARCHAR},
+			</if>
+			<if test="loginPassword != null">
+				#{loginPassword,jdbcType=VARCHAR},
+			</if>
+			<if test="userStatus != null">
+				#{userStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="openId != null">
+				#{openId,jdbcType=VARCHAR},
+			</if>
+			<if test="registerTime != null">
+				#{registerTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="pwdTryCount != null">
+				#{pwdTryCount,jdbcType=INTEGER},
+			</if>
+			<if test="isLocked != null">
+				#{isLocked,jdbcType=VARCHAR},
+			</if>
+			<if test="lockTime != null">
+				#{lockTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="lastLoginTime != null">
+				#{lastLoginTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="addTime != null">
+				#{addTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyTime != null">
+				#{modifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="firstWrongTime != null">
+				#{firstWrongTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="update" parameterType="com.fbee.modules.mybatis.entity.MembersInfoEntity">
+		update members_info
+		<set>
+			<if test="mobile != null">
+				mobile = #{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="salt != null">
+				salt = #{salt,jdbcType=VARCHAR},
+			</if>
+			<if test="loginPassword != null">
+				login_password = #{loginPassword,jdbcType=VARCHAR},
+			</if>
+			<if test="userStatus != null">
+				user_status = #{userStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="openId != null">
+				openid = #{openId,jdbcType=VARCHAR},
+			</if>
+			<if test="registerTime != null">
+				register_time = #{registerTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="pwdTryCount != null">
+				pwd_try_count = #{pwdTryCount,jdbcType=INTEGER},
+			</if>
+			<if test="isLocked != null">
+				is_locked = #{isLocked,jdbcType=VARCHAR},
+			</if>
+			<if test="lockTime != null">
+				lock_time = #{lockTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="lastLoginTime != null">
+				last_login_time = #{lastLoginTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="addTime != null">
+				add_time = #{addTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="firstWrongTime != null">
+				first_wrong_time = #{firstWrongTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>

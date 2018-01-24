@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fbee.modules.mybatis.dao.CtlOperateRecordsMapper">
+	<resultMap id="BaseResultMap"
+		type="com.fbee.modules.mybatis.entity.CtlOperateRecordsEntity">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="operate_account" jdbcType="VARCHAR" property="operateAccount" />
+		<result column="operate_time" jdbcType="TIMESTAMP" property="operateTime" />
+		<result column="action" jdbcType="VARCHAR" property="action" />
+		<result column="tables" jdbcType="VARCHAR" property="tables" />
+		<result column="update_contents" jdbcType="VARCHAR" property="updateContents" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, operate_account, operate_time, action, tables, update_contents
+	</sql>
+
+	<insert id="insert"
+		parameterType="com.fbee.modules.mybatis.entity.CtlOperateRecordsEntity">
+		insert into ctl_operate_records
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="operateAccount != null">
+				operate_account,
+			</if>
+			<if test="operateTime != null">
+				operate_time,
+			</if>
+			<if test="action != null">
+				action,
+			</if>
+			<if test="tables != null">
+				tables,
+			</if>
+			<if test="updateContents != null">
+				update_contents,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="operateAccount != null">
+				#{operateAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="operateTime != null">
+				#{operateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="action != null">
+				#{action,jdbcType=VARCHAR},
+			</if>
+			<if test="tables != null">
+				#{tables,jdbcType=VARCHAR},
+			</if>
+			<if test="updateContents != null">
+				#{updateContents,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="update"
+		parameterType="com.fbee.modules.mybatis.entity.CtlOperateRecordsEntity">
+		update ctl_operate_records
+		<set>
+			<if test="operateAccount != null">
+				operate_account = #{operateAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="operateTime != null">
+				operate_time = #{operateTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="action != null">
+				action = #{action,jdbcType=VARCHAR},
+			</if>
+			<if test="tables != null">
+				tables = #{tables,jdbcType=VARCHAR},
+			</if>
+			<if test="updateContents != null">
+				update_contents = #{updateContents,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>

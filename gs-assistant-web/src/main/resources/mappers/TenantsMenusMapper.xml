@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fbee.modules.mybatis.dao.TenantsMenusMapper">
+	<resultMap id="BaseResultMap"
+		type="com.fbee.modules.mybatis.entity.TenantsMenusEntity">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<id column="tenant_id" jdbcType="INTEGER" property="tenantId" />
+		<result column="parent_id" jdbcType="INTEGER" property="parentId" />
+		<result column="parent_ids" jdbcType="VARCHAR" property="parentIds" />
+		<result column="name" jdbcType="VARCHAR" property="name" />
+		<result column="sort" jdbcType="CHAR" property="sort" />
+		<result column="href" jdbcType="VARCHAR" property="href" />
+		<result column="target" jdbcType="VARCHAR" property="target" />
+		<result column="icon" jdbcType="VARCHAR" property="icon" />
+		<result column="is_show" jdbcType="VARCHAR" property="isShow" />
+		<result column="permission" jdbcType="VARCHAR" property="permission" />
+		<result column="remarks" jdbcType="VARCHAR" property="remarks" />
+		<result column="is_usable" jdbcType="VARCHAR" property="isUsable" />
+		<result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+		<result column="add_account" jdbcType="VARCHAR" property="addAccount" />
+		<result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+		<result column="modify_account" jdbcType="VARCHAR" property="modifyAccount" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, tenant_id, parent_id, parent_ids, name, sort, href, target, icon,
+		is_show, permission,
+		remarks, is_usable, add_time, add_account, modify_time, modify_account
+	</sql>
+
+	<update id="update" parameterType="com.fbee.modules.mybatis.entity.TenantsMenusEntity">
+		update tenants_menus
+		<set>
+			<if test="parentId != null">
+				parent_id = #{parentId,jdbcType=INTEGER},
+			</if>
+			<if test="parentIds != null">
+				parent_ids = #{parentIds,jdbcType=VARCHAR},
+			</if>
+			<if test="name != null">
+				name = #{name,jdbcType=VARCHAR},
+			</if>
+			<if test="sort != null">
+				sort = #{sort,jdbcType=CHAR},
+			</if>
+			<if test="href != null">
+				href = #{href,jdbcType=VARCHAR},
+			</if>
+			<if test="target != null">
+				target = #{target,jdbcType=VARCHAR},
+			</if>
+			<if test="icon != null">
+				icon = #{icon,jdbcType=VARCHAR},
+			</if>
+			<if test="isShow != null">
+				is_show = #{isShow,jdbcType=VARCHAR},
+			</if>
+			<if test="permission != null">
+				permission = #{permission,jdbcType=VARCHAR},
+			</if>
+			<if test="remarks != null">
+				remarks = #{remarks,jdbcType=VARCHAR},
+			</if>
+			<if test="isUsable != null">
+				is_usable = #{isUsable,jdbcType=VARCHAR},
+			</if>
+			<if test="addTime != null">
+				add_time = #{addTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="addAccount != null">
+				add_account = #{addAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyAccount != null">
+				modify_account = #{modifyAccount,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+		and tenant_id = #{tenantId,jdbcType=INTEGER}
+	</update>
+	
+	
+	<sql id="menuJoins">
+		LEFT JOIN tenants_menus p ON p.id = a.parent_id
+   	</sql>
+   
+   	<sql id="menuColumns">
+   		a.tenant_id tenantId,
+		a.id,
+		a.parent_id parentId,
+		a.parent_ids parentIds,
+		a.parent_id AS "parent.id",
+		a.name,
+		a.href,
+		a.target,
+		a.icon,
+		a.sort,
+		a.is_show isShow,
+		a.permission,
+		a.remarks,
+		a.is_usable isUsable,
+		p.name AS "parent.name"
+	</sql>
+	
+	<select id="getUserMenus" resultType="com.fbee.modules.mybatis.entity.TenantsMenusEntity">
+		SELECT
+			<include refid="menuColumns"/>
+		FROM tenants_menus a
+		<include refid="menuJoins"/>
+		WHERE a.is_usable ='1'
+		AND a.tenant_id = #{tenantId,jdbcType=INTEGER}
+		AND p.tenant_id = #{tenantId,jdbcType=INTEGER}
+		ORDER BY a.sort
+	</select>
+</mapper>

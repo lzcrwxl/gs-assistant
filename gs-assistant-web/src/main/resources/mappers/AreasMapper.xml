@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fbee.modules.mybatis.dao.AreasMapper">
+  <resultMap id="BaseResultMap" type="com.fbee.modules.mybatis.entity.AreasEntity">
+    <id column="CODE" jdbcType="VARCHAR" property="code" />
+    <result column="AREA_NAME" jdbcType="VARCHAR" property="areaName" />
+    <result column="PARENT_CODE" jdbcType="VARCHAR" property="parentCode" />
+    <result column="AREA_LEVEL" jdbcType="VARCHAR" property="areaLevel" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    CODE, AREA_NAME, PARENT_CODE, AREA_LEVEL
+  </sql>
+  
+
+  <insert id="insert" parameterType="com.fbee.modules.mybatis.entity.AreasEntity">
+    insert into areas
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="code != null">
+        CODE,
+      </if>
+      <if test="areaName != null">
+        AREA_NAME,
+      </if>
+      <if test="parentCode != null">
+        PARENT_CODE,
+      </if>
+      <if test="areaLevel != null">
+        AREA_LEVEL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="code != null">
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="areaName != null">
+        #{areaName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentCode != null">
+        #{parentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="areaLevel != null">
+        #{areaLevel,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.fbee.modules.mybatis.entity.AreasEntity">
+    update areas
+    <set>
+      <if test="areaName != null">
+        AREA_NAME = #{areaName,jdbcType=VARCHAR},
+      </if>
+      <if test="parentCode != null">
+        PARENT_CODE = #{parentCode,jdbcType=VARCHAR},
+      </if>
+      <if test="areaLevel != null">
+        AREA_LEVEL = #{areaLevel,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where CODE = #{code,jdbcType=VARCHAR}
+  </update>
+  
+  <!-- 根据级别获取区域数据 -->
+  <select id="getAreaListByLevel" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List"/> from areas where AREA_LEVEL = #{areaLevel,jdbcType=VARCHAR}
+  </select>
+  
+</mapper>

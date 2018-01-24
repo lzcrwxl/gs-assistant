@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fbee.modules.mybatis.dao.SmsRecordsMapper">
+	<resultMap id="BaseResultMap"
+		type="com.fbee.modules.mybatis.entity.SmsRecordsEntity">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="SMS_ID" jdbcType="VARCHAR" property="smsId" />
+		<result column="mobile" jdbcType="VARCHAR" property="mobile" />
+		<result column="content_type" jdbcType="VARCHAR" property="contentType" />
+		<result column="content" jdbcType="VARCHAR" property="content" />
+		<result column="result" jdbcType="VARCHAR" property="result" />
+		<result column="failed_reason" jdbcType="VARCHAR" property="failedReason" />
+		<result column="sp_code" jdbcType="VARCHAR" property="spCode" />
+		<result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+		<result column="result_confrim_time" jdbcType="TIMESTAMP"
+			property="resultConfrimTime" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, SMS_ID, mobile, content_type, content, result, failed_reason,
+		sp_code, add_time,
+		result_confrim_time
+	</sql>
+
+	<insert id="insert" parameterType="com.fbee.modules.mybatis.entity.SmsRecordsEntity">
+		insert into sms_records
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="smsId != null">
+				SMS_ID,
+			</if>
+			<if test="mobile != null">
+				mobile,
+			</if>
+			<if test="contentType != null">
+				content_type,
+			</if>
+			<if test="content != null">
+				content,
+			</if>
+			<if test="result != null">
+				result,
+			</if>
+			<if test="failedReason != null">
+				failed_reason,
+			</if>
+			<if test="spCode != null">
+				sp_code,
+			</if>
+			<if test="addTime != null">
+				add_time,
+			</if>
+			<if test="resultConfrimTime != null">
+				result_confrim_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="smsId != null">
+				#{smsId,jdbcType=VARCHAR},
+			</if>
+			<if test="mobile != null">
+				#{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="contentType != null">
+				#{contentType,jdbcType=VARCHAR},
+			</if>
+			<if test="content != null">
+				#{content,jdbcType=VARCHAR},
+			</if>
+			<if test="result != null">
+				#{result,jdbcType=VARCHAR},
+			</if>
+			<if test="failedReason != null">
+				#{failedReason,jdbcType=VARCHAR},
+			</if>
+			<if test="spCode != null">
+				#{spCode,jdbcType=VARCHAR},
+			</if>
+			<if test="addTime != null">
+				#{addTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="resultConfrimTime != null">
+				#{resultConfrimTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="update" parameterType="com.fbee.modules.mybatis.entity.SmsRecordsEntity">
+		update sms_records
+		<set>
+			<if test="smsId != null">
+				SMS_ID = #{smsId,jdbcType=VARCHAR},
+			</if>
+			<if test="mobile != null">
+				mobile = #{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="contentType != null">
+				content_type = #{contentType,jdbcType=VARCHAR},
+			</if>
+			<if test="content != null">
+				content = #{content,jdbcType=VARCHAR},
+			</if>
+			<if test="result != null">
+				result = #{result,jdbcType=VARCHAR},
+			</if>
+			<if test="failedReason != null">
+				failed_reason = #{failedReason,jdbcType=VARCHAR},
+			</if>
+			<if test="spCode != null">
+				sp_code = #{spCode,jdbcType=VARCHAR},
+			</if>
+			<if test="addTime != null">
+				add_time = #{addTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="resultConfrimTime != null">
+				result_confrim_time = #{resultConfrimTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>

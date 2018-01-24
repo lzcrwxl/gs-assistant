@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fbee.modules.mybatis.dao.OrderChangehsRecordsMapper">
+	<resultMap id="BaseResultMap"
+		type="com.fbee.modules.mybatis.entity.OrderChangehsRecordsEntity">
+		<id column="ID" jdbcType="INTEGER" property="id" />
+		<result column="ORDER_NO" jdbcType="VARCHAR" property="orderNo" />
+		<result column="HS_REMARK" jdbcType="VARCHAR" property="hsRemark" />
+		<result column="mx_id" jdbcType="INTEGER" property="mxId" />
+		<result column="hs_application_time" jdbcType="TIMESTAMP" property="hsApplicationTime" />
+		<result column="hs_handling_time" jdbcType="TIMESTAMP" property="hsHandlingTime" />
+
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, ORDER_NO, HS_REMARK, hs_application_time, hs_handling_time,mx_id
+	</sql>
+
+	<select id="queryInfo" resultMap="BaseResultMap" parameterType="com.fbee.modules.mybatis.entity.OrderChangehsRecordsEntity" >
+		select
+		<include refid="Base_Column_List" />
+		from order_changehs_records
+		where ORDER_NO = #{orderNo,jdbcType=VARCHAR}  ORDER BY mx_id desc
+	</select>
+
+	<insert id="insertChangehs" parameterType="com.fbee.modules.mybatis.entity.OrderChangehsRecordsEntity">
+		insert into order_changehs_records
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="mxId != null">
+				mx_id,
+			</if>
+			<if test="orderNo != null">
+				ORDER_NO,
+			</if>
+			<if test="hsRemark != null">
+				HS_REMARK,
+			</if>
+			<if test="hsApplicationTime != null">
+				hs_application_time,
+			</if>
+			<if test="hsHandlingTime != null">
+				hs_handling_time,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="mxId != null">
+				#{mxId,jdbcType=INTEGER},
+			</if>
+			<if test="orderNo != null">
+				#{orderNo,jdbcType=VARCHAR},
+			</if>
+			<if test="hsRemark != null">
+				#{hsRemark,jdbcType=VARCHAR},
+			</if>
+			<if test="hsApplicationTime != null">
+				#{hsApplicationTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="hsHandlingTime != null">
+				#{hsHandlingTime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateChangehs" parameterType="com.fbee.modules.mybatis.entity.OrderChangehsRecordsEntity">
+		update order_changehs_records
+		<set>
+			<if test="id != null">
+				ID = #{id,jdbcType=INTEGER},
+			</if>
+			<if test="orderNo != null">
+				ORDER_NO = #{orderNo,jdbcType=VARCHAR},
+			</if>
+			<if test="hsRemark != null">
+				HS_REMARK = #{hsRemark,jdbcType=VARCHAR},
+			</if>
+			<if test="hsApplicationTime != null">
+				hs_application_time = #{hsApplicationTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="hsHandlingTime != null">
+				hs_handling_time = #{hsHandlingTime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where ORDER_NO = #{orderNo,jdbcType=VARCHAR} and mx_id=#{mxId,jdbcType=INTEGER}
+	</update>
+
+	<select id="queryMxid" resultMap="BaseResultMap" parameterType="com.fbee.modules.mybatis.entity.OrderChangehsRecordsEntity" >
+		select
+			ifnull(max(mx_id),0)+1 mx_id
+		from order_changehs_records
+		where ORDER_NO = #{orderNo,jdbcType=VARCHAR}
+	</select>
+</mapper>

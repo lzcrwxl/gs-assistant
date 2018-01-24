@@ -1,0 +1,1434 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fbee.modules.mybatis.dao.TenantsStaffsInfoMapper">
+	<resultMap id="BaseResultMap"
+		type="com.fbee.modules.mybatis.entity.TenantsStaffsInfoEntity">
+		<id column="STAFF_ID" jdbcType="INTEGER" property="staffId" />
+		<result column="TENANT_ID" jdbcType="INTEGER" property="tenantId" />
+		<result column="STAFF_NAME" jdbcType="VARCHAR" property="staffName" />
+		<result column="STAFF_NO" jdbcType="VARCHAR" property="staffNo" />
+		<result column="HEAD_IMAGE" jdbcType="VARCHAR" property="headImage" />
+		<result column="CERT_NO" jdbcType="VARCHAR" property="certNo" />
+		<result column="CERT_IMAGE" jdbcType="VARCHAR" property="certImage" />
+		<result column="SEX" jdbcType="VARCHAR" property="sex" />
+		<result column="NATION" jdbcType="VARCHAR" property="nation" />
+		<result column="AGE" jdbcType="INTEGER" property="age" />
+		<result column="ZODIAC" jdbcType="VARCHAR" property="zodiac" />
+		<result column="NATIVE_PLACE" jdbcType="VARCHAR" property="nativePlace" />
+		<result column="CONSTELLATION" jdbcType="VARCHAR" property="constellation" />
+		<result column="HOUSE_ADDRESS" jdbcType="VARCHAR" property="houseAddress" />
+		<result column="MOBILE" jdbcType="VARCHAR" property="mobile" />
+		<result column="EDUCARION" jdbcType="VARCHAR" property="educarion" />
+		<result column="SPECIALTY" jdbcType="VARCHAR" property="specialty" />
+		<result column="MARITAL_STATUS" jdbcType="VARCHAR" property="maritalStatus" />
+		<result column="FERTILITY_SITUATION" jdbcType="VARCHAR" property="fertilitySituation" />
+		<result column="WEIGHT" jdbcType="VARCHAR" property="weight" />
+		<result column="HEIGHT" jdbcType="DECIMAL" property="height" />
+		<result column="BLOOD_TYPE" jdbcType="VARCHAR" property="bloodType" />
+		<result column="EXPECTED_SALARY" jdbcType="INTEGER" property="expectedSalary" />
+		<result column="LIVE_ADDRESS" jdbcType="VARCHAR" property="liveAddress" />
+		<result column="CONTACT_PHONE" jdbcType="VARCHAR" property="contactPhone" />
+		<result column="CONTACT_ADDRESS" jdbcType="VARCHAR" property="contactAddress" />
+		<result column="WORK_STATUS" jdbcType="VARCHAR" property="workStatus" />
+		<result column="ON_OFF_SHELF" jdbcType="VARCHAR" property="onOffShelf" />
+		<result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+		<result column="add_account" jdbcType="VARCHAR" property="addAccount" />
+		<result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+		<result column="modify_account" jdbcType="VARCHAR" property="modifyAccount" />
+		<result column="CV" jdbcType="VARCHAR" property="cv" />
+		<result column="share_status" jdbcType="VARCHAR" property="shareStatus" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		STAFF_NAME, HEAD_IMAGE, CERT_NO, CERT_IMAGE, SEX, NATION,
+		AGE,
+		ZODIAC, NATIVE_PLACE, CONSTELLATION, HOUSE_ADDRESS, MOBILE,
+		EDUCARION,
+		SPECIALTY,
+		MARITAL_STATUS, FERTILITY_SITUATION, WEIGHT,
+		HEIGHT, BLOOD_TYPE, EXPECTED_SALARY,
+		LIVE_ADDRESS, CONTACT_PHONE,
+		CONTACT_ADDRESS, WORK_STATUS,
+		ON_OFF_SHELF,CV, share_status,staff_no
+	</sql>
+	
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		STAFF_ID,
+		TENANT_ID,
+		add_time,
+		add_account,
+		modify_time,
+		modify_account,
+		<include refid="Base_Column_List" />
+		from tenants_staffs_info
+		where STAFF_ID = #{staffId,jdbcType=INTEGER}
+	</select>
+	
+	<select id="getAllCertNo" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		STAFF_ID,
+		TENANT_ID,
+		add_time,
+		add_account,
+		modify_time,
+		modify_account,
+		<include refid="Base_Column_List" />
+		from tenants_staffs_info
+	</select>
+	
+	
+	
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		tenants_staffs_info
+		where STAFF_ID = #{staffId,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.fbee.modules.mybatis.model.TenantsStaffsInfo">
+	    <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="staffId">
+  		   SELECT LAST_INSERT_ID()
+        </selectKey>
+		insert into
+		tenants_staffs_info (STAFF_ID, TENANT_ID, STAFF_NAME,
+		HEAD_IMAGE,
+		CERT_NO, CERT_IMAGE,
+		SEX, NATION, AGE, ZODIAC,
+		NATIVE_PLACE,
+		CONSTELLATION, HOUSE_ADDRESS,
+		MOBILE, EDUCARION, SPECIALTY,
+		MARITAL_STATUS, FERTILITY_SITUATION, WEIGHT,
+		HEIGHT, BLOOD_TYPE,
+		EXPECTED_SALARY,
+		LIVE_ADDRESS, CONTACT_PHONE, CONTACT_ADDRESS,
+		WORK_STATUS, ON_OFF_SHELF, add_time,
+		add_account, modify_time,
+		modify_account,
+		CV, share_status)
+		values (#{staffId,jdbcType=INTEGER},
+		#{tenantId,jdbcType=INTEGER},
+		#{staffName,jdbcType=VARCHAR},
+		#{headImage,jdbcType=VARCHAR}, #{certNo,jdbcType=VARCHAR},
+		#{certImage,jdbcType=VARCHAR},
+		#{sex,jdbcType=VARCHAR},
+		#{nation,jdbcType=VARCHAR},
+		#{age,jdbcType=INTEGER},
+		#{zodiac,jdbcType=VARCHAR},
+		#{nativePlace,jdbcType=VARCHAR},
+		#{constellation,jdbcType=VARCHAR},
+		#{houseAddress,jdbcType=VARCHAR},
+		#{mobile,jdbcType=VARCHAR}, #{educarion,jdbcType=VARCHAR},
+		#{specialty,jdbcType=VARCHAR},
+		#{maritalStatus,jdbcType=VARCHAR},
+		#{fertilitySituation,jdbcType=VARCHAR}, #{weight,jdbcType=VARCHAR},
+		#{height,jdbcType=DECIMAL}, #{bloodType,jdbcType=VARCHAR},
+		#{expectedSalary,jdbcType=INTEGER},
+		#{liveAddress,jdbcType=VARCHAR},
+		#{contactPhone,jdbcType=VARCHAR}, #{contactAddress,jdbcType=VARCHAR},
+		#{workStatus,jdbcType=VARCHAR}, #{onOffShelf,jdbcType=VARCHAR},
+		#{addTime,jdbcType=TIMESTAMP},
+		#{addAccount,jdbcType=VARCHAR},
+		#{modifyTime,jdbcType=TIMESTAMP}, #{modifyAccount,jdbcType=VARCHAR},
+		#{cv,jdbcType=VARCHAR}, #{shareStatus,jdbcType=VARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.fbee.modules.mybatis.model.TenantsStaffsInfo">
+	    <selectKey resultType="java.lang.Integer" order="AFTER" keyProperty="staffId">
+  		   SELECT LAST_INSERT_ID()
+        </selectKey>
+		insert into tenants_staffs_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="staffId != null">
+				STAFF_ID,
+			</if>
+			<if test="tenantId != null">
+				TENANT_ID,
+			</if>
+			<if test="staffName != null">
+				STAFF_NAME,
+			</if>
+			<if test="headImage != null">
+				HEAD_IMAGE,
+			</if>
+			<if test="certNo != null">
+				CERT_NO,
+			</if>
+			<if test="certImage != null">
+				CERT_IMAGE,
+			</if>
+			<if test="sex != null">
+				SEX,
+			</if>
+			<if test="nation != null">
+				NATION,
+			</if>
+			<if test="age != null">
+				AGE,
+			</if>
+			<if test="zodiac != null">
+				ZODIAC,
+			</if>
+			<if test="nativePlace != null">
+				NATIVE_PLACE,
+			</if>
+			<if test="constellation != null">
+				CONSTELLATION,
+			</if>
+			<if test="houseAddress != null">
+				HOUSE_ADDRESS,
+			</if>
+			<if test="mobile != null">
+				MOBILE,
+			</if>
+			<if test="educarion != null">
+				EDUCARION,
+			</if>
+			<if test="specialty != null">
+				SPECIALTY,
+			</if>
+			<if test="maritalStatus != null">
+				MARITAL_STATUS,
+			</if>
+			<if test="fertilitySituation != null">
+				FERTILITY_SITUATION,
+			</if>
+			<if test="weight != null">
+				WEIGHT,
+			</if>
+			<if test="height != null">
+				HEIGHT,
+			</if>
+			<if test="bloodType != null">
+				BLOOD_TYPE,
+			</if>
+			<if test="expectedSalary != null">
+				EXPECTED_SALARY,
+			</if>
+			<if test="liveAddress != null">
+				LIVE_ADDRESS,
+			</if>
+			<if test="contactPhone != null">
+				CONTACT_PHONE,
+			</if>
+			<if test="contactAddress != null">
+				CONTACT_ADDRESS,
+			</if>
+			<if test="workStatus != null">
+				WORK_STATUS,
+			</if>
+			<if test="onOffShelf != null">
+				ON_OFF_SHELF,
+			</if>
+			<if test="addTime != null">
+				add_time,
+			</if>
+			<if test="addAccount != null">
+				add_account,
+			</if>
+			<if test="modifyTime != null">
+				modify_time,
+			</if>
+			<if test="modifyAccount != null">
+				modify_account,
+			</if>
+			<if test="cv != null">
+				CV,
+			</if>
+			<if test="shareStatus != null">
+				share_status,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="staffId != null">
+				#{staffId,jdbcType=INTEGER},
+			</if>
+			<if test="tenantId != null">
+				#{tenantId,jdbcType=INTEGER},
+			</if>
+			<if test="staffName != null">
+				#{staffName,jdbcType=VARCHAR},
+			</if>
+			<if test="headImage != null">
+				#{headImage,jdbcType=VARCHAR},
+			</if>
+			<if test="certNo != null">
+				#{certNo,jdbcType=VARCHAR},
+			</if>
+			<if test="certImage != null">
+				#{certImage,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				#{sex,jdbcType=VARCHAR},
+			</if>
+			<if test="nation != null">
+				#{nation,jdbcType=VARCHAR},
+			</if>
+			<if test="age != null">
+				#{age,jdbcType=INTEGER},
+			</if>
+			<if test="zodiac != null">
+				#{zodiac,jdbcType=VARCHAR},
+			</if>
+			<if test="nativePlace != null">
+				#{nativePlace,jdbcType=VARCHAR},
+			</if>
+			<if test="constellation != null">
+				#{constellation,jdbcType=VARCHAR},
+			</if>
+			<if test="houseAddress != null">
+				#{houseAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="mobile != null">
+				#{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="educarion != null">
+				#{educarion,jdbcType=VARCHAR},
+			</if>
+			<if test="specialty != null">
+				#{specialty,jdbcType=VARCHAR},
+			</if>
+			<if test="maritalStatus != null">
+				#{maritalStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="fertilitySituation != null">
+				#{fertilitySituation,jdbcType=VARCHAR},
+			</if>
+			<if test="weight != null">
+				#{weight,jdbcType=VARCHAR},
+			</if>
+			<if test="height != null">
+				#{height,jdbcType=DECIMAL},
+			</if>
+			<if test="bloodType != null">
+				#{bloodType,jdbcType=VARCHAR},
+			</if>
+			<if test="expectedSalary != null">
+				#{expectedSalary,jdbcType=INTEGER},
+			</if>
+			<if test="liveAddress != null">
+				#{liveAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="contactPhone != null">
+				#{contactPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="contactAddress != null">
+				#{contactAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="workStatus != null">
+				#{workStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="onOffShelf != null">
+				#{onOffShelf,jdbcType=VARCHAR},
+			</if>
+			<if test="addTime != null">
+				#{addTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="addAccount != null">
+				#{addAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyTime != null">
+				#{modifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyAccount != null">
+				#{modifyAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="cv != null">
+				#{cv,jdbcType=VARCHAR},
+			</if>
+			<if test="shareStatus != null">
+				#{shareStatus,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.fbee.modules.mybatis.model.TenantsStaffsInfo">
+		update tenants_staffs_info
+		<set>
+			<if test="tenantId != null">
+				TENANT_ID = #{tenantId,jdbcType=INTEGER},
+			</if>
+			<if test="staffName != null">
+				STAFF_NAME = #{staffName,jdbcType=VARCHAR},
+			</if>
+			<if test="staffNo != null">
+				STAFF_NO = #{staffNo,jdbcType=VARCHAR},
+			</if>
+			<if test="headImage != null">
+				HEAD_IMAGE = #{headImage,jdbcType=VARCHAR},
+			</if>
+			<if test="certNo != null">
+				CERT_NO = #{certNo,jdbcType=VARCHAR},
+			</if>
+			<if test="certImage != null">
+				CERT_IMAGE = #{certImage,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				SEX = #{sex,jdbcType=VARCHAR},
+			</if>
+			<if test="nation != null">
+				NATION = #{nation,jdbcType=VARCHAR},
+			</if>
+			<if test="age != null">
+				AGE = #{age,jdbcType=INTEGER},
+			</if>
+			<if test="zodiac != null">
+				ZODIAC = #{zodiac,jdbcType=VARCHAR},
+			</if>
+			<if test="nativePlace != null">
+				NATIVE_PLACE = #{nativePlace,jdbcType=VARCHAR},
+			</if>
+			<if test="constellation != null">
+				CONSTELLATION = #{constellation,jdbcType=VARCHAR},
+			</if>
+			<if test="houseAddress != null">
+				HOUSE_ADDRESS = #{houseAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="mobile != null">
+				MOBILE = #{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="educarion != null">
+				EDUCARION = #{educarion,jdbcType=VARCHAR},
+			</if>
+			<if test="specialty != null">
+				SPECIALTY = #{specialty,jdbcType=VARCHAR},
+			</if>
+			<if test="maritalStatus != null">
+				MARITAL_STATUS = #{maritalStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="fertilitySituation != null">
+				FERTILITY_SITUATION =
+				#{fertilitySituation,jdbcType=VARCHAR},
+			</if>
+			<if test="weight != null">
+				WEIGHT = #{weight,jdbcType=VARCHAR},
+			</if>
+			<if test="height != null">
+				HEIGHT = #{height,jdbcType=DECIMAL},
+			</if>
+			<if test="bloodType != null">
+				BLOOD_TYPE = #{bloodType,jdbcType=VARCHAR},
+			</if>
+			<if test="expectedSalary != null">
+				EXPECTED_SALARY = #{expectedSalary,jdbcType=INTEGER},
+			</if>
+			<if test="liveAddress != null">
+				LIVE_ADDRESS = #{liveAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="contactPhone != null">
+				CONTACT_PHONE = #{contactPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="contactAddress != null">
+				CONTACT_ADDRESS = #{contactAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="workStatus != null">
+				WORK_STATUS = #{workStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="onOffShelf != null">
+				ON_OFF_SHELF = #{onOffShelf,jdbcType=VARCHAR},
+			</if>
+			<if test="addTime != null">
+				add_time = #{addTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="addAccount != null">
+				add_account = #{addAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyAccount != null">
+				modify_account = #{modifyAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="cv != null">
+				CV = #{cv,jdbcType=VARCHAR},
+			</if>
+			<if test="shareStatus != null">
+				share_status = #{shareStatus,jdbcType=VARCHAR},
+			</if>
+			modify_time = now()
+		</set>
+		where STAFF_ID = #{staffId,jdbcType=INTEGER}
+	</update>
+	
+	<update id="update" parameterType="com.fbee.modules.mybatis.entity.TenantsStaffsInfoEntity">
+		update tenants_staffs_info
+		<set>
+			<if test="tenantId != null">
+				TENANT_ID = #{tenantId,jdbcType=INTEGER},
+			</if>
+			<if test="staffName != null">
+				STAFF_NAME = #{staffName,jdbcType=VARCHAR},
+			</if>
+			<if test="staffNo != null">
+				STAFF_NO = #{staffNo,jdbcType=VARCHAR},
+			</if>
+			<if test="headImage != null">
+				HEAD_IMAGE = #{headImage,jdbcType=VARCHAR},
+			</if>
+			<if test="certNo != null">
+				CERT_NO = #{certNo,jdbcType=VARCHAR},
+			</if>
+			<if test="certImage != null">
+				CERT_IMAGE = #{certImage,jdbcType=VARCHAR},
+			</if>
+			<if test="sex != null">
+				SEX = #{sex,jdbcType=VARCHAR},
+			</if>
+			<if test="nation != null">
+				NATION = #{nation,jdbcType=VARCHAR},
+			</if>
+			<if test="age != null">
+				AGE = #{age,jdbcType=INTEGER},
+			</if>
+			<if test="zodiac != null">
+				ZODIAC = #{zodiac,jdbcType=VARCHAR},
+			</if>
+			<if test="nativePlace != null">
+				NATIVE_PLACE = #{nativePlace,jdbcType=VARCHAR},
+			</if>
+			<if test="constellation != null">
+				CONSTELLATION = #{constellation,jdbcType=VARCHAR},
+			</if>
+			<if test="houseAddress != null">
+				HOUSE_ADDRESS = #{houseAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="mobile != null">
+				MOBILE = #{mobile,jdbcType=VARCHAR},
+			</if>
+			<if test="educarion != null">
+				EDUCARION = #{educarion,jdbcType=VARCHAR},
+			</if>
+			<if test="specialty != null">
+				SPECIALTY = #{specialty,jdbcType=VARCHAR},
+			</if>
+			<if test="maritalStatus != null">
+				MARITAL_STATUS = #{maritalStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="fertilitySituation != null">
+				FERTILITY_SITUATION =
+				#{fertilitySituation,jdbcType=VARCHAR},
+			</if>
+			<if test="weight != null">
+				WEIGHT = #{weight,jdbcType=VARCHAR},
+			</if>
+			<if test="height != null">
+				HEIGHT = #{height,jdbcType=DECIMAL},
+			</if>
+			<if test="bloodType != null">
+				BLOOD_TYPE = #{bloodType,jdbcType=VARCHAR},
+			</if>
+			<if test="expectedSalary != null">
+				EXPECTED_SALARY = #{expectedSalary,jdbcType=INTEGER},
+			</if>
+			<if test="liveAddress != null">
+				LIVE_ADDRESS = #{liveAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="contactPhone != null">
+				CONTACT_PHONE = #{contactPhone,jdbcType=VARCHAR},
+			</if>
+			<if test="contactAddress != null">
+				CONTACT_ADDRESS = #{contactAddress,jdbcType=VARCHAR},
+			</if>
+			<if test="workStatus != null">
+				WORK_STATUS = #{workStatus,jdbcType=VARCHAR},
+			</if>
+			<if test="onOffShelf != null">
+				ON_OFF_SHELF = #{onOffShelf,jdbcType=VARCHAR},
+			</if>
+			<if test="addTime != null">
+				add_time = #{addTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="addAccount != null">
+				add_account = #{addAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyAccount != null">
+				modify_account = #{modifyAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="cv != null">
+				CV = #{cv,jdbcType=VARCHAR},
+			</if>
+			<if test="shareStatus != null">
+				share_status = #{shareStatus,jdbcType=VARCHAR},
+			</if>
+			modify_time = now()
+		</set>
+		where STAFF_ID = #{staffId,jdbcType=INTEGER}
+	</update>
+	
+	<update id="updateStaffInfo" parameterType="com.fbee.modules.mybatis.entity.TenantsStaffsInfoEntity">
+		update tenants_staffs_info set
+				MOBILE = #{mobile,jdbcType=VARCHAR},
+				EDUCARION = #{educarion,jdbcType=VARCHAR},
+				SPECIALTY = #{specialty,jdbcType=VARCHAR},
+				MARITAL_STATUS = #{maritalStatus,jdbcType=VARCHAR},
+				FERTILITY_SITUATION =
+				#{fertilitySituation,jdbcType=VARCHAR},
+				WEIGHT = #{weight,jdbcType=VARCHAR},
+				HEIGHT = #{height,jdbcType=DECIMAL},
+				BLOOD_TYPE = #{bloodType,jdbcType=VARCHAR},
+				LIVE_ADDRESS = #{liveAddress,jdbcType=VARCHAR},
+				CONTACT_PHONE = #{contactPhone,jdbcType=VARCHAR}
+		where STAFF_ID = #{staffId,jdbcType=INTEGER}
+	</update>
+	
+	<!-- 修改家政员上下架 -->
+	<update id="updateStaffOnOffShelf" parameterType="com.fbee.modules.mybatis.entity.TenantsStaffsInfoEntity">
+		update tenants_staffs_info set ON_OFF_SHELF = #{onOffShelf,jdbcType=VARCHAR}
+		where STAFF_ID = #{staffId,jdbcType=INTEGER}
+	</update>
+	
+	<update id="updateByPrimaryKey" parameterType="com.fbee.modules.mybatis.model.TenantsStaffsInfo">
+		update
+		tenants_staffs_info
+		set TENANT_ID = #{tenantId,jdbcType=INTEGER},
+		STAFF_NAME = #{staffName,jdbcType=VARCHAR},
+		HEAD_IMAGE =
+		#{headImage,jdbcType=VARCHAR},
+		CERT_NO = #{certNo,jdbcType=VARCHAR},
+		CERT_IMAGE = #{certImage,jdbcType=VARCHAR},
+		SEX =
+		#{sex,jdbcType=VARCHAR},
+		NATION = #{nation,jdbcType=VARCHAR},
+		AGE =
+		#{age,jdbcType=INTEGER},
+		ZODIAC = #{zodiac,jdbcType=VARCHAR},
+		NATIVE_PLACE = #{nativePlace,jdbcType=VARCHAR},
+		CONSTELLATION =
+		#{constellation,jdbcType=VARCHAR},
+		HOUSE_ADDRESS =
+		#{houseAddress,jdbcType=VARCHAR},
+		MOBILE = #{mobile,jdbcType=VARCHAR},
+		EDUCARION = #{educarion,jdbcType=VARCHAR},
+		SPECIALTY =
+		#{specialty,jdbcType=VARCHAR},
+		MARITAL_STATUS =
+		#{maritalStatus,jdbcType=VARCHAR},
+		FERTILITY_SITUATION =
+		#{fertilitySituation,jdbcType=VARCHAR},
+		WEIGHT =
+		#{weight,jdbcType=VARCHAR},
+		HEIGHT = #{height,jdbcType=DECIMAL},
+		BLOOD_TYPE = #{bloodType,jdbcType=VARCHAR},
+		EXPECTED_SALARY =
+		#{expectedSalary,jdbcType=INTEGER},
+		LIVE_ADDRESS =
+		#{liveAddress,jdbcType=VARCHAR},
+		CONTACT_PHONE =
+		#{contactPhone,jdbcType=VARCHAR},
+		CONTACT_ADDRESS =
+		#{contactAddress,jdbcType=VARCHAR},
+		WORK_STATUS =
+		#{workStatus,jdbcType=VARCHAR},
+		ON_OFF_SHELF =
+		#{onOffShelf,jdbcType=VARCHAR},
+		add_time =
+		#{addTime,jdbcType=TIMESTAMP},
+		add_account =
+		#{addAccount,jdbcType=VARCHAR},
+		modify_time =
+		#{modifyTime,jdbcType=TIMESTAMP},
+		modify_account =
+		#{modifyAccount,jdbcType=VARCHAR},
+		CV = #{cv,jdbcType=VARCHAR},
+		share_status = #{shareStatus,jdbcType=VARCHAR}
+		where STAFF_ID =
+		#{staffId,jdbcType=INTEGER}
+	</update>
+
+	<select id="getStaffQueryCount" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select
+		count(0)
+		from tenants_staffs_info a
+		where a.TENANT_ID = #{tenantId,jdbcType=INTEGER}
+		<if test="staffName != '' and staffName != null">
+			AND  a.STAFF_NAME LIKE #{staffName}
+		</if>
+		<if test="staffNo != '' and staffNo != null">
+			AND  a.staff_no LIKE #{staffNo}
+		</if>
+	    <if test="mobile != '' and mobile != null">
+	      AND  a.MOBILE LIKE #{mobile}
+	    </if>
+	    <if test="serviceItemCode != '' and serviceItemCode != null">
+	      AND  EXISTS(SELECT b.SERVICE_ITEM_CODE from tenants_staff_ser_items b WHERE a.STAFF_ID = b.STAFF_ID and a.TENANT_ID = b.TENANT_ID and b.is_usable='1' and b.SERVICE_ITEM_CODE = #{serviceItemCode})
+	    </if>
+	    <if test="experience != '' and experience != null">
+	      AND  EXISTS(SELECT b.EXPERIENCE from tenants_staff_job_info b WHERE a.STAFF_ID = b.STAFF_ID and a.TENANT_ID = b.TENANT_ID and b.is_usable='1' and b.EXPERIENCE = #{experience})
+	    </if>
+	    <if test="skills != '' and skills != null">
+	      AND  EXISTS(SELECT b.SKILLS from tenants_staff_ser_items b WHERE a.STAFF_ID = b.STAFF_ID and a.TENANT_ID = b.TENANT_ID and b.is_usable='1' and b.SERVICE_ITEM_CODE = #{serviceItemCode} and b.SKILLS LIKE REPLACE(#{skills},',', '%'))
+	    </if>
+	    <!-- 谢辉新增根据证书筛选 -->
+	    <if test="certType != '' and certType != null">
+  			AND  EXISTS(SELECT b.CERT_TYPE from tenants_staff_certs_info b WHERE a.STAFF_ID = b.STAFF_ID and a.TENANT_ID = b.TENANT_ID and b.CERTIFIED_STATUS='02'and b.is_usable='01'and b.CERT_TYPE = #{certType})
+		</if>
+		
+		 <if test="authenticateGrade != '' and authenticateGrade != null">
+  			AND  EXISTS(SELECT b.authenticate_grade from tenants_staff_certs_info b WHERE a.STAFF_ID = b.STAFF_ID and a.TENANT_ID = b.TENANT_ID and b.CERTIFIED_STATUS='02'and b.is_usable='01'and b.CERT_TYPE = #{certType} and b.authenticate_grade=#{authenticateGrade})
+		</if>
+	    <if test="education != '' and education != null">
+	      AND  a.EDUCARION = #{education}
+	    </if>
+	    <if test="ageMax != '' and ageMax != null">
+	      AND  a.AGE <![CDATA[ <= ]]> #{ageMax}
+	    </if>
+	    <if test="ageMin != '' and ageMin != null">
+	      AND  a.AGE <![CDATA[ >= ]]> #{ageMin}
+	    </if>
+	    <if test="zodiac != '' and zodiac != null">
+	      AND  a.ZODIAC = #{zodiac}
+	    </if>
+	    <if test="nativePlace != '' and nativePlace != null">
+	      AND  a.NATIVE_PLACE = #{nativePlace}
+	    </if>
+	    <if test="workStatus != '' and workStatus != null">
+	      AND  a.WORK_STATUS = #{workStatus}
+	    </if>
+	    <if test="languageFeature != '' and languageFeature != null">
+	      AND  EXISTS(SELECT c.language_feature from tenants_staff_job_info c WHERE a.STAFF_ID = c.STAFF_ID and a.TENANT_ID = c.TENANT_ID AND c.language_feature LIKE #{languageFeature})
+	    </if>
+	    <if test="cookingFeature != '' and cookingFeature != null">
+	      AND  EXISTS(SELECT c.cooking_feature from tenants_staff_job_info c WHERE a.STAFF_ID = c.STAFF_ID and a.TENANT_ID = c.TENANT_ID AND c.cooking_feature LIKE #{cookingFeature})
+	    </if>
+	    <if test="characerFeature != '' and characerFeature != null">
+	      AND  EXISTS(SELECT c.characer_feature from tenants_staff_job_info c WHERE a.STAFF_ID = c.STAFF_ID and a.TENANT_ID = c.TENANT_ID AND c.characer_feature LIKE #{characerFeature})
+	    </if>
+	    <if test="petFeeding != '' and petFeeding != null">
+	      AND  EXISTS(SELECT c.pet_feeding from tenants_staff_job_info c WHERE a.STAFF_ID = c.STAFF_ID and a.TENANT_ID = c.TENANT_ID AND c.pet_feeding = #{petFeeding})
+	    </if>
+	    <if test="elderlySupport != '' and elderlySupport != null">  
+	      AND  EXISTS(SELECT c.elderly_support from tenants_staff_job_info c WHERE a.STAFF_ID = c.STAFF_ID and a.TENANT_ID = c.TENANT_ID AND c.elderly_support = #{elderlySupport})
+	    </if>
+	    <if test="onOffShelf != '' and onOffShelf != null"> 
+	      AND  a.ON_OFF_SHELF = #{onOffShelf}
+	    </if>
+	    and (a.MOBILE is not null or a.MOBILE != '')
+	    order by a.add_time desc
+	</select>
+
+	<select id="getStaffQueryList" parameterType="map" resultMap="BaseResultMap">
+		select
+		STAFF_ID,
+		TENANT_ID,
+		add_time,
+		add_account,
+		modify_time,
+		modify_account,
+		STAFF_NAME, HEAD_IMAGE, CERT_NO, CERT_IMAGE, SEX, NATION,
+		AGE,
+		ZODIAC, NATIVE_PLACE, CONSTELLATION, HOUSE_ADDRESS, MOBILE,
+		EDUCARION,
+		SPECIALTY,
+		MARITAL_STATUS, FERTILITY_SITUATION, WEIGHT,
+		HEIGHT, BLOOD_TYPE, EXPECTED_SALARY,
+		LIVE_ADDRESS, CONTACT_PHONE,
+		CONTACT_ADDRESS,
+		ON_OFF_SHELF,CV, share_status,
+		if(a.WORK_STATUS = '01', '服务中', '待聘') as WORK_STATUS
+		from tenants_staffs_info a
+		where a.TENANT_ID = #{tenantId,jdbcType=INTEGER}
+		<if test="staffName != '' and staffName != null">
+	      AND  a.STAFF_NAME LIKE #{staffName}
+	    </if>
+		<if test="staffNo != '' and staffNo != null">
+			AND  a.staff_no LIKE #{staffNo}
+		</if>
+		<if test="mobile != '' and mobile != null">
+	      AND  a.MOBILE LIKE #{mobile}
+	    </if>
+	    <if test="serviceItemCode != '' and serviceItemCode != null">
+	      AND  EXISTS(SELECT b.SERVICE_ITEM_CODE from tenants_staff_ser_items b WHERE a.STAFF_ID = b.STAFF_ID and b.is_usable='1' and a.TENANT_ID = b.TENANT_ID and b.SERVICE_ITEM_CODE = #{serviceItemCode})
+	    </if>
+	    <if test="experience != '' and experience != null">
+	      AND  EXISTS(SELECT b.EXPERIENCE from tenants_staff_job_info b WHERE a.STAFF_ID = b.STAFF_ID and b.is_usable='1' and a.TENANT_ID = b.TENANT_ID and b.EXPERIENCE = #{experience})
+	    </if>
+	    <if test="skills != '' and skills != null">
+	      AND  EXISTS(SELECT b.SKILLS from tenants_staff_ser_items b WHERE a.STAFF_ID = b.STAFF_ID and b.is_usable='1' and a.TENANT_ID = b.TENANT_ID and b.SERVICE_ITEM_CODE = #{serviceItemCode} and b.SKILLS LIKE REPLACE(#{skills},',', '%') )
+	    </if>
+	    
+	    <!-- 谢辉新增根据证书筛选 -->
+	    <if test="certType != '' and certType != null">
+  			AND  EXISTS(SELECT b.CERT_TYPE from tenants_staff_certs_info b WHERE a.STAFF_ID = b.STAFF_ID and a.TENANT_ID = b.TENANT_ID and b.CERTIFIED_STATUS='02'and b.is_usable='01'and b.CERT_TYPE = #{certType})
+		</if>
+		
+		 <if test="authenticateGrade != '' and authenticateGrade != null">
+  			AND  EXISTS(SELECT b.authenticate_grade from tenants_staff_certs_info b WHERE a.STAFF_ID = b.STAFF_ID and a.TENANT_ID = b.TENANT_ID and b.CERTIFIED_STATUS='02'and b.is_usable='01'and b.CERT_TYPE = #{certType}  and b.authenticate_grade=#{authenticateGrade})
+		</if>
+		
+	    <if test="education != '' and education != null">
+	      AND  a.EDUCARION = #{education}
+	    </if>
+	    <if test="ageMax != '' and ageMax != null">
+	      AND  a.AGE <![CDATA[ <= ]]> #{ageMax}
+	    </if>
+	    <if test="ageMin != '' and ageMin != null">
+	      AND  a.AGE <![CDATA[ >= ]]> #{ageMin}
+	    </if>
+	    <if test="zodiac != '' and zodiac != null">
+	      AND  a.ZODIAC = #{zodiac}
+	    </if>
+	    <if test="nativePlace != '' and nativePlace != null">
+	      AND  a.NATIVE_PLACE = #{nativePlace}
+	    </if>
+	    <if test="workStatus != '' and workStatus != null">
+	      AND  a.WORK_STATUS = #{workStatus}
+	    </if>
+	    <if test="languageFeature != '' and languageFeature != null">
+	      AND  EXISTS(SELECT c.language_feature from tenants_staff_job_info c WHERE a.STAFF_ID = c.STAFF_ID and a.TENANT_ID = c.TENANT_ID AND c.language_feature LIKE #{languageFeature})
+	    </if>
+	    <if test="cookingFeature != '' and cookingFeature != null">
+	      AND  EXISTS(SELECT c.cooking_feature from tenants_staff_job_info c WHERE a.STAFF_ID = c.STAFF_ID and a.TENANT_ID = c.TENANT_ID AND c.cooking_feature LIKE #{cookingFeature})
+	    </if>
+	    <if test="characerFeature != '' and characerFeature != null">
+	      AND  EXISTS(SELECT c.characer_feature from tenants_staff_job_info c WHERE a.STAFF_ID = c.STAFF_ID and a.TENANT_ID = c.TENANT_ID AND c.characer_feature LIKE #{characerFeature})
+	    </if>
+	    <if test="petFeeding != '' and petFeeding != null">
+	      AND  EXISTS(SELECT c.pet_feeding from tenants_staff_job_info c WHERE a.STAFF_ID = c.STAFF_ID and a.TENANT_ID = c.TENANT_ID AND c.pet_feeding = #{petFeeding})
+	    </if>
+	    <if test="elderlySupport != '' and elderlySupport != null">  
+	      AND  EXISTS(SELECT c.elderly_support from tenants_staff_job_info c WHERE a.STAFF_ID = c.STAFF_ID and a.TENANT_ID = c.TENANT_ID AND c.elderly_support = #{elderlySupport})
+	    </if>
+	    <if test="onOffShelf != '' and onOffShelf != null"> 
+	      AND  a.ON_OFF_SHELF = #{onOffShelf}
+	    </if>
+	    and (a.MOBILE is not null or a.MOBILE != '')
+	    order by a.add_time desc
+	    limit #{offset},#{pageSize}
+	</select>
+	<!-- 根据订单的服务工种查询阿姨的匹配度信息列表 -->
+	<select id="getStaffInfoCount" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select
+		count(0)
+		from
+		tenants_staffs_info a ,
+		tenants_staff_ser_items b
+		where a.STAFF_ID = b.STAFF_ID and
+		a.TENANT_ID
+		= b.TENANT_ID and b.is_usable='1' and b.SERVICE_ITEM_CODE = #{serviceItemCode}
+	</select>
+	
+	<select id="getStaffInfoList" parameterType="java.util.Map" resultMap="BaseResultMap">
+		select
+		a.STAFF_ID,
+        a.TENANT_ID,
+	    a.add_time,
+		a.add_account,
+		a.modify_time,
+		a.modify_account,
+		<include refid="Base_Column_List"/>
+		from 
+		tenants_staffs_info a , tenants_staff_ser_items b, tenants_staff_job_info job
+		where a.STAFF_ID = b.STAFF_ID and a.TENANT_ID = b.TENANT_ID and  b.is_usable='1' and b.SERVICE_ITEM_CODE = #{serviceItemCode} and a.staff_id=job.staff_id
+		<if test="staffName != '' and staffName != null">
+	      and a.STAFF_NAME like #{staffName}
+	    </if>
+	    <if test="workStatus != '' and workStatus != null">
+	      and a.WORK_STATUS = #{workStatus}
+	    </if>
+	    <if test="experience != '' and experience != null">
+	      and job.EXPERIENCE = #{experience}
+	    </if>
+	    <if test="education != '' and education != null">
+	      and a.EDUCARION = #{education}
+	    </if>
+	    <if test="age != '' and age != null">
+	      and a.AGE = #{age}
+	    </if>
+	    <if test="zodiac != '' and zodiac != null">
+	      and a.ZODIAC = #{zodiac}
+	    </if>
+	    <if test="nativePlace != '' and nativePlace != null">
+	      and a.NATIVE_PLACE = #{nativePlace}
+	    </if>
+	</select>
+	
+	<select id="selectOrderStaffInfoList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			a.STAFF_ID 'staffId'
+		FROM
+			tenants_staffs_info a,
+			tenants_staff_ser_items b,
+		    tenants_staff_job_info c
+		WHERE
+			a.STAFF_ID = b.STAFF_ID
+		AND a.TENANT_ID = b.TENANT_ID
+		AND a.STAFF_ID = c.STAFF_ID
+		AND a.TENANT_ID = c.TENANT_ID
+		and b.is_usable='1'
+		AND a.TENANT_ID = #{tenantId}
+
+		<!-- @zsq修改服务区域不限和指定区域 -->
+		<if test="serviceArea != '' and serviceArea != null">
+	      AND b.service_area = #{serviceArea}
+	    </if>
+		<if test="serviceItemCode != '' and serviceItemCode != null">
+	      AND b.SERVICE_ITEM_CODE = #{serviceItemCode}
+	    </if>
+		<if test="staffId != '' and staffId != null">
+	      AND a.STAFF_ID NOT IN (#{staffId})
+	    </if>
+		<if test="staffName != '' and staffName != null">
+	      and a.STAFF_NAME like #{staffName}
+	    </if>
+	    <if test="workStatus != '' and workStatus != null">
+	      and a.WORK_STATUS = #{workStatus}
+	    </if>
+	    <if test="experience != '' and experience != null">
+	      and c.EXPERIENCE = #{experience}
+	    </if>
+	    <if test="education != '' and education != null">
+	      and a.EDUCARION = #{education}
+	    </if>
+	    <if test="ageMax != '' and ageMax != null">
+	      AND  a.AGE <![CDATA[ <= ]]> #{ageMax}
+	    </if>
+	    <if test="ageMin != '' and ageMin != null">
+	      AND  a.AGE <![CDATA[ >= ]]> #{ageMin}
+	    </if>
+	    <if test="zodiac != '' and zodiac != null">
+	      and a.ZODIAC = #{zodiac}
+	    </if>
+	    <if test="nativePlace != '' and nativePlace != null">
+	      and a.NATIVE_PLACE = #{nativePlace}
+	    </if>
+	    <if test="serviceProvice != '' and serviceProvice != null">
+	      and c.SERVICE_PROVICE = #{serviceProvice}
+	    </if>
+	    <if test="serviceCity != '' and serviceCity != null">
+	      and c.SERVICE_CITY = #{serviceCity}
+	    </if>
+	    <if test="serviceCounty != '' and serviceCounty != null">
+	      and c.SERVICE_COUNTY = #{serviceCounty}
+	    </if>
+	    <if test="staffNo != '' and staffNo != null">
+	      and a.STAFF_NO like #{staffNo}
+	    </if>
+	    GROUP BY
+			a.STAFF_ID
+	    limit #{offset},#{pageSize}
+	</select>
+
+	
+	<select id="getOrderStaffsCount" parameterType="java.util.Map" resultType="java.lang.Integer">
+		SELECT 
+		  COUNT(t.id) 
+		FROM 
+		(SELECT
+			a.STAFF_ID 'id'
+		FROM
+			tenants_staffs_info a,
+			tenants_staff_ser_items b,
+			tenants_staff_job_info c
+		WHERE
+			a.STAFF_ID = b.STAFF_ID
+		AND a.TENANT_ID = b.TENANT_ID
+		AND a.STAFF_ID = c.STAFF_ID
+		AND a.TENANT_ID = c.TENANT_ID
+		and b.is_usable='1'
+		AND a.TENANT_ID = #{tenantId}
+		<!-- @zsq修改服务区域不限和指定区域 -->
+		<if test="serviceArea != '' and serviceArea != null">
+	      AND b.service_area = #{serviceArea}
+	    </if>
+		<if test="serviceItemCode != '' and serviceItemCode != null">
+	      AND b.SERVICE_ITEM_CODE = #{serviceItemCode}
+	    </if>
+		<if test="staffId != '' and staffId != null">
+	      AND a.STAFF_ID NOT IN (#{staffId})
+	    </if>
+		<if test="staffName != '' and staffName != null">
+	      and a.STAFF_NAME like #{staffName}
+	    </if>
+	    <if test="workStatus != '' and workStatus != null">
+	      and a.WORK_STATUS = #{workStatus}
+	    </if>
+	    <if test="experience != '' and experience != null">
+	      and  c.EXPERIENCE = #{experience}
+	    </if>
+	    <if test="education != '' and education != null">
+	      and a.EDUCARION = #{education}
+	    </if>
+		<if test="ageMin != '' and ageMin != null">
+			and a.AGE <![CDATA[ >= ]]> #{ageMin}
+		</if>
+		<if test="ageMax != '' and ageMax != null">
+			and a.AGE <![CDATA[ <= ]]> #{ageMax}
+		</if>
+	    <if test="zodiac != '' and zodiac != null">
+	      and a.ZODIAC = #{zodiac}
+	    </if>
+	    <if test="nativePlace != '' and nativePlace != null">
+	      and a.NATIVE_PLACE = #{nativePlace}
+	    </if>
+	    <if test="serviceProvice != '' and serviceProvice != null">
+	      and c.SERVICE_PROVICE = #{serviceProvice}
+	    </if>
+	    <if test="serviceCity != '' and serviceCity != null">
+	      and c.SERVICE_CITY = #{serviceCity}
+	    </if>
+	    <if test="serviceCounty != '' and serviceCounty != null">
+	      and c.SERVICE_COUNTY = #{serviceCounty}
+	    </if>
+	    <if test="staffNo != '' and staffNo != null">
+	      and a.STAFF_NO like #{staffNo}
+	    </if>
+	    GROUP BY
+		  a.STAFF_ID
+		) t
+	</select>
+
+	<select id="getStaffInfo"
+		parameterType="com.fbee.modules.mybatis.entity.TenantsStaffsInfoEntity"
+		resultMap="BaseResultMap">
+		select
+		STAFF_ID,
+		TENANT_ID,
+		add_time,
+		add_account,
+		modify_time,
+		MOBILE,
+		modify_account,
+		<include refid="Base_Column_List" />
+		from tenants_staffs_info where
+			STAFF_ID = #{staffId,jdbcType=INTEGER}
+		<if test="tenantId != null and tenantId != ''"> and TENANT_ID = #{tenantId,jdbcType=INTEGER}</if>
+	</select>
+
+	<select id="getById" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		STAFF_ID,
+		TENANT_ID,
+		add_time,
+		add_account,
+		modify_time,
+		modify_account,
+		<include refid="Base_Column_List" />
+		from tenants_staffs_info
+		where STAFF_ID = #{staffId,jdbcType=INTEGER}
+	</select>
+
+	
+	
+	<select id="selectRecommendList" 
+	    parameterType="java.lang.Integer" 
+	    resultType="java.util.Map">
+
+		SELECT
+		a.STAFF_ID "staffId",
+		a.HEAD_IMAGE "headImage",
+		a.STAFF_NAME "staffName",
+		d.ID "recommendId",
+		a.AGE "age",
+		a.EXPECTED_SALARY "expectedSary",
+		FUNC_GET_CODE_NAME("ZODIAC", a.ZODIAC, '1') "zodiac",
+		FUNC_GET_CODE_NAME ("NATIVE_PLACE",a.NATIVE_PLACE,'1') "nativePlace",
+		CONCAT(FUNC_GET_CODE_NAME ("EDUCATION", a.EDUCARION,'1'),IF(a.SPECIALTY is null || a.SPECIALTY ='', "",CONCAT("(",a.SPECIALTY, ")")) ) "educarion",
+		(select group_concat(dt.value) from dictionarys dt,tenants_staff_ser_items ssi where ssi.SERVICE_ITEM_CODE=dt.`code` and dt.parent_id=1 and ssi.staff_id=a.staff_id   and ssi.is_usable='1') "serviceType",
+		FUNC_GET_CODE_NAME ("WORK_STATUS",a.WORK_STATUS,'1') "workStatus"
+		FROM
+		tenants_staffs_info a,
+		tenants_recommend d
+		WHERE
+		a.STAFF_ID= d.STAFF_ID
+		and a.mobile is not null and a.mobile != ''
+		AND a.TENANT_ID =d.TENANT_ID
+		AND a.ON_OFF_SHELF='1'
+		AND a.TENANT_ID = #{tenantId,jdbcType=INTEGER}
+		ORDER BY
+		d.add_time DESC
+		LIMIT 2
+
+	</select>
+
+	<select id="selectStaffInfoList" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+		a.STAFF_ID "staffId",
+		a.HEAD_IMAGE "headImage",
+		a.STAFF_NAME "staffName",
+		a.AGE "age",
+		a.EXPECTED_SALARY "expectedSary",
+		FUNC_GET_CODE_NAME("ZODIAC", a.ZODIAC, '1') "zodiac",
+		FUNC_GET_CODE_NAME ("NATIVE_PLACE",a.NATIVE_PLACE,'1') "nativePlace",
+		CONCAT(FUNC_GET_CODE_NAME ("EDUCATION", a.EDUCARION,'1'),IF(a.SPECIALTY is null || a.SPECIALTY ='', "",CONCAT("(",a.SPECIALTY, ")")) ) "educarion",
+		(select group_concat(dt.value) from dictionarys dt,tenants_staff_ser_items ssi where ssi.SERVICE_ITEM_CODE=dt.`code` and dt.parent_id=1 and ssi.staff_id=a.staff_id   and ssi.is_usable='1') "serviceType",
+		FUNC_GET_CODE_NAME ("WORK_STATUS",a.WORK_STATUS,'1') "workStatus"
+		FROM
+		tenants_staffs_info a
+		WHERE
+		a.ON_OFF_SHELF='1'
+		and a.mobile is not null and a.mobile != ''
+		AND a.TENANT_ID = #{tenantId}
+		AND  NOT exists (SELECT 1 FROM tenants_recommend b WHERE  a.STAFF_ID=b.staff_id)
+		ORDER BY
+		a.add_time DESC
+		LIMIT #{offset},#{pageSize}
+	</select>
+	<select id="selectStaffInfoListCount" parameterType="java.util.Map"
+			resultType="java.lang.Integer">
+		SELECT
+		count(1)
+		FROM
+		tenants_staffs_info a
+		WHERE
+		a.ON_OFF_SHELF='1'
+		AND a.TENANT_ID = #{tenantId}
+		and a.mobile is not null and a.mobile!=''
+		AND  NOT exists (SELECT 1 FROM tenants_recommend b WHERE  a.STAFF_ID=b.staff_id)
+		ORDER BY
+		a.add_time DESC
+	</select>
+	<select id="getStaffInfoByStaffId" parameterType="java.util.Map" resultType="java.util.Map">
+		SELECT
+			a.STAFF_ID "staffId",
+			a.HEAD_IMAGE "headImage",
+			a.STAFF_NAME "staffName",
+			a.AGE "age",
+		    d.ID "recommendId",
+		    a.EXPECTED_SALARY "expectedSalary",
+		    FUNC_GET_CODE_NAME("ZODIAC", a.ZODIAC, '1') "zodiac",
+			FUNC_GET_CODE_NAME ("NATIVE_PLACE",a.NATIVE_PLACE,'1') "nativePlace",
+			CONCAT(FUNC_GET_CODE_NAME ("EDUCATION", a.EDUCARION,'1'),IF(a.SPECIALTY is null || a.SPECIALTY ='', "",CONCAT("(",a.SPECIALTY, ")")) ) "educarion",
+		(select group_concat(dt.value) from dictionarys dt,tenants_staff_ser_items ssi where ssi.SERVICE_ITEM_CODE=dt.`code` and dt.parent_id=1 and ssi.staff_id=a.staff_id   and ssi.is_usable='1') "serviceType",
+			FUNC_GET_CODE_NAME ("WORK_STATUS",a.WORK_STATUS,'1') "workStatus"
+			FROM
+				tenants_staffs_info a,
+			  tenants_recommend d
+			WHERE
+			 a.STAFF_ID = d.STAFF_ID
+			AND a.TENANT_ID = #{0,jdbcType=INTEGER}
+			AND a.STAFF_ID = #{1,jdbcType=INTEGER}
+		ORDER BY
+		a.add_time DESC
+	</select>
+	
+	<select id="getStaffInfoLikeStaffName" 
+	    parameterType="java.util.Map" 
+	    resultType="java.util.Map">
+	    SELECT
+			a.STAFF_ID "staffId",
+			a.HEAD_IMAGE "headImage",
+			a.STAFF_NAME "staffName",
+			a.AGE "age",
+		    FUNC_GET_CODE_NAME("ZODIAC", a.ZODIAC, '1') "zodiac",
+			FUNC_GET_CODE_NAME ("NATIVE_PLACE",a.NATIVE_PLACE,'1') "nativePlace",
+			CONCAT(FUNC_GET_CODE_NAME ("EDUCATION", a.EDUCARION,'1'),IF(a.SPECIALTY is null || a.SPECIALTY ='', "",CONCAT("(",a.SPECIALTY, ")")) ) "educarion",
+		(select group_concat(dt.value) from dictionarys dt,tenants_staff_ser_items ssi where ssi.SERVICE_ITEM_CODE=dt.`code` and dt.parent_id=1 and ssi.staff_id=a.staff_id   and ssi.is_usable='1') "serviceType",
+			FUNC_GET_CODE_NAME ("WORK_STATUS",a.WORK_STATUS,'1') "workStatus"
+		FROM
+		tenants_staffs_info a
+		WHERE
+		 a.TENANT_ID = #{tenantId,jdbcType=INTEGER}
+		and a.ON_OFF_SHELF='1'
+		and a.mobile is not null and a.mobile != ''
+		AND a.STAFF_ID NOT in(SELECT STAFF_ID FROM tenants_recommend WHERE TENANT_ID = #{tenantId,jdbcType=INTEGER})
+		AND a.STAFF_NAME LIKE CONCAT(CONCAT('%',#{staffName,jdbcType=VARCHAR}),'%')
+		ORDER BY
+			a.add_time DESC
+	    LIMIT #{offset},#{pageSize}
+	</select>
+	
+	<!-- 阿姨模糊查询 -->
+	<select id="getCountLike" parameterType="java.util.Map" resultType="java.lang.Integer">
+		   SELECT
+					COUNT(0) 'num'
+				FROM
+					tenants_staffs_info a
+				WHERE
+				 a.TENANT_ID = #{tenantId,jdbcType=INTEGER}
+				and a.ON_OFF_SHELF='1'
+		        and a.mobile is not null and a.mobile != ''
+				AND a.STAFF_ID NOT in(SELECT STAFF_ID FROM tenants_recommend WHERE TENANT_ID = #{tenantId,jdbcType=INTEGER})
+				AND a.STAFF_NAME LIKE CONCAT(CONCAT('%',#{staffName,jdbcType=VARCHAR}),'%')
+	</select>
+	
+	<select id="getCount" parameterType="java.lang.Integer"
+		resultType="int">
+		SELECT
+		COUNT(0)
+		FROM
+		tenants_staffs_info a
+		WHERE
+		TENANT_ID =#{tenantId,jdbcType=INTEGER}
+		AND STAFF_ID NOT in(SELECT STAFF_ID FROM tenants_recommend WHERE TENANT_ID = #{tenantId,jdbcType=INTEGER})
+	</select>
+
+    <select id="getStaffByCertNo" parameterType="com.fbee.modules.mybatis.entity.TenantsStaffsInfoEntity" resultMap="BaseResultMap">
+        select
+        STAFF_ID,
+		TENANT_ID,
+		add_time,
+		add_account,
+		modify_time,
+		modify_account,
+		<include refid="Base_Column_List" />
+		from tenants_staffs_info
+		where TENANT_ID = #{tenantId}
+		and CERT_NO = #{certNo}
+    </select>
+    
+    <select id="getStaffListByCertNo" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select
+        STAFF_ID,
+		TENANT_ID,
+		add_time,
+		add_account,
+		modify_time,
+		modify_account,
+		<include refid="Base_Column_List" />
+		from tenants_staffs_info
+		where CERT_NO = #{certNo}
+    </select>
+    
+    <select id="staffQueryCount" parameterType="java.util.Map"
+		resultType="java.lang.Integer">
+		select count(0)
+		from (
+				select *
+				from 
+				(
+						select DISTINCT
+								t3.STAFF_ID,
+								t3.TENANT_ID,
+								t3.add_time,
+								t3.add_account,
+								t3.modify_time,
+								t3.modify_account,
+								t3.STAFF_NAME, t3.HEAD_IMAGE, t3.CERT_NO, t3.CERT_IMAGE, t3.SEX, t3.NATION,
+								t3.AGE,
+								t3.ZODIAC, t3.NATIVE_PLACE, t3.CONSTELLATION, t3.HOUSE_ADDRESS, t3.MOBILE,
+								t3.EDUCARION,
+								t3.SPECIALTY,
+								t3.MARITAL_STATUS, t3.FERTILITY_SITUATION, t3.WEIGHT,
+								t3.HEIGHT, t3.BLOOD_TYPE, t3.EXPECTED_SALARY,
+								t3.LIVE_ADDRESS, t3.CONTACT_PHONE,
+								t3.CONTACT_ADDRESS, 
+								t3.ON_OFF_SHELF,t3.CV, t3.share_status,
+								if(t4.workStatus is NULL, '待聘', '服务中') as WORK_STATUS
+						from tenants_staffs_info t3
+						LEFT JOIN (
+								SELECT t2.STAFF_ID, t1.ORDER_NO, IF(t1.SERVICE_START <![CDATA[<=]]> NOW() and t1.SERVICE_END <![CDATA[>=]]> NOW(), "01", "02") as workStatus,t1.SERVICE_START, t1.SERVICE_END
+								from orders t2 
+								LEFT JOIN order_customers_info t1 on t2.ORDER_NO = t1.ORDER_NO
+								where t1.SERVICE_START <![CDATA[<=]]> NOW()
+								and t1.SERVICE_END <![CDATA[>=]]> NOW()
+								and t2.ORDER_STATUS = '04'
+								and t2.ORDER_SOURCE NOT IN ('03')
+						) t4 on t3.STAFF_ID = t4.STAFF_ID
+				) a
+		
+				where a.TENANT_ID = #{tenantId,jdbcType=INTEGER}
+				<if test="staffName != '' and staffName != null">
+			      AND  a.STAFF_NAME LIKE #{staffName}
+			    </if>
+			    <if test="mobile != '' and mobile != null">
+			      AND  a.MOBILE LIKE #{mobile}
+			    </if>
+			    <if test="serviceItemCode != '' and serviceItemCode != null">
+			      AND  EXISTS(SELECT b.SERVICE_ITEM_CODE from tenants_staff_ser_items b WHERE a.STAFF_ID = b.STAFF_ID and a.TENANT_ID = b.TENANT_ID and b.SERVICE_ITEM_CODE = #{serviceItemCode})
+			    </if>
+			    <if test="experience != '' and experience != null">
+			      AND  EXISTS(SELECT b.EXPERIENCE from tenants_staff_job_info b WHERE a.STAFF_ID = b.STAFF_ID and a.TENANT_ID = b.TENANT_ID and b.EXPERIENCE = #{experience})
+			    </if>
+			    <if test="skills != '' and skills != null">
+			      AND  EXISTS(SELECT b.SKILLS from tenants_staff_ser_items b WHERE a.STAFF_ID = b.STAFF_ID and a.TENANT_ID = b.TENANT_ID and b.SERVICE_ITEM_CODE = #{serviceItemCode} and b.SKILLS LIKE REPLACE(#{skills},',', '%') )
+			    </if>
+			    <if test="education != '' and education != null">
+			      AND  a.EDUCARION = #{education}
+			    </if>
+			    <if test="ageMax != '' and ageMax != null">
+			      AND  a.AGE <![CDATA[ <= ]]> #{ageMax}
+			    </if>
+			    <if test="ageMin != '' and ageMin != null">
+			      AND  a.AGE <![CDATA[ >= ]]> #{ageMin}
+			    </if>
+			    <if test="zodiac != '' and zodiac != null">
+			      AND  a.ZODIAC = #{zodiac}
+			    </if>
+			    <if test="nativePlace != '' and nativePlace != null">
+			      AND  a.NATIVE_PLACE = #{nativePlace}
+			    </if>
+			    <if test="workStatus != '' and workStatus != null">
+			    	<if test="workStatus == '01'">
+			      		AND  a.WORK_STATUS = '服务中'
+			      	</if>
+			      	<if test="workStatus == '02'">
+			      		AND  a.WORK_STATUS = '待聘'
+			      	</if>
+			    </if>
+			    <if test="languageFeature != '' and languageFeature != null">
+			      AND  EXISTS(SELECT c.language_feature from tenants_staff_job_info c WHERE a.STAFF_ID = c.STAFF_ID and a.TENANT_ID = c.TENANT_ID AND c.language_feature LIKE #{languageFeature})
+			    </if>
+			    <if test="cookingFeature != '' and cookingFeature != null">
+			      AND  EXISTS(SELECT c.cooking_feature from tenants_staff_job_info c WHERE a.STAFF_ID = c.STAFF_ID and a.TENANT_ID = c.TENANT_ID AND c.cooking_feature LIKE #{cookingFeature})
+			    </if>
+			    <if test="characerFeature != '' and characerFeature != null">
+			      AND  EXISTS(SELECT c.characer_feature from tenants_staff_job_info c WHERE a.STAFF_ID = c.STAFF_ID and a.TENANT_ID = c.TENANT_ID AND c.characer_feature LIKE #{characerFeature})
+			    </if>
+			    <if test="petFeeding != '' and petFeeding != null">
+			      AND  EXISTS(SELECT c.pet_feeding from tenants_staff_job_info c WHERE a.STAFF_ID = c.STAFF_ID and a.TENANT_ID = c.TENANT_ID AND c.pet_feeding = #{petFeeding})
+			    </if>
+			    <if test="elderlySupport != '' and elderlySupport != null">  
+			      AND  EXISTS(SELECT c.elderly_support from tenants_staff_job_info c WHERE a.STAFF_ID = c.STAFF_ID and a.TENANT_ID = c.TENANT_ID AND c.elderly_support = #{elderlySupport})
+			    </if>
+			    <if test="onOffShelf != '' and onOffShelf != null"> 
+			      AND  a.ON_OFF_SHELF = #{onOffShelf}
+			    </if>
+			    order by a.add_time desc
+	    
+	    ) aa
+	</select>
+	
+	<select id="staffQueryList" parameterType="map" resultMap="BaseResultMap">
+		select *
+				from 
+				(
+						select DISTINCT
+								t3.STAFF_ID,
+								t3.TENANT_ID,
+								t3.add_time,
+								t3.add_account,
+								t3.modify_time,
+								t3.modify_account,
+								t3.STAFF_NAME, t3.HEAD_IMAGE, t3.CERT_NO, t3.CERT_IMAGE, t3.SEX, t3.NATION,
+								t3.AGE,
+								t3.ZODIAC, t3.NATIVE_PLACE, t3.CONSTELLATION, t3.HOUSE_ADDRESS, t3.MOBILE,
+								t3.EDUCARION,
+								t3.SPECIALTY,
+								t3.MARITAL_STATUS, t3.FERTILITY_SITUATION, t3.WEIGHT,
+								t3.HEIGHT, t3.BLOOD_TYPE, t3.EXPECTED_SALARY,
+								t3.LIVE_ADDRESS, t3.CONTACT_PHONE,
+								t3.CONTACT_ADDRESS, 
+								t3.ON_OFF_SHELF,t3.CV, t3.share_status,
+								if(t4.workStatus is NULL, '待聘', '服务中') as WORK_STATUS
+						from tenants_staffs_info t3
+						LEFT JOIN (
+								SELECT t2.STAFF_ID, t1.ORDER_NO, IF(t1.SERVICE_START <![CDATA[<=]]> NOW() and t1.SERVICE_END <![CDATA[>=]]> NOW(), "01", "02") as workStatus,t1.SERVICE_START, t1.SERVICE_END
+								from orders t2 
+								LEFT JOIN order_customers_info t1 on t2.ORDER_NO = t1.ORDER_NO
+								where t1.SERVICE_START <![CDATA[<=]]> NOW()
+								and t1.SERVICE_END <![CDATA[>=]]> NOW()
+								and t2.ORDER_STATUS = '04'
+								and t2.ORDER_SOURCE NOT IN ('03')
+						) t4 on t3.STAFF_ID = t4.STAFF_ID
+				) a
+		
+				where a.TENANT_ID = #{tenantId,jdbcType=INTEGER}
+				<if test="staffName != '' and staffName != null">
+			      AND  a.STAFF_NAME LIKE #{staffName}
+			    </if>
+			    <if test="mobile != '' and mobile != null">
+			      AND  a.MOBILE LIKE #{mobile}
+			    </if>
+			    <if test="serviceItemCode != '' and serviceItemCode != null">
+			      AND  EXISTS(SELECT b.SERVICE_ITEM_CODE from tenants_staff_ser_items b WHERE a.STAFF_ID = b.STAFF_ID and a.TENANT_ID = b.TENANT_ID and b.SERVICE_ITEM_CODE = #{serviceItemCode})
+			    </if>
+			    <if test="experience != '' and experience != null">
+			      AND  EXISTS(SELECT b.EXPERIENCE from tenants_staff_job_info b WHERE a.STAFF_ID = b.STAFF_ID and a.TENANT_ID = b.TENANT_ID and b.EXPERIENCE = #{experience})
+			    </if>
+			    <if test="skills != '' and skills != null">
+			      AND  EXISTS(SELECT b.SKILLS from tenants_staff_ser_items b WHERE a.STAFF_ID = b.STAFF_ID and a.TENANT_ID = b.TENANT_ID  and b.SERVICE_ITEM_CODE = #{serviceItemCode} and b.SKILLS LIKE REPLACE(#{skills},',', '%') )
+			    </if>
+			    <if test="education != '' and education != null">
+			      AND  a.EDUCARION = #{education}
+			    </if>
+			    <if test="ageMax != '' and ageMax != null">
+			      AND  a.AGE <![CDATA[ <= ]]> #{ageMax}
+			    </if>
+			    <if test="ageMin != '' and ageMin != null">
+			      AND  a.AGE <![CDATA[ >= ]]> #{ageMin}
+			    </if>
+			    <if test="zodiac != '' and zodiac != null">
+			      AND  a.ZODIAC = #{zodiac}
+			    </if>
+			    <if test="nativePlace != '' and nativePlace != null">
+			      AND  a.NATIVE_PLACE = #{nativePlace}
+			    </if>
+			    <if test="workStatus != '' and workStatus != null">
+			      	<if test="workStatus == '01'">
+			      		AND  a.WORK_STATUS = '服务中'
+			      	</if>
+			      	<if test="workStatus == '02'">
+			      		AND  a.WORK_STATUS = '待聘'
+			      	</if>
+			    </if>
+			    <if test="languageFeature != '' and languageFeature != null">
+			      AND  EXISTS(SELECT c.language_feature from tenants_staff_job_info c WHERE a.STAFF_ID = c.STAFF_ID and a.TENANT_ID = c.TENANT_ID AND c.language_feature LIKE #{languageFeature})
+			    </if>
+			    <if test="cookingFeature != '' and cookingFeature != null">
+			      AND  EXISTS(SELECT c.cooking_feature from tenants_staff_job_info c WHERE a.STAFF_ID = c.STAFF_ID and a.TENANT_ID = c.TENANT_ID AND c.cooking_feature LIKE #{cookingFeature})
+			    </if>
+			    <if test="characerFeature != '' and characerFeature != null">
+			      AND  EXISTS(SELECT c.characer_feature from tenants_staff_job_info c WHERE a.STAFF_ID = c.STAFF_ID and a.TENANT_ID = c.TENANT_ID AND c.characer_feature LIKE #{characerFeature})
+			    </if>
+			    <if test="petFeeding != '' and petFeeding != null">
+			      AND  EXISTS(SELECT c.pet_feeding from tenants_staff_job_info c WHERE a.STAFF_ID = c.STAFF_ID and a.TENANT_ID = c.TENANT_ID AND c.pet_feeding = #{petFeeding})
+			    </if>
+			    <if test="elderlySupport != '' and elderlySupport != null">  
+			      AND  EXISTS(SELECT c.elderly_support from tenants_staff_job_info c WHERE a.STAFF_ID = c.STAFF_ID and a.TENANT_ID = c.TENANT_ID AND c.elderly_support = #{elderlySupport})
+			    </if>
+			    <if test="onOffShelf != '' and onOffShelf != null"> 
+			      AND  a.ON_OFF_SHELF = #{onOffShelf}
+			    </if>
+			    order by a.add_time desc
+			    limit #{offset},#{pageSize}
+	</select>
+	
+	<update id="updateStaffWorkStatus">
+		update tenants_staffs_info set WORK_STATUS = '02'
+	</update>
+	
+	<update id="updateStaffWorkStatusInfo">
+		update tenants_staffs_info set WORK_STATUS = '01'
+		where STAFF_ID in 
+		(
+		SELECT
+			t2.STAFF_ID
+		FROM
+			orders t2
+		LEFT JOIN order_customers_info t1 ON t2.ORDER_NO = t1.ORDER_NO
+		WHERE
+			t1.SERVICE_START <![CDATA[<=]]> NOW()
+		AND t1.SERVICE_END <![CDATA[>=]]> NOW()
+		AND t2.ORDER_STATUS = '04'
+		AND t2.ORDER_SOURCE NOT IN ('03')
+		)
+	</update>
+	
+	<select  id="getStaffInfoByTenantId" parameterType="java.lang.Integer" resultMap="BaseResultMap"> 
+		SELECT
+		TENANT_ID,
+		STAFF_ID,
+		<include refid="Base_Column_List" />
+		FROM  tenants_staffs_info 
+		WHERE
+		TENANT_ID =#{tenantId,jdbcType=INTEGER}
+		AND ON_OFF_SHELF='1'
+		AND STAFF_ID NOT in(SELECT STAFF_ID FROM tenants_recommend WHERE TENANT_ID =#{tenantId,jdbcType=INTEGER})
+		ORDER BY
+		add_time
+		LIMIT 2
+	</select>
+	
+
+	<select id="getSnapshotById" resultType="com.fbee.modules.mybatis.model.StaffSnapShotInfo">
+		select
+		a.staff_id 'id',
+		a.staff_name 'staffName',
+		a.head_image 'headImage',
+		a.age,
+		a.zodiac,
+		a.educarion 'education',
+		a.constellation,
+		a.native_place 'nativePlace',
+		a.sex,
+		a.mobile,
+		b.price,
+		b.unit,
+		b.experience,
+		b.work_experience 'workExperience',
+		a.work_status 'workStatus',
+		b.service_area 'serviceArea',
+		(select group_concat(service_item_code) from tenants_staff_ser_items s where s.staff_id=#{value} and is_usable=1) 'serviceType'
+		from tenants_staffs_info a, tenants_staff_job_info b
+		where a.staff_id = #{value}
+		and a.staff_id = b.staff_id
+	</select>
+	
+</mapper>

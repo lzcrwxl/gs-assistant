@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fbee.modules.mybatis.dao.FinanceRecordsMapper">
+	<resultMap id="BaseResultMap"
+		type="com.fbee.modules.mybatis.entity.FinanceRecordsEntity">
+		<id column="ID" jdbcType="INTEGER" property="id" />
+		<result column="TENANT_ID" jdbcType="INTEGER" property="tenantId" />
+		<result column="remarks" jdbcType="VARCHAR" property="remarks" />
+		<result column="is_usable" jdbcType="VARCHAR" property="isUsable" />
+		<result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+		<result column="add_account" jdbcType="VARCHAR" property="addAccount" />
+		<result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+		<result column="modify_account" jdbcType="VARCHAR" property="modifyAccount" />
+		<result column="IN_OUT_CATEGORY" jdbcType="VARCHAR" property="inOutCategory" />
+		<result column="IN_OUT_TYPE" jdbcType="VARCHAR" property="inOutType" />
+		<result column="IN_OUT_MANTISSA" jdbcType="VARCHAR" property="inOutMantissa" />
+		<result column="IN_OUT_OBJECT" jdbcType="VARCHAR" property="inOutObject" />
+		<result column="IN_OUT_AMOUNT" jdbcType="DECIMAL" property="inOutAmount" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		ID, TENANT_ID, remarks, is_usable, add_time, add_account, modify_time,
+		modify_account,
+		IN_OUT_CATEGORY, IN_OUT_TYPE, IN_OUT_MANTISSA, IN_OUT_OBJECT, IN_OUT_AMOUNT
+	</sql>
+	<insert id="insert"
+		parameterType="com.fbee.modules.mybatis.entity.FinanceRecordsEntity">
+		insert into finance_records
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				ID,
+			</if>
+			<if test="tenantId != null">
+				TENANT_ID,
+			</if>
+			<if test="remarks != null">
+				remarks,
+			</if>
+			<if test="isUsable != null">
+				is_usable,
+			</if>
+			<if test="addTime != null">
+				add_time,
+			</if>
+			<if test="addAccount != null">
+				add_account,
+			</if>
+			<if test="modifyTime != null">
+				modify_time,
+			</if>
+			<if test="modifyAccount != null">
+				modify_account,
+			</if>
+			<if test="inOutCategory != null">
+				IN_OUT_CATEGORY,
+			</if>
+			<if test="inOutType != null">
+				IN_OUT_TYPE,
+			</if>
+			<if test="inOutMantissa != null">
+				IN_OUT_MANTISSA,
+			</if>
+			<if test="inOutObject != null">
+				IN_OUT_OBJECT,
+			</if>
+			<if test="inOutAmount != null">
+				IN_OUT_AMOUNT,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="tenantId != null">
+				#{tenantId,jdbcType=INTEGER},
+			</if>
+			<if test="remarks != null">
+				#{remarks,jdbcType=VARCHAR},
+			</if>
+			<if test="isUsable != null">
+				#{isUsable,jdbcType=VARCHAR},
+			</if>
+			<if test="addTime != null">
+				#{addTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="addAccount != null">
+				#{addAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyTime != null">
+				#{modifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyAccount != null">
+				#{modifyAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="inOutCategory != null">
+				#{inOutCategory,jdbcType=VARCHAR},
+			</if>
+			<if test="inOutType != null">
+				#{inOutType,jdbcType=VARCHAR},
+			</if>
+			<if test="inOutMantissa != null">
+				#{inOutMantissa,jdbcType=VARCHAR},
+			</if>
+			<if test="inOutObject != null">
+				#{inOutObject,jdbcType=VARCHAR},
+			</if>
+			<if test="inOutAmount != null">
+				#{inOutAmount,jdbcType=DECIMAL},
+			</if>
+		</trim>
+	</insert>
+	<update id="update"
+		parameterType="com.fbee.modules.mybatis.entity.FinanceRecordsEntity">
+		update finance_records
+		<set>
+			<if test="tenantId != null">
+				TENANT_ID = #{tenantId,jdbcType=INTEGER},
+			</if>
+			<if test="remarks != null">
+				remarks = #{remarks,jdbcType=VARCHAR},
+			</if>
+			<if test="isUsable != null">
+				is_usable = #{isUsable,jdbcType=VARCHAR},
+			</if>
+			<if test="addTime != null">
+				add_time = #{addTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="addAccount != null">
+				add_account = #{addAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="modifyTime != null">
+				modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="modifyAccount != null">
+				modify_account = #{modifyAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="inOutCategory != null">
+				IN_OUT_CATEGORY = #{inOutCategory,jdbcType=VARCHAR},
+			</if>
+			<if test="inOutType != null">
+				IN_OUT_TYPE = #{inOutType,jdbcType=VARCHAR},
+			</if>
+			<if test="inOutMantissa != null">
+				IN_OUT_MANTISSA = #{inOutMantissa,jdbcType=VARCHAR},
+			</if>
+			<if test="inOutObject != null">
+				IN_OUT_OBJECT = #{inOutObject,jdbcType=VARCHAR},
+			</if>
+			<if test="inOutAmount != null">
+				IN_OUT_AMOUNT = #{inOutAmount,jdbcType=DECIMAL},
+			</if>
+		</set>
+		where ID = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>

@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fbee.modules.mybatis.dao.TenantsBannersMapper">
+	<resultMap id="BaseResultMap"
+		type="com.fbee.modules.mybatis.entity.TenantsBannersEntity">
+		<id column="ID" jdbcType="INTEGER" property="id" />
+	    <result column="TENANT_ID" jdbcType="INTEGER" property="tenantId" />
+	    <result column="BANNER_NAME" jdbcType="VARCHAR" property="bannerName" />
+	    <result column="BANNER_URL" jdbcType="VARCHAR" property="bannerUrl" />
+	    <result column="SORT_NO" jdbcType="INTEGER" property="sortNo" />
+	    <result column="STATUS" jdbcType="VARCHAR" property="status" />
+	    <result column="SHELF_TYPE" jdbcType="VARCHAR" property="shelfType" />
+	    <result column="SHELF_TIME" jdbcType="TIMESTAMP" property="shelfTime" />
+	    <result column="IS_DEFAULT" jdbcType="VARCHAR" property="isDefault" />
+	    <result column="remarks" jdbcType="VARCHAR" property="remarks" />
+	    <result column="is_usable" jdbcType="VARCHAR" property="isUsable" />
+	    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+	    <result column="add_account" jdbcType="VARCHAR" property="addAccount" />
+	    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+	    <result column="modify_account" jdbcType="VARCHAR" property="modifyAccount" />
+	</resultMap>
+	<sql id="Base_Column_List">
+	    ID, TENANT_ID, BANNER_NAME, BANNER_URL, SORT_NO, STATUS, SHELF_TYPE, SHELF_TIME, 
+	    IS_DEFAULT, remarks, is_usable, add_time, add_account, modify_time, modify_account
+	</sql>
+
+	<insert id="insert"
+		parameterType="com.fbee.modules.mybatis.entity.TenantsBannersEntity">
+		insert into tenants_banners
+	    <trim prefix="(" suffix=")" suffixOverrides=",">
+	      <if test="id != null">
+	        ID,
+	      </if>
+	      <if test="tenantId != null">
+	        TENANT_ID,
+	      </if>
+	      <if test="bannerName != null">
+	        BANNER_NAME,
+	      </if>
+	      <if test="bannerUrl != null">
+	        BANNER_URL,
+	      </if>
+	      <if test="sortNo != null">
+	        SORT_NO,
+	      </if>
+	      <if test="status != null">
+	        STATUS,
+	      </if>
+	      <if test="shelfType != null">
+	        SHELF_TYPE,
+	      </if>
+	      <if test="shelfTime != null">
+	        SHELF_TIME,
+	      </if>
+	      <if test="isDefault != null">
+	        IS_DEFAULT,
+	      </if>
+	      <if test="remarks != null">
+	        remarks,
+	      </if>
+	      <if test="isUsable != null">
+	        is_usable,
+	      </if>
+	      <if test="addTime != null">
+	        add_time,
+	      </if>
+	      <if test="addAccount != null">
+	        add_account,
+	      </if>
+	      <if test="modifyTime != null">
+	        modify_time,
+	      </if>
+	      <if test="modifyAccount != null">
+	        modify_account,
+	      </if>
+	    </trim>
+	    <trim prefix="values (" suffix=")" suffixOverrides=",">
+	      <if test="id != null">
+	        #{id,jdbcType=INTEGER},
+	      </if>
+	      <if test="tenantId != null">
+	        #{tenantId,jdbcType=INTEGER},
+	      </if>
+	      <if test="bannerName != null">
+	        #{bannerName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="bannerUrl != null">
+	        #{bannerUrl,jdbcType=VARCHAR},
+	      </if>
+	      <if test="sortNo != null">
+	        #{sortNo,jdbcType=INTEGER},
+	      </if>
+	      <if test="status != null">
+	        #{status,jdbcType=VARCHAR},
+	      </if>
+	      <if test="shelfType != null">
+	        #{shelfType,jdbcType=VARCHAR},
+	      </if>
+	      <if test="shelfTime != null">
+	        #{shelfTime,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="isDefault != null">
+	        #{isDefault,jdbcType=VARCHAR},
+	      </if>
+	      <if test="remarks != null">
+	        #{remarks,jdbcType=VARCHAR},
+	      </if>
+	      <if test="isUsable != null">
+	        #{isUsable,jdbcType=VARCHAR},
+	      </if>
+	      <if test="addTime != null">
+	        #{addTime,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="addAccount != null">
+	        #{addAccount,jdbcType=VARCHAR},
+	      </if>
+	      <if test="modifyTime != null">
+	        #{modifyTime,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="modifyAccount != null">
+	        #{modifyAccount,jdbcType=VARCHAR},
+	      </if>
+	    </trim>
+	</insert>
+	<update id="update"
+		parameterType="com.fbee.modules.mybatis.entity.TenantsBannersEntity">
+		update tenants_banners
+	    <set>
+	      <if test="tenantId != null">
+	        TENANT_ID = #{tenantId,jdbcType=INTEGER},
+	      </if>
+	      <if test="bannerName != null">
+	        BANNER_NAME = #{bannerName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="bannerUrl != null">
+	        BANNER_URL = #{bannerUrl,jdbcType=VARCHAR},
+	      </if>
+	      <if test="sortNo != null">
+	        SORT_NO = #{sortNo,jdbcType=INTEGER},
+	      </if>
+	      <if test="status != null">
+	        STATUS = #{status,jdbcType=VARCHAR},
+	      </if>
+	      <if test="shelfType != null">
+	        SHELF_TYPE = #{shelfType,jdbcType=VARCHAR},
+	      </if>
+	      <if test="shelfTime != null">
+	        SHELF_TIME = #{shelfTime,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="isDefault != null">
+	        IS_DEFAULT = #{isDefault,jdbcType=VARCHAR},
+	      </if>
+	      <if test="remarks != null">
+	        remarks = #{remarks,jdbcType=VARCHAR},
+	      </if>
+	      <if test="isUsable != null">
+	        is_usable = #{isUsable,jdbcType=VARCHAR},
+	      </if>
+	      <if test="addTime != null">
+	        add_time = #{addTime,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="addAccount != null">
+	        add_account = #{addAccount,jdbcType=VARCHAR},
+	      </if>
+	      <if test="modifyTime != null">
+	        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="modifyAccount != null">
+	        modify_account = #{modifyAccount,jdbcType=VARCHAR},
+	      </if>
+	    </set>
+	    where ID = #{id,jdbcType=INTEGER}
+	</update>
+	<select id="getBannerByTenantId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tenants_banners
+		where TENANT_ID = #{tenantId,jdbcType=INTEGER}
+		and is_usable='1'
+	</select>
+	<select id="findBannersByTenantId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tenants_banners
+		where TENANT_ID = #{tenantId,jdbcType=INTEGER}
+		and is_usable='1'
+	</select>
+
+
+	<update id="updateBannerInfoById"
+		parameterType="com.fbee.modules.mybatis.entity.TenantsBannersEntity">
+		update tenants_banners
+	    <set>
+	      <if test="bannerName != null">
+	        BANNER_NAME = #{bannerName,jdbcType=VARCHAR},
+	      </if>
+	      <if test="bannerUrl != null">
+	        BANNER_URL = #{bannerUrl,jdbcType=VARCHAR},
+	      </if>
+	      <if test="sortNo != null">
+	        SORT_NO = #{sortNo,jdbcType=INTEGER},
+	      </if>
+	      <if test="status != null">
+	        STATUS = #{status,jdbcType=VARCHAR},
+	      </if>
+	      <if test="shelfType != null">
+	        SHELF_TYPE = #{shelfType,jdbcType=VARCHAR},
+	      </if>
+	      <if test="shelfTime != null">
+	        SHELF_TIME = #{shelfTime,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="isDefault != null">
+	        IS_DEFAULT = #{isDefault,jdbcType=VARCHAR},
+	      </if>
+	      <if test="remarks != null">
+	        remarks = #{remarks,jdbcType=VARCHAR},
+	      </if>
+	      <if test="isUsable != null">
+	        is_usable = #{isUsable,jdbcType=VARCHAR},
+	      </if>
+	      <if test="addTime != null">
+	        add_time = #{addTime,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="addAccount != null">
+	        add_account = #{addAccount,jdbcType=VARCHAR},
+	      </if>
+	      <if test="modifyTime != null">
+	        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+	      </if>
+	      <if test="modifyAccount != null">
+	        modify_account = #{modifyAccount,jdbcType=VARCHAR},
+	      </if>
+	    </set>
+	    where  TENANT_ID = #{tenantId,jdbcType=INTEGER}
+	</update>
+	
+</mapper>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fbee.modules.mybatis.dao.FormConfigsMapper">
+	<resultMap id="BaseResultMap"
+		type="com.fbee.modules.mybatis.entity.FormConfigsEntity">
+		<id column="FORM_CODE" jdbcType="VARCHAR" property="formCode" />
+		<result column="FORM_NAME" jdbcType="VARCHAR" property="formName" />
+		<result column="VALID_PROPERTY" jdbcType="VARCHAR" property="validProperty" />
+		<result column="IS_REQUIRED" jdbcType="VARCHAR" property="isRequired" />
+		<result column="VALID_RULES" jdbcType="VARCHAR" property="validRules" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		FORM_CODE, FORM_NAME, VALID_PROPERTY, IS_REQUIRED, VALID_RULES
+	</sql>
+
+	<insert id="insert" parameterType="com.fbee.modules.mybatis.entity.FormConfigsEntity">
+		insert into form_configs
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="formCode != null">
+				FORM_CODE,
+			</if>
+			<if test="formName != null">
+				FORM_NAME,
+			</if>
+			<if test="validProperty != null">
+				VALID_PROPERTY,
+			</if>
+			<if test="isRequired != null">
+				IS_REQUIRED,
+			</if>
+			<if test="validRules != null">
+				VALID_RULES,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="formCode != null">
+				#{formCode,jdbcType=VARCHAR},
+			</if>
+			<if test="formName != null">
+				#{formName,jdbcType=VARCHAR},
+			</if>
+			<if test="validProperty != null">
+				#{validProperty,jdbcType=VARCHAR},
+			</if>
+			<if test="isRequired != null">
+				#{isRequired,jdbcType=VARCHAR},
+			</if>
+			<if test="validRules != null">
+				#{validRules,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="update" parameterType="com.fbee.modules.mybatis.entity.FormConfigsEntity">
+		update form_configs
+		<set>
+			<if test="formName != null">
+				FORM_NAME = #{formName,jdbcType=VARCHAR},
+			</if>
+			<if test="validProperty != null">
+				VALID_PROPERTY = #{validProperty,jdbcType=VARCHAR},
+			</if>
+			<if test="isRequired != null">
+				IS_REQUIRED = #{isRequired,jdbcType=VARCHAR},
+			</if>
+			<if test="validRules != null">
+				VALID_RULES = #{validRules,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where FORM_CODE = #{formCode,jdbcType=VARCHAR}
+	</update>
+
+</mapper>

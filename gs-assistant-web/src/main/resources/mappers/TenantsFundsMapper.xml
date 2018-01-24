@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fbee.modules.mybatis.dao.TenantsFundsMapper">
+	<resultMap id="BaseResultMap"
+		type="com.fbee.modules.mybatis.entity.TenantsFundsEntity">
+		<id column="TENANT_ID" jdbcType="INTEGER" property="tenantId" />
+		<result column="GRAND_TOTAL_AMOUNT" jdbcType="DECIMAL"
+			property="grandTotalAmount" />
+		<result column="TOTAL_AMOUNT" jdbcType="DECIMAL" property="totalAmount" />
+		<result column="FROZEN_AMOUNT" jdbcType="DECIMAL" property="frozenAmount" />
+		<result column="AVAILABLE_AMOUNT" jdbcType="DECIMAL" property="availableAmount" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		TENANT_ID, GRAND_TOTAL_AMOUNT, TOTAL_AMOUNT, FROZEN_AMOUNT,
+		AVAILABLE_AMOUNT
+	</sql>
+	<sql id="Base_Column_ListOne">
+		GRAND_TOTAL_AMOUNT "grandTotalAmount", AVAILABLE_AMOUNT "availableAmount",
+		FROZEN_AMOUNT "frozenAmount"
+	</sql>
+ <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tenants_funds
+    where TENANT_ID = #{tenantId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tenants_funds
+    where TENANT_ID = #{tenantId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.fbee.modules.mybatis.model.TenantsFunds">
+    insert into tenants_funds (TENANT_ID, GRAND_TOTAL_AMOUNT, TOTAL_AMOUNT, 
+      FROZEN_AMOUNT, AVAILABLE_AMOUNT)
+    values (#{tenantId,jdbcType=INTEGER}, #{grandTotalAmount,jdbcType=DECIMAL}, #{totalAmount,jdbcType=DECIMAL}, 
+      #{frozenAmount,jdbcType=DECIMAL}, #{availableAmount,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.fbee.modules.mybatis.model.TenantsFunds">
+    insert into tenants_funds
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tenantId != null">
+        TENANT_ID,
+      </if>
+      <if test="grandTotalAmount != null">
+        GRAND_TOTAL_AMOUNT,
+      </if>
+      <if test="totalAmount != null">
+        TOTAL_AMOUNT,
+      </if>
+      <if test="frozenAmount != null">
+        FROZEN_AMOUNT,
+      </if>
+      <if test="availableAmount != null">
+        AVAILABLE_AMOUNT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tenantId != null">
+        #{tenantId,jdbcType=INTEGER},
+      </if>
+      <if test="grandTotalAmount != null">
+        #{grandTotalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="totalAmount != null">
+        #{totalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="frozenAmount != null">
+        #{frozenAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="availableAmount != null">
+        #{availableAmount,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.fbee.modules.mybatis.model.TenantsFunds">
+    update tenants_funds
+    <set>
+      <if test="grandTotalAmount != null">
+        GRAND_TOTAL_AMOUNT = #{grandTotalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="totalAmount != null">
+        TOTAL_AMOUNT = #{totalAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="frozenAmount != null">
+        FROZEN_AMOUNT = #{frozenAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="availableAmount != null">
+        AVAILABLE_AMOUNT = #{availableAmount,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where TENANT_ID = #{tenantId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fbee.modules.mybatis.model.TenantsFunds">
+    update tenants_funds
+    set GRAND_TOTAL_AMOUNT = #{grandTotalAmount,jdbcType=DECIMAL},
+      TOTAL_AMOUNT = #{totalAmount,jdbcType=DECIMAL},
+      FROZEN_AMOUNT = #{frozenAmount,jdbcType=DECIMAL},
+      AVAILABLE_AMOUNT = #{availableAmount,jdbcType=DECIMAL}
+    where TENANT_ID = #{tenantId,jdbcType=INTEGER}
+  </update>
+  
+	<select id="getById" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tenants_funds
+		where TENANT_ID = #{tenantId,jdbcType=INTEGER}
+	</select>
+
+	<select id="getByTenantsId" parameterType="java.lang.Integer"
+		resultType="java.util.Map">
+		select
+		<include refid="Base_Column_ListOne" />
+		from tenants_funds
+		where TENANT_ID = #{tenantId,jdbcType=INTEGER}
+	</select>
+</mapper>

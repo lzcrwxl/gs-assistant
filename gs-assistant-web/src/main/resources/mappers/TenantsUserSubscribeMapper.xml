@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fbee.modules.mybatis.dao.TenantsUserSubscribeMapper">
+	<resultMap id="BaseResultMap" type="com.fbee.modules.mybatis.model.TenantsUserSubscrbes">
+		<result column="id" jdbcType="INTEGER" property="id" />
+		<result column="tenant_user_id" jdbcType="INTEGER" property="tenantUserId" />
+		<result column="openid" jdbcType="VARCHAR" property="openid" />
+		<result column="channel" jdbcType="VARCHAR" property="channel" />
+		<result column="user_name" jdbcType="VARCHAR" property="userName" />
+		<result column="receive_time" jdbcType="VARCHAR" property="receiveTime" />
+		<result column="add_time" jdbcType="VARCHAR" property="addTime" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, tenant_user_id, openid, channel, user_name,  receive_time, add_time
+	</sql>
+
+	<insert id="insert" parameterType="com.fbee.modules.mybatis.model.SubscribeInfo" keyProperty="id" useGeneratedKeys="true">
+		insert into tenants_user_subscribes
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="tenantUserId != null">
+				tenant_user_id,
+			</if>
+			<if test="openid != null">
+				openid,
+			</if>
+			<if test="userName != null">
+				user_name,
+			</if>
+			<if test="channel != null">
+				channel,
+			</if>
+			<if test="receiveTime != null">
+				receive_time,
+			</if>
+			<if test="remark != null">
+				remark,
+			</if>
+			add_time
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id},
+			</if>
+			<if test="tenantUserId != null">
+				#{tenantUserId},
+			</if>
+			<if test="openid != null">
+				#{openid},
+			</if>
+			<if test="userName != null">
+				#{userName},
+			</if>
+			<if test="channel != null">
+				#{channel},
+			</if>
+			<if test="receiveTime != null">
+				#{receiveTime},
+			</if>
+			<if test="remark != null">
+				#{remark},
+			</if>
+			now()
+		</trim>
+	</insert>
+	<insert id="insertSubject">
+		insert into tenants_user_subscribe_subjects
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="subId != null">
+				sub_id,
+			</if>
+			<if test="subject != null">
+				subject,
+			</if>
+			add_time
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="subId != null">
+				#{subId},
+			</if>
+			<if test="subject != null">
+				#{subject},
+			</if>
+			now()
+		</trim>
+	</insert>
+	<insert id="insertArea" >
+		insert into tenants_user_subscribe_areas
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="subId != null">
+				sub_id,
+			</if>
+			<if test="addr.province != null">
+				province,
+			</if>
+			<if test="addr.city != null">
+				city,
+			</if>
+			add_time
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="subId != null">
+				#{subId},
+			</if>
+			<if test="addr.province != null">
+				#{addr.province},
+			</if>
+			<if test="addr.city != null">
+				#{addr.city},
+			</if>
+			now()
+		</trim>
+	</insert>
+
+	<update id="clearUserSubscribe" parameterType="java.lang.Integer">
+		delete from tenants_user_subscribe_areas where sub_id in (select id from tenants_user_subscribes where tenant_user_id=#{tenantUserId});
+		delete from tenants_user_subscribe_subjects where sub_id in (select id from tenants_user_subscribes where tenant_user_id=#{tenantUserId});
+		delete from tenants_user_subscribes where tenant_user_id=#{tenantUserId};
+	</update>
+
+	<select id="getJobSubscribeBySubject" parameterType="com.fbee.modules.mybatis.model.TenantsUserSubscrbes" resultMap="BaseResultMap">
+		select
+		s.openid, s.user_name
+		from
+		tenants_user_subscribes s
+		where
+		exists (
+		select 1 from tenants_user_subscribe_areas a where s.id=a.sub_id
+			and ( a.province=#{province} or a.province=0)
+			and ( a.city=#{city} or a.city=0)
+		)
+		and exists ( select 1 from tenants_user_subscribe_subjects t where t.sub_id=s.id and t.subject = #{subject} )
+	</select>
+
+	<select id="getSubscribeInfoByUserId" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		from tenants_user_subscribes
+		where channel = #{channel}
+		and tenant_user_id = #{userId}
+	</select>
+	<select id="findServicesBySubId" resultType="java.lang.String" parameterType="java.lang.Integer">
+		select
+			subject
+		from tenants_user_subscribe_subjects
+		where sub_id = #{subId}
+	</select>
+	<select id="findAddressesBySubId" resultType="com.fbee.modules.mybatis.model.AddressInfo" parameterType="java.lang.Integer">
+		select
+			province, city
+		from tenants_user_subscribe_areas
+		where sub_id = #{subId}
+	</select>
+
+
+
+</mapper>

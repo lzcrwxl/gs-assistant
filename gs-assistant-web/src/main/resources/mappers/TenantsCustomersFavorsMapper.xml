@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fbee.modules.mybatis.dao.TenantsCustomersFavorsMapper">
+	<resultMap id="BaseResultMap"
+		type="com.fbee.modules.mybatis.entity.TenantsCustomersFavorsEntity">
+		<id column="CUSTOMER_ID" jdbcType="INTEGER" property="customerId" />
+		<result column="FAVOR_CODE" jdbcType="VARCHAR" property="favorCode" />
+		<result column="FAVOR_VALUE" jdbcType="VARCHAR" property="favorValue" />
+		<result column="FAVOR_REMARK" jdbcType="VARCHAR" property="favorRemark" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		CUSTOMER_ID, FAVOR_CODE, FAVOR_VALUE, FAVOR_REMARK
+	</sql>
+
+	<insert id="insert"
+		parameterType="com.fbee.modules.mybatis.entity.TenantsCustomersFavorsEntity">
+		insert into tenants_customers_favors
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="customerId != null">
+				CUSTOMER_ID,
+			</if>
+			<if test="favorCode != null">
+				FAVOR_CODE,
+			</if>
+			<if test="favorValue != null">
+				FAVOR_VALUE,
+			</if>
+			<if test="favorRemark != null">
+				FAVOR_REMARK,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="customerId != null">
+				#{customerId,jdbcType=INTEGER},
+			</if>
+			<if test="favorCode != null">
+				#{favorCode,jdbcType=VARCHAR},
+			</if>
+			<if test="favorValue != null">
+				#{favorValue,jdbcType=VARCHAR},
+			</if>
+			<if test="favorRemark != null">
+				#{favorRemark,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="update"
+		parameterType="com.fbee.modules.mybatis.entity.TenantsCustomersFavorsEntity">
+		update tenants_customers_favors
+		<set>
+			<if test="favorCode != null">
+				FAVOR_CODE = #{favorCode,jdbcType=VARCHAR},
+			</if>
+			<if test="favorValue != null">
+				FAVOR_VALUE = #{favorValue,jdbcType=VARCHAR},
+			</if>
+			<if test="favorRemark != null">
+				FAVOR_REMARK = #{favorRemark,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where CUSTOMER_ID = #{customerId,jdbcType=INTEGER}
+	</update>
+</mapper>

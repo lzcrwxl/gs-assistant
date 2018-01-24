@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fbee.modules.mybatis.dao.TenantsStaffBankMapper">
+	<resultMap id="BaseResultMap"
+		type="com.fbee.modules.mybatis.entity.TenantsStaffBankEntity">
+    <id column="STAFF_ID" jdbcType="INTEGER" property="staffId" />
+    <id column="TENANT_ID" jdbcType="INTEGER" property="tenantId" />
+    <result column="BANK_CODE" jdbcType="VARCHAR" property="bankCode" />
+    <result column="CARD_NO" jdbcType="VARCHAR" property="cardNo" />
+    <result column="account_name" jdbcType="VARCHAR" property="accountName" />
+    <result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+    <result column="add_account" jdbcType="VARCHAR" property="addAccount" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="modify_account" jdbcType="VARCHAR" property="modifyAccount" />
+    <!-- 临时字段 -->
+    <result column="BANK_NAME" jdbcType="VARCHAR" property="bankName" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		    STAFF_ID, TENANT_ID, BANK_CODE, CARD_NO, account_name, add_time, add_account, modify_time, modify_account
+	</sql>
+
+	<select id="getBankInfoByKey" parameterType="com.fbee.modules.mybatis.model.TenantsStaffBankKey"
+		resultMap="BaseResultMap">
+		select
+			t1.STAFF_ID, t1.TENANT_ID, t1.BANK_CODE, t1.CARD_NO, t1.account_name, t1.add_time, 
+			t1.add_account, t1.modify_time, t1.modify_account, t2.BANK_NAME
+		from tenants_staff_bank t1
+		left join 
+		(
+				select DISTINCT BANK_CODE, BANK_NAME from bank
+		) t2 on t1.BANK_CODE = t2.BANK_CODE
+		where STAFF_ID = #{staffId,jdbcType=INTEGER}
+		and TENANT_ID = #{tenantId,jdbcType=INTEGER}
+	</select>
+
+	<insert id="insert"
+		parameterType="com.fbee.modules.mybatis.entity.TenantsStaffBankEntity">
+		insert into tenants_staff_bank
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="staffId != null">
+        STAFF_ID,
+      </if>
+      <if test="tenantId != null">
+        TENANT_ID,
+      </if>
+      <if test="bankCode != null">
+        BANK_CODE,
+      </if>
+      <if test="cardNo != null">
+        CARD_NO,
+      </if>
+      <if test="accountName  != null">
+      	account_name,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+      <if test="addAccount != null">
+        add_account,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="modifyAccount != null">
+        modify_account,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="staffId != null">
+        #{staffId,jdbcType=INTEGER},
+      </if>
+      <if test="tenantId != null">
+        #{tenantId,jdbcType=INTEGER},
+      </if>
+      <if test="bankCode != null">
+        #{bankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cardNo != null">
+        #{cardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="accountName  != null">
+      	#{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addAccount != null">
+        #{addAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyAccount != null">
+        #{modifyAccount,jdbcType=VARCHAR},
+      </if>
+    </trim>
+	</insert>
+	<update id="update"
+		parameterType="com.fbee.modules.mybatis.entity.TenantsStaffBankEntity">
+		update tenants_staff_bank
+    <set>
+      <if test="bankCode != null">
+        BANK_CODE = #{bankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="cardNo != null">
+        CARD_NO = #{cardNo,jdbcType=VARCHAR},
+      </if>
+      <if test="accountName  != null">
+      	account_name = #{accountName,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addAccount != null">
+        add_account = #{addAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyAccount != null">
+        modify_account = #{modifyAccount,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where STAFF_ID = #{staffId,jdbcType=INTEGER}
+      and TENANT_ID = #{tenantId,jdbcType=INTEGER}
+	</update>
+</mapper>

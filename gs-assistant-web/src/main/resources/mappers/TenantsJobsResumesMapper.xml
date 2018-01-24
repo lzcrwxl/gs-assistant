@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fbee.modules.mybatis.dao.TenantsJobResumesMapper">
+    <resultMap id="BaseResultMap" type="com.fbee.modules.mybatis.model.TenantsJobResume">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="order_no" jdbcType="VARCHAR" property="orderNo"/>
+        <result column="job_id" jdbcType="INTEGER" property="jobId"/>
+        <result column="job_tenant_id" jdbcType="INTEGER" property="jobTenantId"/>
+        <result column="job_tenant_user_id" jdbcType="INTEGER" property="jobTenantUserId"/>
+        <result column="resume_tenant_id" jdbcType="INTEGER" property="resumeTenantId"/>
+        <result column="resume_tenant_user_id" jdbcType="INTEGER" property="resumeTenantUserId"/>
+        <result column="resume_tenant_staff_id" jdbcType="INTEGER" property="resumeTenantStaffId"/>
+        <result column="contact_name" jdbcType="VARCHAR" property="contactName"/>
+        <result column="contact_phone" jdbcType="VARCHAR" property="contactPhone"/>
+        <result column="resume_tenant_name" jdbcType="VARCHAR" property="resumeTenantName"/>
+        <result column="apply_date" jdbcType="TIMESTAMP" property="applyDate"/>
+        <result column="check_date" jdbcType="TIMESTAMP" property="checkDate"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+        <result column="deposit" jdbcType="DECIMAL" property="deposit"/>
+        <result column="match" jdbcType="INTEGER" property="match"/>
+        <result column="remarks" jdbcType="VARCHAR" property="remarks"/>
+        <result column="add_time" jdbcType="TIMESTAMP" property="addTime"/>
+        <result column="add_account" jdbcType="VARCHAR" property="addAccount"/>
+        <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime"/>
+        <result column="modify_account" jdbcType="VARCHAR" property="modifyAccount"/>
+    </resultMap>
+    <resultMap id="BaseResultWithStaff" extends="BaseResultMap" type="com.fbee.modules.mybatis.model.TenantsJobResume">
+        <association property="staffInfo" column="resume_tenant_staff_id" javaType="com.fbee.modules.mybatis.model.StaffSnapShotInfo"
+                     select="com.fbee.modules.mybatis.dao.TenantsStaffsInfoMapper.getSnapshotById" />
+        <association property="jobInfo" column="job_id" javaType="com.fbee.modules.mybatis.model.TenantsJobs"
+                     select="com.fbee.modules.mybatis.dao.TenantsJobsMapper.getById" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        a.id, a.order_no, a.job_id, a.job_tenant_id, a.job_tenant_user_id, a.resume_tenant_id, a.resume_tenant_user_id,
+        a.resume_tenant_staff_id, a.apply_date, a.check_date,
+        if(a.status = '1' and DATE_ADD(a.apply_date, INTERVAL 1 DAY) <![CDATA[< NOW()]]>, '5', a.status) 'status',
+        if(a.status = '1' and DATE_ADD(a.apply_date, INTERVAL 1 DAY) <![CDATA[< NOW()]]>, '到期未处理取消, 保证金将于今晚日结后解冻', a.remarks) 'remarks',
+        a.deposit, a.contact_name, a.contact_phone, a.resume_tenant_name,
+        a.`match`, a.add_time,a.add_account, a.modify_time, a.modify_account
+    </sql>
+
+    <select id="getById" parameterType="java.lang.Integer" resultMap="BaseResultWithStaff">
+        select
+        <include refid="Base_Column_List"/>
+        from tenants_job_resumes a
+        where a.id = #{id}
+    </select>
+    <select id="getByJobStaff" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tenants_job_resumes a
+        where a.job_id = #{jobId} and a.resume_tenant_staff_id = #{staffId}
+    </select>
+    <select id="getByOrderStaff" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tenants_job_resumes a
+        where a.order_no = #{orderNo} and a.resume_tenant_staff_id = #{staffId}
+    </select>
+
+    <insert id="insert" parameterType="com.fbee.modules.mybatis.model.TenantsJobResume" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into tenants_job_resumes (
+        id, job_id, order_no, job_tenant_id, job_tenant_user_id, resume_tenant_id, resume_tenant_user_id,
+        resume_tenant_staff_id, apply_date, check_date, status, remarks, deposit, `match`,
+        add_account, modify_time, modify_account,  contact_name, contact_phone, resume_tenant_name
+        )
+        values (
+        #{id}, #{jobId}, #{orderNo}, #{jobTenantId}, #{jobTenantUserId}, #{resumeTenantId}, #{resumeTenantUserId},
+        #{resumeTenantStaffId}, #{applyDate}, #{checkDate}, #{status}, #{remarks}, #{deposit}, #{match},
+        #{addAccount}, #{modifyTime}, #{modifyAccount},  #{contactName}, #{contactPhone}, #{resumeTenantName}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.fbee.modules.mybatis.model.TenantsJobResume">
+        update tenants_job_resumes
+        <set>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="checkDate != null" >
+                check_date = #{checkDate},
+            </if>
+            <if test="remarks != null" >
+                remarks = #{remarks},
+            </if>
+            <if test="modifyAccount != null">
+                modify_account = #{modifyAccount},
+            </if>
+            modify_time = now()
+        </set>
+        where id = #{id}
+    </update>
+
+    <select id="getMyResumesBoxCount" parameterType="com.fbee.modules.core.page.form.TenantJobResumeForm" resultType="int">
+        select
+        count(1)
+        from tenants_job_resumes a
+        where is_usable = 1
+        <if test="orderNo != null and orderNo != ''"> and order_no like #{orderNo} </if>
+        <if test="jobId != null and jobId != ''"> and job_id = #{jobId} </if>
+        <if test="jobTenantId != null and jobTenantId != ''"> and job_tenant_id = #{jobTenantId} </if>
+        <if test="jobTenantUserId != null and jobTenantUserId != ''"> and job_tenant_user_id = #{jobTenantUserId} </if>
+        <if test="status != null and status !=''">
+            <choose>
+                <when test="status == 1">and a.status=1 and DATE_ADD(a.apply_date, INTERVAL 1 DAY) <![CDATA[ > ]]> NOW()</when>
+                <when test="status == 5">and (a.status=5 or ( a.status=1 and DATE_ADD(a.apply_date, INTERVAL 1 DAY) <![CDATA[ < ]]> NOW()))</when>
+                <otherwise> and status = #{status} </otherwise>
+            </choose>
+        </if>
+        <if test="applyStartDate != null and applyStartDate != '' ">and DATE_FORMAT(apply_date, '%Y-%m-%d') <![CDATA[>=]]> DATE_FORMAT(#{applyStartDate}, '%Y-%m-%d')</if>
+        <if test="applyEndDate != null and applyEndDate != '' ">and DATE_FORMAT(apply_date, '%Y-%m-%d') <![CDATA[<=]]> DATE_FORMAT(#{applyEndDate}, '%Y-%m-%d')</if>
+        and exists (select 1
+                    from
+                        tenants_staffs_info b, tenants_staff_job_info j
+                    where  b.staff_id = j.staff_id
+                        and a.resume_tenant_staff_id=b.staff_id
+        <if test="education != null and education != ''">and  b.educarion=#{education}</if>
+        <if test="staffName != null and staffName != ''">and  b.staff_name like CONCAT('%',#{staffName},'%' )</if>
+        <if test="zodiac != null and zodiac != ''">and  b.zodiac=#{zodiac}</if>
+        <if test="nativePlace != null and nativePlace != ''">and  b.native_place=#{nativePlace}</if>
+        <if test="experience != null and experience != ''">and  j.experience=#{experience}</if>
+        <if test="ageStart != null and ageStart !=''">
+            and b.age <![CDATA[ >= ]]> #{ageStart}
+        </if>
+        <if test="ageEnd != null and ageEnd !=''">
+            and b.age <![CDATA[ <= ]]> #{ageEnd}
+        </if>
+                    )
+    </select>
+    <select id="getMyResumesBoxList" parameterType="com.fbee.modules.core.page.form.TenantJobResumeForm" resultMap="BaseResultWithStaff">
+        select
+        <include refid="Base_Column_List" />
+        from tenants_job_resumes a
+        where is_usable = 1
+        <if test="orderNo != null and orderNo != ''"> and order_no like #{orderNo} </if>
+        <if test="jobId != null and jobId != ''"> and job_id = #{jobId} </if>
+        <if test="jobTenantId != null and jobTenantId != ''"> and job_tenant_id = #{jobTenantId} </if>
+        <if test="jobTenantUserId != null and jobTenantUserId != ''"> and job_tenant_user_id = #{jobTenantUserId} </if>
+        <if test="status != null and status !=''">
+            <choose>
+                <when test="status == 1">and a.status=1 and DATE_ADD(a.apply_date, INTERVAL 1 DAY) <![CDATA[ > ]]> NOW()</when>
+                <when test="status == 5">and (a.status=5 or ( a.status=1 and DATE_ADD(a.apply_date, INTERVAL 1 DAY) <![CDATA[ < ]]> NOW()))</when>
+                <otherwise> and status = #{status} </otherwise>
+            </choose>
+        </if>
+        <if test="applyStartDate != null and applyStartDate != '' ">and DATE_FORMAT(apply_date, '%Y-%m-%d') <![CDATA[>=]]> DATE_FORMAT(#{applyStartDate}, '%Y-%m-%d')</if>
+        <if test="applyEndDate != null and applyEndDate != '' ">and DATE_FORMAT(apply_date, '%Y-%m-%d') <![CDATA[<=]]> DATE_FORMAT(#{applyEndDate}, '%Y-%m-%d')</if>
+        and exists (select 1
+                    from
+                        tenants_staffs_info b, tenants_staff_job_info j
+                    where b.staff_id = j.staff_id
+                        and a.resume_tenant_staff_id=b.staff_id
+        <if test="education != null and education != ''">and  b.educarion=#{education}</if>
+        <if test="staffName != null and staffName != ''">and  b.staff_name like CONCAT('%',#{staffName},'%' )</if>
+        <if test="zodiac != null and zodiac != ''">and  b.zodiac=#{zodiac}</if>
+        <if test="nativePlace != null and nativePlace != ''">and  b.native_place=#{nativePlace}</if>
+        <if test="experience != null and experience != ''">and  j.experience=#{experience}</if>
+        <if test="ageStart != null and ageStart !=''">
+            and b.age <![CDATA[ >= ]]> #{ageStart}
+        </if>
+        <if test="ageEnd != null and ageEnd !=''">
+            and b.age <![CDATA[ <= ]]> #{ageEnd}
+        </if>
+                )
+        order by modify_time desc
+        limit #{offset},#{rowNum}
+    </select>
+
+    <select id="getMyApplyResumesCount" parameterType="com.fbee.modules.core.page.form.TenantJobResumeForm" resultType="int">
+        select
+        count(1)
+        from tenants_job_resumes a inner join tenants_jobs b on a.job_id=b.id and a.resume_tenant_id = #{resumeTenantId}
+        where a.is_usable = 1
+        <if test="status != null and status !=''">
+            <choose>
+                <!-- 查询处理中 -->
+                <when test="status == '1'">and a.status=1 and DATE_ADD(a.apply_date, INTERVAL 1 DAY) <![CDATA[ > ]]> NOW()</when>
+                <when test="status == '12'">and (a.status = 2 or (a.status=1 and DATE_ADD(a.apply_date, INTERVAL 1 DAY) <![CDATA[ > ]]> NOW()))</when>
+                <!-- 查询已取消 -->
+                <when test="status == '35'">and (a.status = 3 or a.status=5 or (a.status=1 and DATE_ADD(a.apply_date, INTERVAL 1 DAY) <![CDATA[ < ]]> NOW()))</when>
+                <when test="status == '5'">and (a.status=5 or (a.status=1 and DATE_ADD(a.apply_date, INTERVAL 1 DAY) <![CDATA[ < ]]> NOW()))</when>
+                <otherwise>and a.status = #{status}</otherwise>
+            </choose>
+        </if>
+        <if test="jobStatus != null and jobStatus != ''">and b.status = #{jobStatus}</if>
+        <if test="resumeTenantUserId != null and resumeTenantUserId  != '' ">and a.resume_tenant_user_id = #{resumeTenantUserId}</if>
+        <if test="serviceType != null and serviceType  != '' ">and b.service_type = #{serviceType}</if>
+        <if test="salaryType != null and salaryType  != '' ">
+        	<if test="salaryType == '01'">
+        		and b.salary_type in (01,03)
+        	</if>
+        	<if test="salaryType == '02'">
+        		and b.salary_type = 04
+        	</if>
+        	<if test="salaryType == '03'">
+        		and b.salary_type = 02
+        	</if>
+        </if>
+        <if test="salaryMin != null and salaryMin  != '' ">and salary <![CDATA[ >= ]]> #{salaryMin}</if>
+        <if test="salaryMax != null and salaryMax  != '' ">and salary <![CDATA[ < ]]> #{salaryMax}</if>
+        <if test="age != null and age != '' ">and b.age = #{age}</if>
+        <if test="serviceProvince != null and serviceProvince != '' ">and b.service_province = #{serviceProvince}</if>
+        <if test="orderNo != null and orderNo != '' ">and b.order_no = #{orderNo}</if>
+        <if test="applyStartDate != null and applyStartDate != '' ">and DATE_FORMAT(apply_date, '%Y-%m-%d') <![CDATA[>=]]> DATE_FORMAT(#{applyStartDate}, '%Y-%m-%d')</if>
+        <if test="applyEndDate != null and applyEndDate != '' ">and DATE_FORMAT(apply_date, '%Y-%m-%d') <![CDATA[<=]]> DATE_FORMAT(#{applyEndDate}, '%Y-%m-%d')</if>
+    </select>
+    <select id="getMyApplyResumesList" parameterType="com.fbee.modules.core.page.form.TenantJobResumeForm" resultMap="BaseResultWithStaff">
+        select
+        <include refid="Base_Column_List" />
+        from tenants_job_resumes a inner join tenants_jobs b on a.job_id=b.id and resume_tenant_id = #{resumeTenantId}
+        where a.is_usable = 1 and b.is_usable =1
+        <if test="status != null and status !=''">
+            <choose>
+                <!-- 查询处理中 -->
+                <when test="status == '1'">and a.status=1 and DATE_ADD(a.apply_date, INTERVAL 1 DAY) <![CDATA[ > ]]> NOW()</when>
+                <when test="status == '12'">and (a.status = 2 or (a.status=1 and DATE_ADD(a.apply_date, INTERVAL 1 DAY) <![CDATA[ > ]]> NOW()))</when>
+                <!-- 查询已取消 -->
+                <when test="status == '35'">and (a.status = 3 or a.status=5 or (a.status=1 and DATE_ADD(a.apply_date, INTERVAL 1 DAY) <![CDATA[ < ]]> NOW()))</when>
+                <when test="status == '5'">and (a.status=5 or (a.status=1 and DATE_ADD(a.apply_date, INTERVAL 1 DAY) <![CDATA[ < ]]> NOW()))</when>
+                <otherwise>and a.status = #{status}</otherwise>
+            </choose>
+        </if>
+        <if test="jobStatus != null and jobStatus != ''">and b.status = #{jobStatus}</if>
+        <if test="resumeTenantUserId != null and resumeTenantUserId  != '' ">and a.resume_tenant_user_id = #{resumeTenantUserId}</if><if test="resumeTenantId != null and resumeTenantId  != '' ">and a.resume_tenant_id = #{resumeTenantId}</if>
+        <if test="serviceType != null and serviceType  != '' ">and b.service_type = #{serviceType}</if>
+        <if test="salaryType != null and salaryType  != '' ">
+        	<if test="salaryType == '01'">
+        		and b.salary_type in (01,03)
+        	</if>
+        	<if test="salaryType == '02'">
+        		and b.salary_type = 04
+        	</if>
+        	<if test="salaryType == '03'">
+        		and b.salary_type = 02
+        	</if>
+        </if>
+        <if test="salaryMin != null and salaryMin  != '' ">and salary <![CDATA[ >= ]]> #{salaryMin}</if>
+        <if test="salaryMax != null and salaryMax  != '' ">and salary <![CDATA[ < ]]> #{salaryMax}</if>
+        <if test="age != null and age != '' ">and b.age = #{age}</if>
+        <if test="serviceProvince != null and serviceProvince != '' ">and b.service_province = #{serviceProvince}</if>
+        <if test="orderNo != null and orderNo != '' ">and b.order_no = #{orderNo}</if>
+        <if test="applyStartDate != null and applyStartDate != '' ">and DATE_FORMAT(apply_date, '%Y-%m-%d') <![CDATA[>=]]> DATE_FORMAT(#{applyStartDate}, '%Y-%m-%d')</if>
+        <if test="applyEndDate != null and applyEndDate != '' ">and DATE_FORMAT(apply_date, '%Y-%m-%d') <![CDATA[<=]]> DATE_FORMAT(#{applyEndDate}, '%Y-%m-%d')</if>
+        order by a.modify_time desc
+        limit #{offset},#{rowNum}
+    </select>
+
+   <select id="getDelayResumeList" resultMap="BaseResultMap">
+       select a.id from tenants_job_resumes a
+       where
+        a.status = '1' and DATE_ADD(a.apply_date, INTERVAL 1 DAY) <![CDATA[< NOW()]]>
+   </select>
+
+</mapper>

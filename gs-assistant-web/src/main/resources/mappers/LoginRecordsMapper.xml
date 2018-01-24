@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fbee.modules.mybatis.dao.LoginRecordsMapper">
+	<resultMap id="BaseResultMap"
+		type="com.fbee.modules.mybatis.entity.LoginRecordsEntity">
+		<id column="id" jdbcType="INTEGER" property="id" />
+		<result column="login_account" jdbcType="VARCHAR" property="loginAccount" />
+		<result column="login_time" jdbcType="TIMESTAMP" property="loginTime" />
+		<result column="login_ip" jdbcType="VARCHAR" property="loginIp" />
+		<result column="is_succeed" jdbcType="VARCHAR" property="isSucceed" />
+		<result column="failed_reason" jdbcType="VARCHAR" property="failedReason" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, login_account, login_time, login_ip, is_succeed, failed_reason
+	</sql>
+
+	<insert id="insert" parameterType="com.fbee.modules.mybatis.entity.LoginRecordsEntity">
+		insert into login_records
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="loginAccount != null">
+				login_account,
+			</if>
+			<if test="loginTime != null">
+				login_time,
+			</if>
+			<if test="loginIp != null">
+				login_ip,
+			</if>
+			<if test="isSucceed != null">
+				is_succeed,
+			</if>
+			<if test="failedReason != null">
+				failed_reason,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="loginAccount != null">
+				#{loginAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="loginTime != null">
+				#{loginTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="loginIp != null">
+				#{loginIp,jdbcType=VARCHAR},
+			</if>
+			<if test="isSucceed != null">
+				#{isSucceed,jdbcType=VARCHAR},
+			</if>
+			<if test="failedReason != null">
+				#{failedReason,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="update" parameterType="com.fbee.modules.mybatis.entity.LoginRecordsEntity">
+		update login_records
+		<set>
+			<if test="loginAccount != null">
+				login_account = #{loginAccount,jdbcType=VARCHAR},
+			</if>
+			<if test="loginTime != null">
+				login_time = #{loginTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="loginIp != null">
+				login_ip = #{loginIp,jdbcType=VARCHAR},
+			</if>
+			<if test="isSucceed != null">
+				is_succeed = #{isSucceed,jdbcType=VARCHAR},
+			</if>
+			<if test="failedReason != null">
+				failed_reason = #{failedReason,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+</mapper>

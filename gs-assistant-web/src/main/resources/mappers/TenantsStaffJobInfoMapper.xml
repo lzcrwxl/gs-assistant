@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fbee.modules.mybatis.dao.TenantsStaffJobInfoMapper">
+	<resultMap id="BaseResultMap"
+		type="com.fbee.modules.mybatis.entity.TenantsStaffJobInfoEntity">
+		<id column="STAFF_ID" jdbcType="INTEGER" property="staffId" />
+		<result column="TENANT_ID" jdbcType="INTEGER" property="tenantId" />
+		<result column="MANAGE_WAY" jdbcType="VARCHAR" property="manageWay" />
+		<result column="SERVICE_PROVICE" jdbcType="VARCHAR" property="serviceProvice" />
+		<result column="SERVICE_CITY" jdbcType="VARCHAR" property="serviceCity" />
+		<result column="SERVICE_COUNTY" jdbcType="VARCHAR" property="serviceCounty" />
+		<result column="WORK_EXPERIENCE" jdbcType="VARCHAR" property="workExperience" />
+		<result column="SELF_EVALUATION" jdbcType="VARCHAR" property="selfEvaluation" />
+		<result column="TEACHER_EVALUATION" jdbcType="VARCHAR"
+			property="teacherEvaluation" />
+		<result column="add_time" jdbcType="TIMESTAMP" property="addTime" />
+		<result column="add_account" jdbcType="VARCHAR" property="addAccount" />
+		<result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+		<result column="modify_account" jdbcType="VARCHAR" property="modifyAccount" />
+		<result column="language_feature" jdbcType="VARCHAR" property="languageFeature" />
+		<result column="characer_feature" jdbcType="VARCHAR" property="characerFeature" />
+		<result column="cooking_feature" jdbcType="VARCHAR" property="cookingFeature" />
+		<result column="other" jdbcType="VARCHAR" property="other" />
+		<result column="pet_feeding" jdbcType="VARCHAR" property="petFeeding" />
+		<result column="elderly_support" jdbcType="VARCHAR" property="elderlySupport" />
+        <result column="price" jdbcType="DECIMAL" property="price" />
+        <result column="unit" jdbcType="VARCHAR" property="unit" />
+        <result column="service_area" jdbcType="VARCHAR" property="serviceArea" />
+        <result column="experience" jdbcType="VARCHAR" property="experience" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		STAFF_ID, TENANT_ID, MANAGE_WAY, SERVICE_PROVICE,
+		SERVICE_CITY, SERVICE_COUNTY, WORK_EXPERIENCE,
+		SELF_EVALUATION, TEACHER_EVALUATION, add_time, add_account, modify_time,
+		modify_account,
+		language_feature, characer_feature, cooking_feature, other, pet_feeding,
+		elderly_support,price,unit,service_area, experience
+	</sql>
+
+	<select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tenants_staff_job_info
+    where STAFF_ID = #{staffId,jdbcType=INTEGER}
+   </select>
+   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tenants_staff_job_info
+    where STAFF_ID = #{staffId,jdbcType=INTEGER}
+   </delete>
+   <insert id="insert" parameterType="com.fbee.modules.mybatis.model.TenantsStaffJobInfo">
+    insert into tenants_staff_job_info (STAFF_ID, TENANT_ID, MANAGE_WAY, 
+      SERVICE_PROVICE, SERVICE_CITY, SERVICE_COUNTY, 
+      WORK_EXPERIENCE, SELF_EVALUATION, TEACHER_EVALUATION, 
+      add_time, add_account, modify_time, 
+      modify_account, language_feature, characer_feature, 
+      cooking_feature, other, pet_feeding, 
+      elderly_support,price, unit, service_area, experience)
+    values (#{staffId,jdbcType=INTEGER}, #{tenantId,jdbcType=INTEGER}, #{manageWay,jdbcType=VARCHAR}, 
+      #{serviceProvice,jdbcType=VARCHAR}, #{serviceCity,jdbcType=VARCHAR}, #{serviceCounty,jdbcType=VARCHAR}, 
+      #{workExperience,jdbcType=VARCHAR}, #{selfEvaluation,jdbcType=VARCHAR}, #{teacherEvaluation,jdbcType=VARCHAR}, 
+      #{addTime,jdbcType=TIMESTAMP}, #{addAccount,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{modifyAccount,jdbcType=VARCHAR}, #{languageFeature,jdbcType=VARCHAR}, #{characerFeature,jdbcType=VARCHAR}, 
+      #{cookingFeature,jdbcType=VARCHAR}, #{other,jdbcType=VARCHAR}, #{petFeeding,jdbcType=VARCHAR}, 
+      #{elderlySupport,jdbcType=VARCHAR}, #{price}, #{unit}, #{serviceArea}, #{experience})
+   </insert>
+   <insert id="insertSelective" parameterType="com.fbee.modules.mybatis.model.TenantsStaffJobInfo">
+    insert into tenants_staff_job_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="staffId != null">
+        STAFF_ID,
+      </if>
+      <if test="tenantId != null">
+        TENANT_ID,
+      </if>
+      <if test="manageWay != null">
+        MANAGE_WAY,
+      </if>
+      <if test="serviceProvice != null">
+        SERVICE_PROVICE,
+      </if>
+      <if test="serviceCity != null">
+        SERVICE_CITY,
+      </if>
+      <if test="serviceCounty != null">
+        SERVICE_COUNTY,
+      </if>
+      <if test="workExperience != null">
+        WORK_EXPERIENCE,
+      </if>
+      <if test="selfEvaluation != null">
+        SELF_EVALUATION,
+      </if>
+      <if test="teacherEvaluation != null">
+        TEACHER_EVALUATION,
+      </if>
+      <if test="addTime != null">
+        add_time,
+      </if>
+      <if test="addAccount != null">
+        add_account,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="modifyAccount != null">
+        modify_account,
+      </if>
+      <if test="languageFeature != null">
+        language_feature,
+      </if>
+      <if test="characerFeature != null">
+        characer_feature,
+      </if>
+      <if test="cookingFeature != null">
+        cooking_feature,
+      </if>
+      <if test="other != null">
+        other,
+      </if>
+      <if test="petFeeding != null">
+        pet_feeding,
+      </if>
+      <if test="elderlySupport != null">
+        elderly_support,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="unit != null">
+        unit,
+      </if>
+      <if test="serviceArea != null">
+        service_area,
+      </if>
+      <if test="experience != null">
+        experience,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="staffId != null">
+        #{staffId,jdbcType=INTEGER},
+      </if>
+      <if test="tenantId != null">
+        #{tenantId,jdbcType=INTEGER},
+      </if>
+      <if test="manageWay != null">
+        #{manageWay,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceProvice != null">
+        #{serviceProvice,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceCity != null">
+        #{serviceCity,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceCounty != null">
+        #{serviceCounty,jdbcType=VARCHAR},
+      </if>
+      <if test="workExperience != null">
+        #{workExperience,jdbcType=VARCHAR},
+      </if>
+      <if test="selfEvaluation != null">
+        #{selfEvaluation,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherEvaluation != null">
+        #{teacherEvaluation,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addAccount != null">
+        #{addAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyAccount != null">
+        #{modifyAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="languageFeature != null">
+        #{languageFeature,jdbcType=VARCHAR},
+      </if>
+      <if test="characerFeature != null">
+        #{characerFeature,jdbcType=VARCHAR},
+      </if>
+      <if test="cookingFeature != null">
+        #{cookingFeature,jdbcType=VARCHAR},
+      </if>
+      <if test="other != null">
+        #{other,jdbcType=VARCHAR},
+      </if>
+      <if test="petFeeding != null">
+        #{petFeeding,jdbcType=VARCHAR},
+      </if>
+      <if test="elderlySupport != null">
+        #{elderlySupport,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price},
+      </if>
+      <if test="unit != null">
+        #{unit},
+      </if>
+      <if test="serviceArea != null">
+        #{serviceArea},
+      </if>
+      <if test="experience != null">
+        #{experience},
+      </if>
+    </trim>
+   </insert>
+   <update id="updateByPrimaryKeySelective" parameterType="com.fbee.modules.mybatis.model.TenantsStaffJobInfo">
+    update tenants_staff_job_info
+    <set>
+      <if test="tenantId != null">
+        TENANT_ID = #{tenantId,jdbcType=INTEGER},
+      </if>
+      <if test="manageWay != null">
+        MANAGE_WAY = #{manageWay,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceProvice != null">
+        SERVICE_PROVICE = #{serviceProvice,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceCity != null">
+        SERVICE_CITY = #{serviceCity,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceCounty != null">
+        SERVICE_COUNTY = #{serviceCounty,jdbcType=VARCHAR},
+      </if>
+      <if test="workExperience != null">
+        WORK_EXPERIENCE = #{workExperience,jdbcType=VARCHAR},
+      </if>
+      <if test="selfEvaluation != null">
+        SELF_EVALUATION = #{selfEvaluation,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherEvaluation != null">
+        TEACHER_EVALUATION = #{teacherEvaluation,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addAccount != null">
+        add_account = #{addAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyAccount != null">
+        modify_account = #{modifyAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="languageFeature != null">
+        language_feature = #{languageFeature,jdbcType=VARCHAR},
+      </if>
+
+      <if test="languageFeature == ''">
+        language_feature = null,
+      </if>
+
+      <if test="characerFeature != null">
+        characer_feature = #{characerFeature,jdbcType=VARCHAR},
+      </if>
+
+      <if test="characerFeature == ''">
+        characer_feature = null,
+      </if>
+
+      <if test="cookingFeature != null">
+        cooking_feature = #{cookingFeature,jdbcType=VARCHAR},
+      </if>
+
+      <if test="cookingFeature == ''">
+        cooking_feature = null,
+      </if>
+
+      <if test="other != null">
+        other = #{other,jdbcType=VARCHAR},
+      </if>
+      <if test="petFeeding != null">
+        pet_feeding = #{petFeeding,jdbcType=VARCHAR},
+      </if>
+      <if test="elderlySupport != null">
+        elderly_support = #{elderlySupport,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price},
+      </if>
+      <if test="unit != null">
+        unit = #{unit},
+      </if>
+      <if test="serviceArea != null">
+        service_area = #{serviceArea},
+      </if>
+      <if test="experience != null">
+        experience = #{experience},
+      </if>
+    </set>
+    where STAFF_ID = #{staffId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.fbee.modules.mybatis.model.TenantsStaffJobInfo">
+    update tenants_staff_job_info
+    set TENANT_ID = #{tenantId,jdbcType=INTEGER},
+      MANAGE_WAY = #{manageWay,jdbcType=VARCHAR},
+      SERVICE_PROVICE = #{serviceProvice,jdbcType=VARCHAR},
+      SERVICE_CITY = #{serviceCity,jdbcType=VARCHAR},
+      SERVICE_COUNTY = #{serviceCounty,jdbcType=VARCHAR},
+      WORK_EXPERIENCE = #{workExperience,jdbcType=VARCHAR},
+      SELF_EVALUATION = #{selfEvaluation,jdbcType=VARCHAR},
+      TEACHER_EVALUATION = #{teacherEvaluation,jdbcType=VARCHAR},
+      add_time = #{addTime,jdbcType=TIMESTAMP},
+      add_account = #{addAccount,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      modify_account = #{modifyAccount,jdbcType=VARCHAR},
+      language_feature = #{languageFeature,jdbcType=VARCHAR},
+      characer_feature = #{characerFeature,jdbcType=VARCHAR},
+      cooking_feature = #{cookingFeature,jdbcType=VARCHAR},
+      other = #{other,jdbcType=VARCHAR},
+      pet_feeding = #{petFeeding,jdbcType=VARCHAR},
+      elderly_support = #{elderlySupport,jdbcType=VARCHAR},
+      experience = #{experience},
+    price = #{price},
+    unit = #{unit},
+    service_area = #{serviceArea}
+    where STAFF_ID = #{staffId,jdbcType=INTEGER}
+  </update>
+  
+  <update id="update" parameterType="com.fbee.modules.mybatis.entity.TenantsStaffJobInfoEntity">
+    update tenants_staff_job_info
+    <set>
+      <if test="tenantId != null">
+        TENANT_ID = #{tenantId,jdbcType=INTEGER},
+      </if>
+      <if test="manageWay != null">
+        MANAGE_WAY = #{manageWay,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceProvice != null">
+        SERVICE_PROVICE = #{serviceProvice,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceCity != null">
+        SERVICE_CITY = #{serviceCity,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceCounty != null">
+        SERVICE_COUNTY = #{serviceCounty,jdbcType=VARCHAR},
+      </if>
+      <if test="workExperience != null">
+        WORK_EXPERIENCE = #{workExperience,jdbcType=VARCHAR},
+      </if>
+      <if test="selfEvaluation != null">
+        SELF_EVALUATION = #{selfEvaluation,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherEvaluation != null">
+        TEACHER_EVALUATION = #{teacherEvaluation,jdbcType=VARCHAR},
+      </if>
+      <if test="addTime != null">
+        add_time = #{addTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="addAccount != null">
+        add_account = #{addAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="modifyTime != null">
+        modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifyAccount != null">
+        modify_account = #{modifyAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="languageFeature != null">
+        language_feature = #{languageFeature,jdbcType=VARCHAR},
+      </if>
+      <if test="characerFeature != null">
+        characer_feature = #{characerFeature,jdbcType=VARCHAR},
+      </if>
+      <if test="cookingFeature != null">
+        cooking_feature = #{cookingFeature,jdbcType=VARCHAR},
+      </if>
+      <if test="languageFeature == ''">
+        language_feature = null,
+      </if>
+      <if test="characerFeature  == ''">
+        characer_feature = null,
+      </if>
+      <if test="cookingFeature == ''">
+        cooking_feature = null,
+      </if>
+      <if test="other != null">
+        other = #{other,jdbcType=VARCHAR},
+      </if>
+      <if test="petFeeding != null">
+        pet_feeding = #{petFeeding},
+      </if>
+      <if test="elderlySupport != null">
+        elderly_support = #{elderlySupport},
+      </if>
+      <if test="price != null">
+        price = #{price},
+      </if>
+      <if test="unit != null">
+        unit = #{unit},
+      </if>
+      <if test="serviceArea != null">
+        service_area = #{serviceArea},
+      </if>
+      <if test="experience != null">
+        EXPERIENCE = #{experience},
+      </if>
+    </set>
+    where STAFF_ID = #{staffId,jdbcType=INTEGER}
+  </update>
+  
+	<select id="getStaffJobInfo"
+		parameterType="com.fbee.modules.mybatis.entity.TenantsStaffJobInfoEntity"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tenants_staff_job_info
+		where STAFF_ID =
+		#{staffId,jdbcType=INTEGER}
+		and TENANT_ID =
+		#{tenantId,jdbcType=INTEGER}
+	</select>
+	<select id="getById" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tenants_staff_job_info
+		where STAFF_ID =
+		#{staffId,jdbcType=INTEGER}
+	</select>
+</mapper>

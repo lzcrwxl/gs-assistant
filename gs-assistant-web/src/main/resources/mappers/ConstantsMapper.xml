@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fbee.modules.mybatis.dao.ConstantsMapper">
+	<resultMap id="BaseResultMap"
+		type="com.fbee.modules.mybatis.entity.ConstantsEntity">
+		<id column="CONST_KEY" jdbcType="VARCHAR" property="constKey" />
+		<result column="CONST_VALUE" jdbcType="VARCHAR" property="constValue" />
+		<result column="CONST_DESC" jdbcType="VARCHAR" property="constDesc" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		CONST_KEY, CONST_VALUE, CONST_DESC
+	</sql>
+
+	<insert id="insert" parameterType="com.fbee.modules.mybatis.entity.ConstantsEntity">
+		insert into constants
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="constKey != null">
+				CONST_KEY,
+			</if>
+			<if test="constValue != null">
+				CONST_VALUE,
+			</if>
+			<if test="constDesc != null">
+				CONST_DESC,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="constKey != null">
+				#{constKey,jdbcType=VARCHAR},
+			</if>
+			<if test="constValue != null">
+				#{constValue,jdbcType=VARCHAR},
+			</if>
+			<if test="constDesc != null">
+				#{constDesc,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<update id="update" parameterType="com.fbee.modules.mybatis.entity.ConstantsEntity">
+		update constants
+		<set>
+			<if test="constValue != null">
+				CONST_VALUE = #{constValue,jdbcType=VARCHAR},
+			</if>
+			<if test="constDesc != null">
+				CONST_DESC = #{constDesc,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where CONST_KEY = #{constKey,jdbcType=VARCHAR}
+	</update>
+	
+	<select id="getById" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from constants
+		where CONST_KEY = #{constKey,jdbcType=VARCHAR}
+	</select>
+
+</mapper>

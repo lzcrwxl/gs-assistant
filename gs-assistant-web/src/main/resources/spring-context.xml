@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:util="http://www.springframework.org/schema/util" xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+
+    <bean class="com.fbee.modules.listener.SpringContextHolder" lazy-init="false"/>
+
+	<!-- 加载配置属性文件 -->
+	<context:property-placeholder ignore-unresolvable="true" location="classpath:jdbc.properties" />
+	
+	<!-- 加载应用属性实例，可通过  @Value("#{APP_PROP['jdbc.driver']}") String jdbcDriver 方式引用 -->
+    <util:properties id="APP_PROP" location="classpath:env.properties" local-override="true"/>
+
+
+	<context:component-scan base-package="com.fbee.modules"  use-default-filters="false">
+		<context:include-filter type="regex" expression="..*.service.impl.*Impl"/>
+		<context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+	</context:component-scan>
+	
+	<!-- 对密码进行MD5编码 -->  
+    <bean class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" id="passwordEncoder"/>
+    
+    <!-- MyBatis begin -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="typeAliasesPackage" value="com.fbee.modules.mybatis"/>
+        <property name="mapperLocations" value="classpath:/mappers/**/*.xml"/>
+		<property name="configLocation" value="classpath:/mybatis-config.xml"></property>
+    </bean>
+    
+    <!-- 扫描basePackage下所有以@MyBatisDao注解的接口 -->
+    <bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+        <property name="basePackage" value="com.fbee.modules.mybatis"/>
+        <property name="annotationClass" value="com.fbee.modules.core.persistence.annotation.MyBatisDao"/>
+    </bean>
+    
+    <!-- 定义事务 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<!-- 配置事务的传播性 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="*" propagation="REQUIRED" rollback-for="Exception" />
+		</tx:attributes>
+	</tx:advice>
+
+	<!-- Spring AOP config --> 
+	<aop:config>
+		<aop:pointcut id="serverPointCut" expression="execution(* com.fbee..*.service.impl.*.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="serverPointCut" />
+	</aop:config>
+
+	<!-- 数据源配置, 使用 BoneCP 数据库连接池 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		
+		<!-- 初始连接数 -->
+		<property name="initialSize">  
+            <value>${jdbc.initialSize}</value>  
+        </property>
+       <!--  最大连接数 -->
+        <property name="maxActive">  
+            <value>${jdbc.maxActive}</value>  
+        </property> 
+        <!-- 最小空闲连接 -->
+        <property name="minIdle">  
+            <value>${jdbc.minIdle}</value>  
+        </property>  
+        <!-- 最大空闲连接 -->
+        <property name="maxIdle">  
+            <value>${jdbc.maxIdle}</value>  
+        </property>  
+       <!--  连接验证sql语句 -->
+        <property name="validationQuery">  
+            <value>select 1</value>  
+        </property>  
+       <!--  取出连接时进行有效验证 -->
+        <property name="testOnBorrow">  
+            <value>true</value>  
+        </property>
+       <!--  放回连接时不进行有效验证   -->
+        <property name="testOnReturn">  
+            <value>false</value>  
+        </property>  
+        <!-- 大于0 ，进行连接空闲时间判断，或为0，对空闲的连接不进行验证   -->
+        <property name="minEvictableIdleTimeMillis">  
+            <value>${jdbc.minEvictableIdleTimeMillis}</value>  
+        </property>  
+        <!-- 失效检查线程运行时间间隔，如果小于等于0，不会启动检查线程   -->
+        <property name="timeBetweenEvictionRunsMillis">  
+            <value>${jdbc.timeBetweenEvictionRunsMillis}</value>  
+        </property>  
+        <property name="removeAbandoned" >
+        	<value>false</value>
+        </property>
+	</bean>
+	
+	<!-- 支持上传文件 -->  
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"/>
+
+    <bean id="sendSms" class="com.fbee.modules.service.impl.SendSmsYTX" ></bean>
+
+    <bean id="jacksonObjectMapper" class="com.fbee.modules.basic.JiacerMappingJacksonHttpMessageConverter"/>
+    <bean class="org.springframework.web.client.RestTemplate" >
+        <property name="messageConverters">
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                <property name="objectMapper" ref="jacksonObjectMapper" />
+                <property name="prettyPrint" value="false"></property>
+            </bean>
+        </property>
+    </bean>
+
+</beans>
